@@ -52,10 +52,10 @@ module.exports = {
     db.ref(`Donations/Info/Amount Removed`).set(data)
 
     let data3 = await db
-    .ref(`Donations/Info/Settings/Channel`)
+    .ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
     .once("value")
     .then(snapshot => snapshot.val())|| []
-  db.ref(`Donations/Info/Settings/Channel`)
+  db.ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
   console.log(data3)
 
 
