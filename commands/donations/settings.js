@@ -18,7 +18,7 @@ module.exports = {
     let embed = new Discord.MessageEmbed()
     .setAuthor(`${message.guild.name}'s Settings`)
     .setColor("RANDOM")
-    .setDescription(`The prefix of the bot is (-) !`)
+    .setDescription(`The default prefix of the bot is (-) !`)
       .addField('\u200B', '**Donation and Amounts**')
       .addField('Role 1 = Amount 1', `<@&${data.Donorole1}> = ${data.Amount1}`)
       .addField('Role 2 = Amount 2', `<@&${data.Donorole2}> = ${data.Amount2}`)
