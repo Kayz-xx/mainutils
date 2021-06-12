@@ -12,7 +12,7 @@ module.exports = {
         const BotInfo = new Discord.MessageEmbed()
         .setColor(0xD866BE)
         .setTitle('Bot Information')
-        .addField('**Prefix**', 'Bots prefix is: `-`')
+        .addField('**Prefix**', ' Default Bot prefix is: `-`')
         .addField('**Pages**', '`1.Bot Information`, `2.Donations`, `3.Misc`')
         .addField('**Navigation Help**', 'Use the arrows below to look through the pages!')
 
