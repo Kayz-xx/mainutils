@@ -12,10 +12,10 @@ module.exports = {
     const mention = message.mentions.users.first()
 
     let data2 = await db
-    .ref(`Donations/Info/Settings/Role`)
+    .ref(`Donations/Info/${message.guild.id}/Settings/Role`)
     .once("value")
     .then(snapshot => snapshot.val())|| []
-  db.ref(`Donations/Info/Settings/Role`)
+  db.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
   console.log(data2)
     
   if(!message.member.roles.cache.has(`${data2}`)) return message.channel.send('You cant use this command') //replace with staff role id
