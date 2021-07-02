@@ -1,23 +1,22 @@
 {
-  "name": "1-Creating-The-Bot",
+  "name": "mainutils",
   "version": "1.0.0",
-  "description": "",
+  "description": "Discord Main",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ping"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Kayz_xx",
   "license": "ISC",
   "dependencies": {
-    "ascii-table": "0.0.9",
+    "discord-giveaways": "^4.5.1",
     "discord.js": "^12.5.3",
-    "discord.js-pagination": "^1.0.3",
+    "discord.js-commando": "^0.12.3",
+    "dotenv": "^10.0.0",
     "firebase": "^8.6.7",
     "firebase-admin": "^9.9.0",
     "fs": "0.0.1-security",
-    "mongoose": "^5.12.12",
-    "path": "^0.12.7",
-    "redis": "^3.0.2"
+    "mongoose": "^5.12.13",
+    "ms": "^2.1.3"
   }
 }

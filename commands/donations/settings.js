@@ -3,9 +3,13 @@ const Discord = require('discord.js')
 
 
 module.exports = {
-  commands: ['settings'],
-  description: 'Guild Settings',
-  callback: async (message, arguments) => {
+    name: 'settings',
+    aliases: 'settings',
+    cooldown: '0',
+    permissions: [],
+    commands: ['settings'],
+    description: "Shows server's settings",
+  async execute(client, message, cmd,  args, Discord) {
    
 
     let data = await db

@@ -1,34 +1,39 @@
-const path = require('path')
-const fs = require('fs')
-const Discord = require('discord.js')
-const client = new Discord.Client()
-//const { Collection, Client, MssageEmbed, Intents} = require('discord.js')
-
+const  Discord = require('discord.js');
+const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION']});
 const config = require('./config.json')
-const db = require('mongodb')
+const prefix = require('./config.json')
 
 
-  const baseFile = 'command-base.js'
-  const commandBase = require(`./commands/${baseFile}`)
+client.commands = new Discord.Collection();
+client.events = new Discord.Collection();
 
-  const readCommands = (dir) => {
-    const files = fs.readdirSync(path.join(__dirname, dir))
-    for (const file of files) {
-      const stat = fs.lstatSync(path.join(__dirname, dir, file))
-      if (stat.isDirectory()) {
-        readCommands(path.join(dir, file))
-      } else if (file !== baseFile) {
-        const option = require(path.join(__dirname, dir, file))
-        commandBase(client, option)
-      }
+
+['command_handler', 'event_handler'].forEach(handler => {
+    require(`./handlers/${handler}`)(client, Discord);
+})
+
+
+client.on('ready', () => {
+    client.user.setActivity("~help" , { type: 'PLAYING'}).catch(console.error);
+})
+
+client.prefix = async function(message){
+    let custom;
+    custom = prefix;
+}
+
+
+client.on("message", async message => {
+    const p = await client.prefix(message)
+    if(message.mentions.users.first()) {
+        if(message.mentions.users.first().id === '838050415504261120')      return message.channel.send({
+            embed : {
+              description : `Prefix is \`~\``,
+              color : "RANDOM"
+            }
+          })
+          
     }
-  }
+})
 
-  readCommands('commands')
-  
-  
-
-
-
-
-client.login(config.token)
+client.login(config.token) 

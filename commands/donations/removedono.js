@@ -3,19 +3,25 @@ const { MessageEmbed } = require('discord.js')
 const formatter = new Intl.NumberFormat('en')
 const {db} = require('../../firebase.js')
 const Discord = require('discord.js')
+const eventdonations = require('../../eventdonations')
 module.exports = {
-  commands: ['remdono', 'removedono'],
-  minArgs: 2,
-  maxArgs: 2,
-  expectedArgs: "<The target's @> <coin amount>",
-  callback: async (message, arguments) => {
+    name: 'removedono',
+    aliases: 'remdono, removedono, eventdonoremove',
+    cooldown: '0',
+    permissions: [],
+    usage: '<user> <amount>, -eventdonoremove <user> <amount> <event>',
+    commands: ['removedono'],
+    description: 'Removes donation from a user',
+
+  async execute(client, message, cmd,  args, Discord) {
+      if(cmd === 'removedono'){
     const mention = message.mentions.users.first()
 
     let data2 = await db
-    .ref(`Donations/Info/Settings/Role`)
+    .ref(`Donations/Info/${message.guild.id}/Settings/Role`)
     .once("value")
     .then(snapshot => snapshot.val())|| []
-  db.ref(`Donations/Info/Settings/Role`)
+  db.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
   console.log(data2)
     
   if(!message.member.roles.cache.has(`${data2}`)) return message.channel.send('You cant use this command') //replace with staff role id
@@ -25,7 +31,7 @@ module.exports = {
       return
     }
 
-    let coins = arguments[1]
+    let coins = args[1]
     if (isNaN(-coins)) {
       message.reply('Please provide a valid number of coins.')
       return
@@ -52,10 +58,10 @@ module.exports = {
     db.ref(`Donations/Info/Amount Removed`).set(data)
 
     let data3 = await db
-    .ref(`Donations/Info/Settings/Channel`)
+    .ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
     .once("value")
     .then(snapshot => snapshot.val())|| []
-  db.ref(`Donations/Info/Settings/Channel`)
+  db.ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
   console.log(data3)
 
 
@@ -79,19 +85,121 @@ module.exports = {
       .catch(console.error)
 
       let data4 = await db
-      .ref(`Donations/Info/Settings`)
+      .ref(`Donations/Info/${message.guild.id}/Settings`)
       .once("value")
       .then(snapshot => snapshot.val())|| []
-      db.ref(`Donations/Info/Settings`)
+      db.ref(`Donations/Info/${message.guild.id}/Settings`)
 
-    if (`${newCoins}` < data4.Amount1) return message.member.roles.remove(data.Donorole1)//these all are dono amounts and their roles change according based on the amounts
-    if (`${newCoins}` < data4.Amount2) return message.member.roles.remove(data.Donorole2)
-    if (`${newCoins}` < data4.Amount3) return message.member.roles.remove(data.Donorole3)
-    if (`${newCoins}` < data4.Amount4) return message.member.roles.remove(data.Donorole4)
-    if (`${newCoins}` < data4.Amount5) return message.member.roles.remove(data.Donorole5)
-    if (`${newCoins}` < data4.Amount6) return message.member.roles.remove(data.Donorole6)
-    if (`${newCoins}` < data4.Amount7) return message.member.roles.remove(data.Donorole7)
-    if (`${newCoins}` < data4.Amount8) return message.member.roles.remove(data.Donorole8)
-    if (`${newCoins}` < data4.Amount9) return message.member.roles.remove(data.Donorole9)
-  },
-}
+      let auser = message.mentions.members.first()
+      console.log(auser)
+      let hasRole1 = auser.roles.cache.some(role => role.id === data4.Donorole1)
+      let hasRole2 = auser.roles.cache.some(role => role.id === data4.Donorole2)
+      let hasRole3 = auser.roles.cache.some(role => role.id === data4.Donorole3)
+      let hasRole4 = auser.roles.cache.some(role => role.id === data4.Donorole4)
+      let hasRole5 = auser.roles.cache.some(role => role.id === data4.Donorole5)
+      let hasRole6 = auser.roles.cache.some(role => role.id === data4.Donorole6)
+      let hasRole7 = auser.roles.cache.some(role => role.id === data4.Donorole7)
+      let hasRole8 = auser.roles.cache.some(role => role.id === data4.Donorole8)
+      let hasRole9 = auser.roles.cache.some(role => role.id === data4.Donorole8)
+      console.log('Role value:', hasRole1)
+
+      function sleep(ms){
+        return new Promise(resolve => setTimeout(resolve, ms))
+        }
+
+
+        if (hasRole1 && newCoins <= data4.Amount1) {
+          await sleep(2500)  
+          auser.roles.remove(data4.Donorole1)
+        }  if (hasRole2 && newCoins <= data4.Amount2) {
+          await sleep(2500)  
+          auser.roles.remove(data4.Donorole2)
+        }  if (hasRole3 && newCoins <= data4.Amount3) {
+          await sleep(2500)  
+          auser.roles.remove(data4.Donorole3)
+        } if (hasRole4 && newCoins <= data4.Amount4) {
+          await sleep(2500)  
+          auser.roles.remove(data4.Donorole4)
+        } if (hasRole5 && newCoins <= data4.Amount5) {
+          await sleep(2500)  
+          auser.roles.remove(data4.Donorole5)
+        } if (hasRole6 && newCoins <= data4.Amount6) {
+          await sleep(2500)  
+          auser.roles.remove(data4.Donorole6)
+        }  if (hasRole7 && newCoins <= data4.Amount7) {
+          await sleep(2500)  
+          auser.roles.remove(data4.Donorole7)
+        }  if (hasRole8 && newCoins <= data4.Amount8) {
+          await sleep(2500)  
+          auser.roles.remove(data4.Donorole8)
+        } if (hasRole9 && newCoins <= data4.Amount9) {
+          await sleep(2500)  
+          auser.roles.remove(data4.Donorole9)
+        } 
+        
+      }
+
+  if(cmd === 'eventdonoremove'){
+    const mention = message.mentions.users.first()
+    
+    let data2 = await db
+    .ref(`Donations/Info/${message.guild.id}/Settings/Role`)
+    .once("value")
+    .then(snapshot => snapshot.val())|| []
+  db.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
+  console.log(data2)
+    
+  if(!message.member.roles.cache.has(`${data2}`)) return message.channel.send('You cant use this command') //replace with staff role id
+
+    if (!mention) {
+      message.reply('Please tag a user to add the donation to')
+      return
+    }
+
+    const eventcoins = args[1]
+    if (isNaN(-eventcoins)) {
+      message.reply('Please provide a valid number of coins.')
+      return
+    }
+
+    let data5 = await db
+    .ref(`Donations/Info/Events/${message.guild.id}/Event`)
+    .once("value")
+    .then(snapshot => snapshot.val())|| []
+    db.ref(`Donations/Info/Events/${message.guild.id}/Event`)   
+
+    const guildId = message.guild.id
+    const userId = mention.id
+
+    const neweventcoins = await eventdonations.removeCoins(guildId, userId, -eventcoins)
+
+    let data3 = await db
+.ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
+.once("value")
+.then(snapshot => snapshot.val())|| []
+db.ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
+console.log(data3)
+
+
+message.guild.channels.cache.get(`${data3}`). // replace with donation log channel id 
+send(
+new Discord.MessageEmbed()
+.setTitle(`Event - ${data5} Donation Logging`)
+.setColor("RANDOM")
+.addFields(
+{ name: 'User', value: `<@${userId}>` },
+{ name: 'Amount Removed', value: formatter.format(-eventcoins) },
+{ name: 'New Total Amount', value: formatter.format(neweventcoins) },
+)
+.addField(`\u200B`,`[Link To CMD](${message.url})`)
+.setFooter(`Action taken by ${message.author.tag}`)
+.setTimestamp()
+)   
+
+message.react('✅')
+.then(console.log)
+.catch(console.error)
+
+        }    
+    },
+} 

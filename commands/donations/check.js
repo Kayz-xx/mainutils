@@ -3,10 +3,14 @@ const { MessageEmbed } = require('discord.js')
 const formatter = new Intl.NumberFormat('en')
 
 module.exports = {
-  commands: ['check', 'mydono'],
-  maxArgs: 1,
-  expectedArgs: "[Target user's @]",
-  callback: async (message) => {
+    name: 'check',
+    aliases: 'mydono, check',
+    cooldown: '0',
+    permissions: [],
+    commands: ['check'],
+    description: 'Chech a users donation or your own donation!',
+  async execute(client, message, cmd,  args, Discord) {
+    
     const target = message.mentions.users.first() || message.author
     const targetId = target.id
 
@@ -16,9 +20,9 @@ module.exports = {
     const coins = await economy.getCoins(guildId, userId)
 
     let embed = new MessageEmbed()
-    .setAuthor(`My Donations at ${message.guild.name}`)
+    .setAuthor(`Donations at ${message.guild.name}`)
     .setColor("RANDOM")
-    .addField(`You have Donated in ${message.guild.name}:`, formatter.format(coins), true)
+    .addField(`Amount Donated in ${message.guild.name}:`, formatter.format(coins), true)
     .setTimestamp()
     message.channel.send(embed)
   },

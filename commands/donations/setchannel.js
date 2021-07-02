@@ -2,11 +2,15 @@ const {db} = require('../../firebase')
 const Discord = require('discord.js')
 
 module.exports = {
-    name: 'logs',
-    commands: 'setlog',
-    description: 'Sets the channel the donations will be logged in.',
-    usage: `setlog <#channel>`,
-    callback: async (message, arguments) => {
+    name: 'setchannel',
+    aliases: 'setchannel, setlogs',
+    cooldown: '0',
+    permissions: [],
+    usage: '<channel>',
+    commands: ['setchannel'],
+    description: 'Sets up donation logging channel',
+
+    async execute(client, message, cmd,  args, Discord) {
       
 
         if (!message.member.hasPermission('MANAGE_GUILD'))
