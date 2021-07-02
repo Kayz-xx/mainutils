@@ -12,7 +12,7 @@ module.exports = {
         const BotInfo = new Discord.MessageEmbed()
         .setColor(0xD866BE)
         .setTitle('Bot Information')
-        .addField('**Prefix**', 'Bots prefix is: `-`')
+        .addField('**Prefix**', ' Default Bot prefix is: `-`')
         .addField('**Pages**', '`1.Bot Information`, `2.Donations`, `3.Misc`')
         .addField('**Navigation Help**', 'Use the arrows below to look through the pages!')
 
@@ -20,7 +20,10 @@ module.exports = {
         .setColor(0xD866BE)
         .setTitle('Setup')
         .setDescription('Start with setting up donation channel and donation manager role!, then move on to autorole and setup amounts(do not add commas in the value) **first** run `\-settings\` to check assignments, finally set up donor roles!')
-
+        .addField('`-ping`', 'Shows you the bots ping')
+        .addField('`-setprefix`', 'Sets the bot prefix')
+        
+        
         const Donations = new Discord.MessageEmbed()
         .setColor(0xD86685)
         .setTitle('Donations')
@@ -35,7 +38,6 @@ module.exports = {
         .setColor(0xD88066)
         .setTitle('Autoroles')
         .setDescription('You can add 9 roles and channels using this(syntax: role(1-9), amount(1-9)')
-        .addField('`-ping`', 'Shows you the bots ping')
         .addField('`-role1`', 'Sets autrole!')
         .addField('`-role2`', 'Sets autrole!')
         .addField('`-role3`', 'Sets autrole!')
