@@ -15,13 +15,21 @@ module.exports = {
 		let buttonRoleEmbed = new MessageEmbed()
 			.setTitle('Reaction Roles')
 			.setColor('WHITE')
-			.setDescription('Click the button to get these role!');
+			.setDescription(`<@764885367387586620>\n
+			<@764885367378804805>\n
+			<@860638310837256234>\n
+			<@764885367378804802>\n
+			<@860638377257467944>\n
+			<@764885367378804796>\n
+			<@764885367345119289>\n
+			<@764885367345119287>`
+			);
 
 		let wBtn = new MessageButton()
 			.setStyle('blurple')
 			.setLabel('White')
 			.setID('wBtn')
-			.setEmoji('860992792901845032');
+			.setEmoji('860992739864477717');
 
 		let rBtn = new MessageButton()
 			.setStyle('blurple')
@@ -33,38 +41,38 @@ module.exports = {
 			.setStyle('blurple')
 			.setLabel('Orange')
 			.setID('oBtn')
-			.setEmoji('860992751310209035');
+			.setEmoji('860992764649013248');
 		
 		let yBtn = new MessageButton()
 			.setStyle('blurple')
 			.setLabel('Yellow')
 			.setID('yBtn')
-			.setEmoji('860992751310209035');
+			.setEmoji('860992775775322142');
 		
 		let gBtn = new MessageButton()
 			.setStyle('blurple')
 			.setLabel('Green')
 			.setID('gBtn')
-			.setEmoji('860992751310209035');
+			.setEmoji('860992792850595850');
 		
 		let bBtn = new MessageButton()
 			.setStyle('blurple')
 			.setLabel('Blue')
 			.setID('bBtn')
-			.setEmoji('860992751310209035');
+			.setEmoji('860992792901845032');
 		
 		let vBtn = new MessageButton()
 			.setStyle('blurple')
 			.setLabel('Violet')
 			.setID('vBtn')
-			.setEmoji('860992751310209035');
+			.setEmoji('860992792673910825');
 		
 		
 		let pBtn = new MessageButton()
 			.setStyle('blurple')
 			.setLabel('Pink')
 			.setID('pBtn')
-			.setEmoji('860992751310209035');
+			.setEmoji('860992792847319040');
 
 		let removeRolesBtn = new MessageButton()
 			.setStyle('red')
@@ -79,17 +87,14 @@ module.exports = {
 			.setEmoji('❌');
 
 		let colorRow = new MessageActionRow()
-			.addComponent(rBtn)
-			.addComponent(oBtn)
-			.addComponent(yBtn)
-			.addComponent(gBtn)
-			.addComponent(bBtn)
-			.addComponent(vBtn)
-			.addComponent(pBtn)
-			.addComponent(wBtn)
+			.addComponent([wBtn, rBtn, oBtn, yBtn, gBtn])
+
+		let colorRow2 = new MessageActionRow()
+			.addComponent([bBtn, vBtn, pBtn, removeRolesBtn])
+
 			
 
-		message.channel.send(buttonRoleEmbed, { component: colorRow });
+		message.channel.send({embed: buttonRoleEmbed, components: [ colorRow, colorRow2 ]})
 
 		client.on('clickButton', async (button) => {
 			let role1 = '764885367387586620'
