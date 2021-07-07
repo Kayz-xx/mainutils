@@ -178,20 +178,19 @@ module.exports = {
   client.on('clickButton', async (button) => {
 
     if (button.id === '1') {
-      button.reply.send(embed1, true);
-      button.reply.defer()
+     button.reply.send({ embed: embed1, ephemeral: true });
+
     } else if (button.id === '2') {
-      button.reply.send(embed2, true);
-     button.reply.defer()
+     button.reply.send({ embed: embed2, ephemeral: true });
+
     } else if (button.id === '3') {
-      button.reply.send(embed3, true);
-     button.reply.defer()
+     button.reply.send({ embed: embed3, ephemeral: true });
+ 
     } else if (button.id === '4') {
-        button.reply.send(embed4, true);
-             button.reply.defer()
+       button.reply.send({ embed: embed4, ephemeral: true });
+      
     } else if (button.id === '5') {
-        button.reply.send(embed5, true);
-             button.reply.defer()
+       button.reply.send({ embed: embed5, ephemeral: true });
               }
           })
         }
