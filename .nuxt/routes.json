@@ -1,0 +1,16 @@
+[
+  {
+    "name": "commands",
+    "path": "/commands",
+    "component": "C:\\\\Users\\\\belve\\\\OneDrive\\\\Desktop\\\\Discord-Bot-Dashboard-main\\\\pages\\\\commands.vue",
+    "chunkName": "pages/commands",
+    "_name": "_1c709350"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Users\\\\belve\\\\OneDrive\\\\Desktop\\\\Discord-Bot-Dashboard-main\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_842b138c"
+  }
+]
