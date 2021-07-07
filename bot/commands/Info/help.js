@@ -179,17 +179,19 @@ module.exports = {
 
     if (button.id === '1') {
       button.reply.send(embed1, true);
-
+      button.reply.defer()
     } else if (button.id === '2') {
       button.reply.send(embed2, true);
-
+     button.reply.defer()
     } else if (button.id === '3') {
       button.reply.send(embed3, true);
-
+     button.reply.defer()
     } else if (button.id === '4') {
         button.reply.send(embed4, true);
+             button.reply.defer()
     } else if (button.id === '5') {
         button.reply.send(embed5, true);
+             button.reply.defer()
               }
           })
         }
