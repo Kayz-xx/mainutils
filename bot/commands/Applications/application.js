@@ -13,6 +13,7 @@ module.exports = {
   async execute(client, message, cmd,  args) {
 
     
+    message.react('<:tick:859297441466679326>')
     const filter =  (m) => m.author.id === message.author.id;
 
     const filter2 = (reaction, user) => {
