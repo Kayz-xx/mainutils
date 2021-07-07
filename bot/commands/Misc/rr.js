@@ -54,15 +54,15 @@ module.exports = {
 			.setEmoji('860992751310209035');
 		
 		let vBtn = new MessageButton()
-			.setStyle('Violet')
-			.setLabel('Red')
+			.setStyle('blurple')
+			.setLabel('Violet')
 			.setID('vBtn')
 			.setEmoji('860992751310209035');
 		
 		
 		let pBtn = new MessageButton()
-			.setStyle('Pink')
-			.setLabel('Red')
+			.setStyle('blurple')
+			.setLabel('Pink')
 			.setID('pBtn')
 			.setEmoji('860992751310209035');
 
@@ -85,7 +85,7 @@ module.exports = {
 			.addComponent(gBtn)
 			.addComponent(bBtn)
 			.addComponent(vBtn)
-			.addComponent(rBtn)
+			.addComponent(pBtn)
 			.addComponent(wBtn)
 			
 
@@ -187,7 +187,7 @@ module.exports = {
 				});
 				button.clicker.member.roles.add(role7);
 				button.reply.send(`You got the <@&${role7}> role!`, true);
-			}  else if (button.id === 'yBtn') {
+			}  else if (button.id === 'pBtn') {
 				category.forEach((role) => {
 					if (
 						button.clicker.member.roles.cache.some((r) =>
