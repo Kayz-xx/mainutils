@@ -172,7 +172,7 @@ module.exports = {
 
   let msg = await message.channel.send({embed : basic, components : row})
 
-  
+  message.channel.send("test)
 
 
   client.on('clickButton', async (button) => {
