@@ -89,9 +89,8 @@ module.exports = {
 					button.reply.send(`You removed all the roles!`, true);
 				});
 			} else if (button.id === 'newroles') {
-				await category.forEach((role) => {
+				
 					button.reply.send(`New Button!`, true);
-				})
 			}
 		});
 	},
