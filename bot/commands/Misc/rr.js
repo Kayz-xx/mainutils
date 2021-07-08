@@ -8,7 +8,6 @@ module.exports = {
 	cooldown: 0,
 	permissions: [],
     category: 'Misc',
-	ownerOnly: true,
 	
 	async execute(client, message, cmd,  args) {
 
@@ -16,14 +15,14 @@ module.exports = {
 		let buttonRoleEmbed = new MessageEmbed()
 			.setTitle('Reaction Roles')
 			.setColor('WHITE')
-			.setDescription(`<@764885367387586620>\n
-			<@764885367378804805>\n
-			<@860638310837256234>\n
-			<@764885367378804802>\n
-			<@860638377257467944>\n
-			<@764885367378804796>\n
-			<@764885367345119289>\n
-			<@764885367345119287>`
+			.setDescription(`<@&764885367387586620>\n
+			<@&764885367378804805>\n
+			<@&860638310837256234>\n
+			<@&764885367378804802>\n
+			<@&860638377257467944>\n
+			<@&764885367378804796>\n
+			<@&764885367345119289>\n
+			<@&764885367345119287>`
 			);
 
 		let wBtn = new MessageButton()

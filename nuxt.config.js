@@ -10,5 +10,8 @@ module.exports = {
     server: {
         host: '0',
         port: 3000
+    },
+      axios: {
+        baseURL:'http://localhost:3000/api'
     }
 }
