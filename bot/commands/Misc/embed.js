@@ -8,6 +8,7 @@ module.exports = {
     usage: 'embed <channel> <title> <description> <footer> <color>',
     permissions: [],
     category: 'Misc',
+    description: 'Creates a simple embed and returns it in the channel',
   
     async execute(client, message, cmd,  args) {
 

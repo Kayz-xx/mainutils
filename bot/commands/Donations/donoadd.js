@@ -12,7 +12,6 @@ module.exports = {
     category: 'Donations',
     permissions: [],
     usage: '<user> <amount>, -eventdonoadd <user> <amount> <event>',
-    commands: ['donoadd'],
     description: 'Adds donation to a user',
 
 
@@ -28,7 +27,7 @@ module.exports = {
   db.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
   console.log(data2)
     
-  if(!message.member.roles.cache.has(`${data2}`)) return message.channel.send('You cant use this command') //replace with staff role id
+  if(!message.member.roles.cache.has(`${data2}`) || !message.member.hasPermission(8))  return message.channel.send('You cant use this command') //replace with staff role id
 
     if (!mention) {
       message.reply('Please tag a user to add the donation to')
@@ -152,10 +151,10 @@ module.exports = {
             .once("value")
             .then(snapshot => snapshot.val())|| []
           db.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
-          console.log(data2)
+   
             
-          if(!message.member.roles.cache.has(`${data2}`)) return message.channel.send('You cant use this command') //replace with staff role id
-        
+          if(!message.member.roles.cache.has(`${data2}`) || !message.member.hasPermission(8)) return message.channel.send('You cant use this command') //replace with staff role id
+         
             if (!mention) {
               message.reply('Please tag a user to add the donation to')
               return

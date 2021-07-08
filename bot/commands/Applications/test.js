@@ -1,13 +1,15 @@
-const DiscordJS = require('discord.js')
+const DiscordJS = require('discord.js');
+const { Server } = require('socket.io');
 const {db} = require('../../firebase')
 
 
 module.exports = {
-    name: 'test',
-    aliases: ['test'],
+    name: 'availpositions',
+    aliases: ['positionset'],
     cooldown: '0',
     permissions: [],
     category: 'Applications',
+    description: "This command set's the positions availible for the server",
   
     async execute(client, message, cmd,  args) {
      if (message.author.id !== "491933949686448138")

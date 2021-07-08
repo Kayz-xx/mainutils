@@ -6,10 +6,9 @@ module.exports = {
 	aliases: ['setamount'],
 	cooldown: '0',
 	category: 'Donations',
-	usage: '<amount>',
+	usage: '<amount> (without , plain values like 10000000)',
 	permissions: [],
-	commands: ['amount'],
-	description: 'Sets up the autorole amount',
+	description: 'This amount is set for autoroles, when a user hits a specified amount a role is added to them!(Eg. Donor Donates 10 mil and get the 10 million Donor Role',
 	
 	async execute(client, message, cmd, args) {
 		try {

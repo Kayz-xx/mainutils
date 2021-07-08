@@ -8,7 +8,7 @@ module.exports = {
     usage: '<event>',
     category: 'Donations',
     permissions: [],
-    description: 'Creates an event in the server',
+    description: 'Creates an event in the server, these donations are counted seperately.',
     
     async execute(client, message, cmd,  args) {
         

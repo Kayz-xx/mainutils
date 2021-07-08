@@ -15,8 +15,8 @@ module.exports = {
     message.channel.send(data)
     }
     if(cmd === 'aid'){
-
-      message.channel.send('testing ')
+    let data2 =  await random.getFact();
+      message.channel.send(data2)
       }
   
 

@@ -4,16 +4,17 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'accept',
-	aliases: ['accept'],
+	aliases: [],
 	category: 'Applications',
 	cooldown: '0',
 	usage: '<message.id> <Event Manager | Giveaway Manager | Moderator>',
+	description: "This a command that accept's applicants. (Only Admins can use this command)",
 	permissions: [],
 	
 	  async execute(client, message, cmd,  args) {
-		if (!message.member.permissions.has('MANAGE_MESSAGES')) return;
+		if (!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send('This command can only be used by administrators!')
 		const messageID = args[0];
-		let acceptQuery = args.slice(1).join(' ');
+		let acceptQuery = args.slice(1).join(' ').toLowerCase()
 		try {
 			const applicationChannel =
 				message.guild.channels.cache.get('855828767846039582');
@@ -33,13 +34,13 @@ module.exports = {
 
 			applicationdEmbed.edit({ embed: acceptEmbed});
 
-			if (acceptQuery.toLowerCase() === 'Event Manager') {
+			if (acceptQuery === 'event manager') {
 				acceptQuery =
 					'Congratulations! You have been accepted as a Event Manager, you have been given the 》Event Manager《 role. Please read the pinned messages in <#764885370219134992> and feel free to ask any higher staff for assisstance.';
-			} else if (acceptQuery.toLowerCase() === 'Giveaway Manager') {
+			} else if (acceptQuery === 'giveaway manager') {
 				acceptQuery =
 					'Congratulations! You have been accepted as a Giveaway Manager, you have been given the 》Giveaway Manger《 role. Please read the pinned messages in <#764885370219134992> and feel free to ask any higher staff for assistance.';
-			} else if (acceptQuery.toLowerCase() === 'Moderator') {
+			} else if (acceptQuery.toLowerCase() === 'moderator') {
 				acceptQuery =
 					'Congratulations! You have been accepted as a Moderator, you have been given the 》Trial Mod《 role. Please read the pinned messages in <#764885370219134992> and feel free to ask any higher staff for assisstance.';
 			}

@@ -8,10 +8,11 @@ module.exports = {
     cooldown: '0',
     permissions: [],
     category: 'Applications',
-  
+    description: "This command set's the positions' status(Open or Closed) availible for the server",
     async execute(client, message, cmd,  args) {
-     if (message.author.id !== "491933949686448138")
+      if (message.author.id !== "491933949686448138")
       return message.channel.send('Coming Soon!');
+     message.channel.send("You have 120 seconds, to setup the questions for the positions!")
     const questions = [
       'What do you want as the 1st question?',
       'What do you want as the 2nd question?',
@@ -32,7 +33,7 @@ module.exports = {
 
     const collector = new DiscordJS.MessageCollector(message.channel, filter, {
       max: questions.length,
-      time: 100000,
+      time: 120000,
     })
 
     message.channel.send(questions[counter++])

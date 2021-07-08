@@ -8,9 +8,10 @@ module.exports = {
   cooldown: '0',
   category: 'Applications',
   permissions: [],
+  description: "This a command that denies applicants. (Only Admins can use this command)",
   
   async execute(client, message, cmd,  args) {
-    if(!message.member.permissions.has("MANAGE_MESSAGES")) return
+    if(!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send("Only admins can reject applicants!")
     const messageID = args[0]
     const denyQuery = args.slice(1).join(" ")
     try{

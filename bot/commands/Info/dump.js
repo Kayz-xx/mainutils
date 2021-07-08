@@ -11,6 +11,9 @@ module.exports = {
 
   
     async execute(client, message, cmd,  args) {
+      if (!message.member.hasPermission('MANAGE_GUILD'))
+      return message.channel.send('You do not have permission to use this command.').then(m => m.delete({timeout: 5000}));
+      
     let role = message.guild.roles.cache.get(args[0]);
   
     const embed = new MessageEmbed()

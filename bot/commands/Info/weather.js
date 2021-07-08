@@ -11,7 +11,6 @@ module.exports = {
   async execute(client, message, cmd,  args) {
 
     
-    
     if(!args.length) {
       return message.channel.send("Please give the weather location")
     }

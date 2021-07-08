@@ -10,7 +10,7 @@ module.exports = {
     cooldown: '0',
     permissions: [],
     usage: '<note>',
-    description: 'Adds notes to a user',
+    description: 'Adds notes to a user(notes- checks and displays users notes) (sn- adds a note to a user) (deletenote- deletes a users specific note) (clearnotes- clears all the notes of a user)',
     category: 'Misc',
 
   

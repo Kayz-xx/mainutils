@@ -8,6 +8,7 @@ module.exports = {
 	cooldown: 0,
 	permissions: [],
     category: 'Misc',
+	ownerOnly: true,
 	
 	async execute(client, message, cmd,  args) {
 
@@ -15,19 +16,64 @@ module.exports = {
 		let buttonRoleEmbed = new MessageEmbed()
 			.setTitle('Reaction Roles')
 			.setColor('WHITE')
-			.setDescription('Click the button to get these role!');
+			.setDescription(`<@764885367387586620>\n
+			<@764885367378804805>\n
+			<@860638310837256234>\n
+			<@764885367378804802>\n
+			<@860638377257467944>\n
+			<@764885367378804796>\n
+			<@764885367345119289>\n
+			<@764885367345119287>`
+			);
 
-		let blueBtn = new MessageButton()
+		let wBtn = new MessageButton()
+			.setStyle('blurple')
+			.setLabel('White')
+			.setID('wBtn')
+			.setEmoji('860992739864477717');
+
+		let rBtn = new MessageButton()
+			.setStyle('blurple')
+			.setLabel('Red')
+			.setID('rBtn')
+			.setEmoji('860992751310209035');
+		
+		let oBtn = new MessageButton()
+			.setStyle('blurple')
+			.setLabel('Orange')
+			.setID('oBtn')
+			.setEmoji('860992764649013248');
+		
+		let yBtn = new MessageButton()
+			.setStyle('blurple')
+			.setLabel('Yellow')
+			.setID('yBtn')
+			.setEmoji('860992775775322142');
+		
+		let gBtn = new MessageButton()
+			.setStyle('blurple')
+			.setLabel('Green')
+			.setID('gBtn')
+			.setEmoji('860992792850595850');
+		
+		let bBtn = new MessageButton()
 			.setStyle('blurple')
 			.setLabel('Blue')
-			.setID('blueBtn')
+			.setID('bBtn')
 			.setEmoji('860992792901845032');
-
-		let redBtn = new MessageButton()
-			.setStyle('red')
-			.setLabel('Red')
-			.setID('redBtn')
-			.setEmoji('860992751310209035');
+		
+		let vBtn = new MessageButton()
+			.setStyle('blurple')
+			.setLabel('Violet')
+			.setID('vBtn')
+			.setEmoji('860992792673910825');
+		
+		
+		let pBtn = new MessageButton()
+			.setStyle('blurple')
+			.setLabel('Pink')
+			.setID('pBtn')
+			.setEmoji('860992792847319040');
 
 		let removeRolesBtn = new MessageButton()
 			.setStyle('red')
@@ -42,18 +88,28 @@ module.exports = {
 			.setEmoji('❌');
 
 		let colorRow = new MessageActionRow()
-			.addComponent(newroles)
+			.addComponent([wBtn, rBtn, oBtn, yBtn, gBtn])
+
+		let colorRow2 = new MessageActionRow()
+			.addComponent([bBtn, vBtn, pBtn, removeRolesBtn])
+
 			
 
-		message.channel.send(buttonRoleEmbed, { component: colorRow });
+		message.channel.send({embed: buttonRoleEmbed, components: [ colorRow, colorRow2 ]})
 
 		client.on('clickButton', async (button) => {
-			let role1 = '861322309720735767';
-			let role2 = '861322344374075392';
+			let role1 = '764885367387586620'
+			let role2 = '764885367378804805';
+			let role3 = '860638310837256234'
+			let role4 = '764885367378804802'
+			let role5 = '860638377257467944'
+			let role6 = '764885367378804796'
+			let role7 = '764885367345119289'
+			let role8 = '764885367345119287'
 
-			let category = [role1, role2];
+			let category = [role1, role2, role3, role4, role5, role6, role7, role8];
 
-			if (button.id === 'blueBtn') {
+			if (button.id === 'wBtn') {
 				category.forEach((role) => {
 					if (
 						button.clicker.member.roles.cache.some((r) =>
@@ -65,7 +121,7 @@ module.exports = {
 				});
 				button.clicker.member.roles.add(role1);
 				button.reply.send(`You got the <@&${role1}> role!`, true);
-			} else if (button.id === 'redBtn') {
+			} else if (button.id === 'rBtn') {
 				category.forEach((role) => {
 					if (
 						button.clicker.member.roles.cache.some((r) =>
@@ -77,6 +133,78 @@ module.exports = {
 				});
 				button.clicker.member.roles.add(role2);
 				button.reply.send(`You got the <@&${role2}> role!`, true);
+			} else if (button.id === 'oBtn') {
+				category.forEach((role) => {
+					if (
+						button.clicker.member.roles.cache.some((r) =>
+							role.includes(r.id)
+						)
+					) {
+						button.clicker.member.roles.remove(role);
+					}
+				});
+				button.clicker.member.roles.add(role3);
+				button.reply.send(`You got the <@&${role3}> role!`, true);
+			}  else if (button.id === 'yBtn') {
+				category.forEach((role) => {
+					if (
+						button.clicker.member.roles.cache.some((r) =>
+							role.includes(r.id)
+						)
+					) {
+						button.clicker.member.roles.remove(role);
+					}
+				});
+				button.clicker.member.roles.add(role4);
+				button.reply.send(`You got the <@&${role4}> role!`, true);
+			}  else if (button.id === 'gBtn') {
+				category.forEach((role) => {
+					if (
+						button.clicker.member.roles.cache.some((r) =>
+							role.includes(r.id)
+						)
+					) {
+						button.clicker.member.roles.remove(role);
+					}
+				});
+				button.clicker.member.roles.add(role5);
+				button.reply.send(`You got the <@&${role5}> role!`, true);
+			}  else if (button.id === 'bBtn') {
+				category.forEach((role) => {
+					if (
+						button.clicker.member.roles.cache.some((r) =>
+							role.includes(r.id)
+						)
+					) {
+						button.clicker.member.roles.remove(role);
+					}
+				});
+				button.clicker.member.roles.add(role6);
+				button.reply.send(`You got the <@&${role6}> role!`, true);
+			}  else if (button.id === 'vBtn') {
+				category.forEach((role) => {
+					if (
+						button.clicker.member.roles.cache.some((r) =>
+							role.includes(r.id)
+						)
+					) {
+						button.clicker.member.roles.remove(role);
+					}
+				});
+				button.clicker.member.roles.add(role7);
+				button.reply.send(`You got the <@&${role7}> role!`, true);
+			}  else if (button.id === 'pBtn') {
+				category.forEach((role) => {
+					if (
+						button.clicker.member.roles.cache.some((r) =>
+							role.includes(r.id)
+						)
+					) {
+						button.clicker.member.roles.remove(role);
+					}
+				});
+				button.clicker.member.roles.add(role8);
+				button.reply.send(`You got the <@&${role8}> role!`, true);
 			} else if (button.id === 'removeRoles') {
 				await category.forEach((role) => {
 					if (
@@ -89,9 +217,8 @@ module.exports = {
 					button.reply.send(`You removed all the roles!`, true);
 				});
 			} else if (button.id === 'newroles') {
-				await category.forEach((role) => {
+				
 					button.reply.send(`New Button!`, true);
-				})
 			}
 		});
 	},

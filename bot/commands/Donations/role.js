@@ -7,16 +7,16 @@ module.exports = {
     cooldown: '0',
     permissions: [],
     usage: '<role>',
-    description: 'Sets up autoroles',
+    description: 'Sets up autoroles(autoroles are roles automatically added when a user hits a specific amount of donation!)',
     category: 'Donations',
     
-    async execute(client, message, cmd,  args) {
-
-    
+    async execute(client, message, cmd,  args) {    
       
       try{
                 if (!message.member.hasPermission('MANAGE_GUILD'))
             return message.channel.send('You do not have permission to use this command.').then(m => m.delete({timeout: 5000}));
+
+            message.channel.send("This is the setup for autoroles, use the roles id's for setting them up ")
 
             const questions = [
               'Please specify role 1',

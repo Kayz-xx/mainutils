@@ -7,9 +7,9 @@ module.exports = {
     aliases: ['mydono', 'check'],
     cooldown: '0',
     permissions: [],
-    commands: ['check'],
     category: 'Donations',
-    description: 'Chech a users donation or your own donation!',
+    usage: '<user>',
+    description: 'Checks a users donation or your own donation!',
     
     async execute(client, message, cmd,  args) {
     

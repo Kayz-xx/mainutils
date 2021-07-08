@@ -8,6 +8,7 @@ module.exports = {
   cooldown: '0',
   category: 'Applications',
   permissions: [],
+  description: "Shows's the availible positions for the server!",
   
   async execute(client, message, cmd,  args) {
 

@@ -8,11 +8,11 @@ module.exports = {
   cooldown: '0',
   category: 'Applications',
   permissions: [],
-  commands: ['apply'],
-  
+  description: 'This command lets you apply for the current availible positions!',
   async execute(client, message, cmd,  args) {
 
     
+    message.react('<:tick:859297441466679326>')
     const filter =  (m) => m.author.id === message.author.id;
 
     const filter2 = (reaction, user) => {

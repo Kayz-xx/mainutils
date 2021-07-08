@@ -7,6 +7,8 @@ module.exports = {
     cooldown: '0',
     permissions: [],
     category: 'Misc',
+    usage: '<time> <reminder>',
+    description: 'Reminds a user about something',
    
   async execute(client, message, cmd,  args) {
 

@@ -6,13 +6,17 @@ module.exports = {
 	aliases: ['enter', 'lotteryend'],
 	cooldown: '0',
 	permissions: [],
-	description: 'Lottery System!',
+	description: 'Lottery System!, (lotterystart- starts the lottery) (enter- allows the host to add users) (lotteryend- ends the lottery and determines a winner!)',
 	category: 'Misc',
 
 	
 	async execute(client, message, cmd,  args) {
 
 		if (cmd === 'lotterystart') {
+			if (!message.member.hasPermission('MANAGE_GUILD'))
+			return message.channel
+				.send('You do not have permission to use this command.')
+				.then((m) => m.delete({ timeout: 5000 }));
 			let data =
 				(await db
 					.ref(`Lottery System/${message.guild.id}/Lottery`)
@@ -57,6 +61,10 @@ module.exports = {
 			}
 		}
 		if (cmd === 'enter') {
+			if (!message.member.hasPermission('MANAGE_GUILD'))
+			return message.channel
+				.send('You do not have permission to use this command.')
+				.then((m) => m.delete({ timeout: 5000 }));
 			let data =
 				(await db
 					.ref(`Lottery System/${message.guild.id}/Lottery`)
@@ -110,6 +118,10 @@ module.exports = {
 			}
 		
 		if (cmd === 'lotteryend') {
+			if (!message.member.hasPermission('MANAGE_GUILD'))
+			return message.channel
+				.send('You do not have permission to use this command.')
+				.then((m) => m.delete({ timeout: 5000 }));
 			lotteryBool = 'false';
 			db.ref(`Lottery System/${message.guild.id}/Lottery/status`).set(
 				lotteryBool

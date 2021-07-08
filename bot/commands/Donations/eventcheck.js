@@ -8,6 +8,7 @@ module.exports = {
     cooldown: '0',
     permissions: [],
     category: 'Donations',
+    usage: '<user>',
     description: 'Chech a users event donation or your own event donation!',
     
     async execute(client, message, cmd,  args) {
