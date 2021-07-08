@@ -6,7 +6,6 @@ module.exports = {
 	category: 'Misc',
 	
 	async execute(client, message, cmd,  args) {
-	    let randomWords = require('random-words');
 		const all = ["ability","able","aboard","about","above","accept","accident","according",
   "account","accurate","acres","across","act","action","active","activity",
   "actual","actually","add","addition","additional","adjective","adult","adventure",
