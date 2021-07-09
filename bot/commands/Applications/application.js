@@ -11,7 +11,7 @@ module.exports = {
 	description:
 		'This command lets you apply for the current availible positions!',
 	async execute(client, message, cmd, args) {
-		message.react('<:tick:859297441466679326>');
+		message.react('<a:EE_check:767808449241153587>');
 		const filter = (m) => m.author.id === message.author.id;
 
 		const filter2 = (reaction, user) => {
