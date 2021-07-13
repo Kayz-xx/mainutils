@@ -8,7 +8,7 @@ const category = {}
 client.commands = new discord.Collection();
 client.aliases = new discord.Collection();
 client.snipes = new discord.Collection()
-
+client.vouches = new Map ()
 require("discord-buttons")(client);
 ["command", "events"].forEach(handler => {
   require(`./handlers/${handler}`)(client);
