@@ -8,8 +8,8 @@ module.exports = {
     async execute(client, message, cmd,  args) {
 var slot = new weky.Slots({
     message: message,
-    winMessage: "Nice, You've won the slots!",
-    loseMessage: "Better luck next time",
+    winMessage: "Nice, You've gained 10 lotto points",
+    loseMessage: "Better luck next time, lost 5 lotto points",
     emojiOne: "👑",
     emojiTwo: "🏆",
     emojiThree: "🎟️"
