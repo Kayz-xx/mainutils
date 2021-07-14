@@ -96,7 +96,7 @@ module.exports = {
 					).set(data2);
 				}
 
-				message.react(`<:tick:859297441466679326>`);
+				message.react(`<a:EE_check:767808449241153587>`);
 			}
 		}
 
