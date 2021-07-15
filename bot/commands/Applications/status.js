@@ -10,7 +10,7 @@ module.exports = {
     category: 'Applications',
   
     async execute(client, message, cmd,  args) {
-     if (message.author.id !== "491933949686448138")
+   if (!message.member.hasPermission('ADMINISTRATOR'))
       return message.channel.send('Coming Soon!');
       let data =
 			(await db
