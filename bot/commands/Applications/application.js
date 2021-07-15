@@ -11,7 +11,7 @@ module.exports = {
 	description:
 		'This command lets you apply for the current availible positions!',
 	async execute(client, message, cmd, args) {
-		message.react('<a:EE_check:767808449241153587>');
+		message.react('<:tick:859297441466679326>');
 		const filter = (m) => m.author.id === message.author.id;
 
 		const filter2 = (reaction, user) => {
@@ -28,6 +28,10 @@ module.exports = {
 				.then((snapshot) => snapshot.val())) || [];
 
 		db.ref(`Applications/${message.guild.id}`);
+		
+		String.prototype.capitalize = function() {
+			return this.charAt(0).toUpperCase() + this.slice(1);
+		}
 		const msg = await message.author.send(
 			new Discord.MessageEmbed()
 				.setColor('#0099ff')
@@ -35,17 +39,17 @@ module.exports = {
 				.addFields(
 					{
 						name: `1.${data.Positions0.Name}`,
-						value: `Total Questions: 7 \n Status: ${data.Positions0.Status}`,
+						value: `Total Questions: 7 \n Status: ${data.Positions0.Status.capitalize()}`,
 						inline: true,
 					},
 					{
 						name: `2.${data.Positions1.Name}`,
-						value: `Total Questions: 7 \n Status: ${data.Positions1.Status}`,
+						value: `Total Questions: 7 \n Status: ${data.Positions1.Status.capitalize()}`,
 						inline: true,
 					},
 					{
 						name: `3.${data.Positions2.Name}`,
-						value: `Total Questions: 10 \n Status:${data.Positions2.Status}`,
+						value: `Total Questions: 11 \n Status: ${data.Positions2.Status.capitalize()}`,
 						inline: true,
 					}
 				)
@@ -58,7 +62,7 @@ module.exports = {
 			.then(async (message) => {
 				message = message.first();
 				if (message.content.toUpperCase() == '1') {
-					if (data.Positions0.Status === 'Closed')
+					if (data.Positions0.Status === 'closed')
 						return message.author.send(
 							new Discord.MessageEmbed()
 								.setTitle(`An Error Occurred`)
@@ -199,7 +203,7 @@ module.exports = {
 							);
 						});
 				} else if (message.content.toUpperCase() == '2') {
-					if (data.Positions1.Status === 'Closed')
+					if (data.Positions1.Status === 'closed')
 						return message.author.send(
 							new Discord.MessageEmbed()
 								.setTitle(`An Error Occurred`)
@@ -339,7 +343,7 @@ module.exports = {
 							);
 						});
 				} else if (message.content.toUpperCase() == '3') {
-					if (data.Positions2.Status === 'Closed')
+					if (data.Positions2.Status === 'closed')
 						return message.author.send(
 							new Discord.MessageEmbed()
 								.setTitle(`An Error Occurred`)
