@@ -12,10 +12,18 @@ module.exports = {
     async execute(client, message, cmd,  args) {
      if (message.author.id !== "491933949686448138")
       return message.channel.send('Coming Soon!');
+      let data =
+			(await db
+				.ref(`Applications/${message.guild.id}`)
+				.once('value')
+				.then((snapshot) => snapshot.val())) || [];
+
+		db.ref(`Applications/${message.guild.id}`);
+    message.channel.send("Status can only be (Open/Closed)")
     const questions = [
-      'Please specify status for position number 1!',
-      'Please specify status for position number 2!',
-      'Please specify status for position number 3!',
+      `Please specify status for ${data.Positions0.Name}!`,
+      `Please specify status for ${data.Positions1.Name}!`,
+      `Please specify status for ${data.Positions2.Name}!`,
     ]
     let counter = 0
 
@@ -27,7 +35,6 @@ module.exports = {
       max: questions.length,
       time: 100000,
     })
-
     message.channel.send(questions[counter++])
     collector.on('collect', (m) => {
       if (counter < questions.length) {
@@ -42,17 +49,18 @@ module.exports = {
         message.reply('You did not answer the questions in time')
         return
       }
+  
 
       let counter = 0
       collected.forEach((value) => {
         console.log(questions[counter++], value.content)
-          
       })
+
       let index = 0
       collected.forEach((value) => {
-        db.ref(`Applications/${message.guild.id}/Positions${index++}/Status`).set(value.content)  
+        db.ref(`Applications/${message.guild.id}/Positions${index++}/Status`).set(value.content.toLowerCase())  
       })
       
-    })
+    })  
   },
 }
