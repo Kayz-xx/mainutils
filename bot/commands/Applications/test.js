@@ -12,8 +12,9 @@ module.exports = {
     description: "This command set's the positions availible for the server",
   
     async execute(client, message, cmd,  args) {
-     if (message.author.id !== "491933949686448138")
+     if (!message.member.hasPermission('ADMINISTRATOR'))
       return message.channel.send('Coming Soon!');
+        message.channel.send("These are the name for the positions availible!")
     const questions = [
       'Please specify position number 1',
       'Please specify position number 2',
