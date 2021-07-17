@@ -8,7 +8,7 @@ module.exports = {
     cooldown: '0',
     permissions: [],
     category: 'Applications',
-    description: "This command set's the positions' status(Open or Closed) availible for the server",
+    description: "This command set's questions for the according positions",
     async execute(client, message, cmd,  args) {
       if (message.author.id !== "491933949686448138")
       return message.channel.send('Coming Soon!');
