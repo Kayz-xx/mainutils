@@ -11,6 +11,7 @@ module.exports = {
 	description:
 		'This command lets you apply for the current availible positions!',
 	async execute(client, message, cmd, args) {
+		if (message.channel.id === '764885369933791299') {
 		message.react('<:tick:859297441466679326>');
 		const filter = (m) => m.author.id === message.author.id;
 
@@ -493,5 +494,6 @@ module.exports = {
 				console.log(error);
 				return message.author.send('No response. Prompt Cancelled');
 			});
+		}
 	},
 };
