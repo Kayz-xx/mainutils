@@ -30,19 +30,18 @@ module.exports = {
 				.setColor(data.color)
 				.addField('Status **(Accepted)**', `${acceptQuery}`);
 
-				console.log(acceptQuery)
-
+	
 			applicationdEmbed.edit({ embed: acceptEmbed});
 
 			if (acceptQuery === 'event manager') {
 				acceptQuery =
-					'Congratulations! You have been accepted as a Event Manager, you have been given the 》Event Manager《 role. Please read the pinned messages in <#764885370219134992> and feel free to ask any higher staff for assisstance.';
+					'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Event Manager, you have been given the 》Event Manager《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>';
 			} else if (acceptQuery === 'giveaway manager') {
 				acceptQuery =
-					'Congratulations! You have been accepted as a Giveaway Manager, you have been given the 》Giveaway Manger《 role. Please read the pinned messages in <#764885370219134992> and feel free to ask any higher staff for assistance.';
-			} else if (acceptQuery.toLowerCase() === 'moderator') {
+					'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Giveaway Manager, you have been given the 》Giveaway Manger《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>' 
+			} else if (acceptQuery === 'moderator') {
 				acceptQuery =
-					'Congratulations! You have been accepted as a Moderator, you have been given the 》Trial Mod《 role. Please read the pinned messages in <#764885370219134992> and feel free to ask any higher staff for assisstance.';
+					'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Moderator, you have been given the 》Trial Mod《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>'
 			}
 			const user = await client.users.cache.find(
 				(u) => u.tag === data.author.name
@@ -61,4 +60,3 @@ module.exports = {
 		}
 	},
 };
-
