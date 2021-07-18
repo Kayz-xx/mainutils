@@ -27,7 +27,7 @@ module.exports = {
   db.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
   console.log(data2)
     
- if(!message.member.roles.cache.has(`${data2}`) && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send('This command can only be used by managers or admins!')//replace with staff role id
+  if(!message.member.roles.cache.has(`${data2}`) && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send('You cant use this command') //replace with staff role id
 
     if (!mention) {
       message.reply('Please tag a user to add the donation to')
@@ -84,7 +84,7 @@ module.exports = {
     .setTimestamp()
       )
 
-      message.react('<:tick:859297441466679326>')
+      message.react('<a:EE_purplecheck:866351693108215849>')
       .then(console.log)
       .catch(console.error)
 
@@ -153,7 +153,7 @@ module.exports = {
           db.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
    
             
-        if(!message.member.roles.cache.has(`${data2}`) && !message.member.hasPermission("ADMINISTRATOR")) return message.channel.send('This command can only be used by managers or admins!') //replace with staff role id
+             //replace with staff role id
          
             if (!mention) {
               message.reply('Please tag a user to add the donation to')
@@ -200,7 +200,7 @@ module.exports = {
     .setTimestamp()
       )
 
-      message.react('<:tick:859297441466679326>')
+      message.react('<a:EE_purplecheck:866351693108215849>')
       .then(console.log)
       .catch(console.error)
 
