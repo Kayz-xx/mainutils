@@ -44,12 +44,13 @@ module.exports = {
         .setColor('#33F304')
         .setDescription(`\**Your reminder will go off in ${time}**`)
 
-        message.channel.send(remindertime)
+        message.channel.send(`Alright **${message.member.displayName}**, I'll remind you about ${reminder} in ${time}`)
 
         const reminderdm = new Discord.MessageEmbed()
         .setColor('#7289DA')
-        .setTitle('**REMINDER**')
-        .setDescription(`**It has been ${time} here is your reminder:** ${reminder}`)  
+        .setTitle(`Reminder`)
+        .setDescription(`${time} ago you asked me to be reminded of: "${reminder}"`)  
+        .addField('Original Message', message.url)
 
         setTimeout(async function () {
            try{
