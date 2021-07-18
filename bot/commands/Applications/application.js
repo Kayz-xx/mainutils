@@ -12,7 +12,7 @@ module.exports = {
 		'This command lets you apply for the current availible positions!',
 	async execute(client, message, cmd, args) {
 		if (message.channel.id === '764885369933791299') {
-		message.react('<:tick:859297441466679326>');
+		message.react('<a:EE_blurplecheck:866355607615438888>');
 		const filter = (m) => m.author.id === message.author.id;
 
 		const filter2 = (reaction, user) => {
@@ -79,7 +79,7 @@ module.exports = {
 							)
 							.setColor('#0099ff')
 							.setDescription(
-								'This is the Event Manager Application for Elite Empire. Please make sure you will be able to reach the daily quota of 3 events before applying. Answer the questions truthfully and to the best of your ability. Good luck!'
+								'This is the Event Manager Application for Elite Empire. Please make sure you will be able to reach the daily amount of 3 events(1 mil each) before applying. Answer the questions truthfully and to the best of your ability. Good luck!'
 							)
 					);
 					const msg = await message.author.send(
@@ -99,6 +99,7 @@ module.exports = {
 									value: `Cancel the application`,
 								}
 							)
+							.setFooter(`You can type "cancel" at any time to exit.`)
 					);
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
@@ -116,7 +117,7 @@ module.exports = {
 								const questions = [
 									`What's your discord name? (name with #)`,
 									`What's your discord ID? (if need help contact a staff member to tell you your discord ID.)`,
-									`The daily requirement is hosting at least 3 events per day (these events must be sponsored by you & the minimum amount given away per winner is 1mill) do you think you will be able to manage this?`,
+									`The daily requirement is hosting at least 3 events(1 mil each) per day (these events must be sponsored by you & the minimum amount given away per winner is 1mill) do you think you will be able to manage this?`,
 									` What's your timezone? (PST, CST, EST...)`,
 									`Have you read the dank memer rules for giveaways?`,
 									` Do you know how to run Mudae events, Slots Events, Fight Cages or Mafia events? If so, which ones?`,
@@ -139,7 +140,8 @@ module.exports = {
 									filter
 								);
 
-								collector.on('collect', () => {
+								collector.on('collect', (m) => {
+									if (m.content.toLowerCase() == 'cancel') return collector.stop('CANCEL');
 									if (collectCounter < questions.length) {
 										channel.send({
 											embed: {
@@ -161,9 +163,18 @@ module.exports = {
 								});
 
 								const appsChannel = client.channels.cache.get(
-									'855828767846039582'
+									'865993225957015563'
 								);
 								collector.on('end', (collected, reason) => {
+									if (reason === 'CANCEL') {
+										return channel.send({embed: {
+											description:
+											"Application cancelled!",
+											color: 'RED',
+										},
+									})
+								 }
+								
 									if (reason === 'fulfilled') {
 										let index = 1;
 										const mappedResponses = collected
@@ -183,7 +194,7 @@ module.exports = {
 											.addField('Status', '**(Pending)**')
 											.setColor('#77ACF1');
 
-										appsChannel.send(embed);
+							appsChannel.send(embed);
 									}
 								});
 							}
@@ -220,7 +231,7 @@ module.exports = {
 							)
 							.setColor('#0099ff')
 							.setDescription(
-								'This is the Giveawy Manager Application for Elite Empire. Please make sure you will be able to reach the daily quota of 3 mil per day before applying. Answer the questions truthfully and to the best of your ability. Good luck!'
+								'This is the Giveawy Manager Application for Elite Empire. Please make sure you will be able to reach the daily amount of 3 mil per day before applying. Answer the questions truthfully and to the best of your ability. Good luck!'
 							)
 					);
 					const msg = await message.author.send(
@@ -240,6 +251,7 @@ module.exports = {
 									value: `Cancel the application`,
 								}
 							)
+							.setFooter(`You can type "cancel" at any time to exit.`)
 					);
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
@@ -257,7 +269,7 @@ module.exports = {
 								const questions = [
 									`What's your discord name? (name with #)`,
 									`What's your discord ID? (if need help contact a staff member to tell you your discord ID.)`,
-									`The daily requirement is currently 3Mil, do you think you will be able to give this much away per day? (if the answer is no to this, your application will immediately be overlooked.)`,
+									`The daily requirement is currently 3 Mil, do you think you will be able to give this much away per day? (if the answer is no to this, your application will immediately be overlooked.)`,
 									`What's your timezone? (PST, CST, EST...)`,
 									`Have you read the dank memer rules for giveaways?`,
 									`How much money do you have total in your inventory, bank and wallet? (This will be checked, so don't exaggerate)`,
@@ -279,7 +291,8 @@ module.exports = {
 									filter
 								);
 
-								collector.on('collect', () => {
+								collector.on('collect', (m) => {
+									if (m.content.toLowerCase() == 'cancel') return collector.stop('CANCEL');
 									if (collectCounter < questions.length) {
 										channel.send({
 											embed: {
@@ -301,9 +314,17 @@ module.exports = {
 								});
 
 								const appsChannel = client.channels.cache.get(
-									'855828767846039582'
+									'865993225957015563'
 								);
 								collector.on('end', (collected, reason) => {
+									if (reason === 'CANCEL') {
+										return channel.send({embed: {
+											description:
+											"Application cancelled!",
+											color: 'RED',
+										},
+									})
+								}
 									if (reason === 'fulfilled') {
 										let index = 1;
 										const mappedResponses = collected
@@ -360,7 +381,7 @@ module.exports = {
 							)
 							.setColor('#0099ff')
 							.setDescription(
-								'This is the Moderator Application for Elite Empire. Please make sure you will be able to reach the daily quota of 3 mil per day before applying. Answer the questions truthfully and to the best of your ability. Good luck!'
+								'This is the Moderator Application for Elite Empire. Answer the questions truthfully and to the best of your ability. Good luck!'
 							)
 					);
 					const msg = await message.author.send(
@@ -380,6 +401,7 @@ module.exports = {
 									value: `Cancel the application`,
 								}
 							)
+							.setFooter(`You can type "cancel" at any time to exit.`)
 					);
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
@@ -400,7 +422,7 @@ module.exports = {
 									`What's your timezone? (PST, CST, EST...)`,
 									`How long have you been in Elite Empire?`,
 									`What's your current Amari level?`,
-									`Do you have any previous experience with moderation?`,
+									`Do you have any previous experience with moderation? If so, explain.`,
 									`Why should we choose you over other applicants?`,
 									`Why do you want to be a moderator in this server?`,
 									`Are you familiar with Carl Bot and Dank Memer?`,
@@ -424,7 +446,8 @@ module.exports = {
 									filter
 								);
 
-								collector.on('collect', () => {
+								collector.on('collect', (m) => {
+									if (m.content.toLowerCase() == 'cancel') return collector.stop('CANCEL');
 									if (collectCounter < questions.length) {
 										channel.send({
 											embed: {
@@ -446,9 +469,17 @@ module.exports = {
 								});
 
 								const appsChannel = client.channels.cache.get(
-									'855828767846039582'
+									'865993225957015563'
 								);
 								collector.on('end', (collected, reason) => {
+									if (reason === 'CANCEL') {
+										return channel.send({embed: {
+											description:
+											"Application cancelled!",
+											color: 'RED',
+										},
+									})
+								}
 									if (reason === 'fulfilled') {
 										let index = 1;
 										const mappedResponses = collected
