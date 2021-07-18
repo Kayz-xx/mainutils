@@ -12,10 +12,11 @@ module.exports = {
   
   async execute(client, message, cmd,  args) {
     if(!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send("Only admins can reject applicants!")
+    message.react("<a:EE_thumbsup:848244792802541628>")
     const messageID = args[0]
     const denyQuery = args.slice(1).join(" ")
     try{
-        const applicationChannel = message.guild.channels.cache.get('855828767846039582')
+        const applicationChannel = message.guild.channels.cache.get('764885370558349373')
         const applicationdEmbed = await applicationChannel.messages.fetch(messageID)
         
         const data = applicationdEmbed.embeds[0]
