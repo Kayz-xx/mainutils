@@ -163,7 +163,7 @@ module.exports = {
 								});
 
 								const appsChannel = client.channels.cache.get(
-									'865993225957015563'
+									'764885370558349373'
 								);
 								collector.on('end', (collected, reason) => {
 									if (reason === 'CANCEL') {
@@ -314,7 +314,7 @@ module.exports = {
 								});
 
 								const appsChannel = client.channels.cache.get(
-									'865993225957015563'
+									'764885370558349373'
 								);
 								collector.on('end', (collected, reason) => {
 									if (reason === 'CANCEL') {
@@ -469,7 +469,7 @@ module.exports = {
 								});
 
 								const appsChannel = client.channels.cache.get(
-									'865993225957015563'
+									'764885370558349373'
 								);
 								collector.on('end', (collected, reason) => {
 									if (reason === 'CANCEL') {
