@@ -53,6 +53,7 @@ module.exports = {
 					color: '#77ACF1',
 				},
 			});
+    		message.react("<a:EE_thumbsup:848244792802541628>")
 
 			// user.roles.add(data3.Staffrole)
 		} catch (err) {
