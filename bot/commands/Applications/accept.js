@@ -17,7 +17,7 @@ module.exports = {
 		let acceptQuery = args.slice(1).join(' ').toLowerCase()
 		try {
 			const applicationChannel =
-				message.guild.channels.cache.get('855828767846039582');
+				message.guild.channels.cache.get('764885370558349373');
 			const applicationdEmbed = await applicationChannel.messages.fetch(
 				messageID
 			);
