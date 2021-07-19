@@ -29,9 +29,9 @@ module.exports = {
 	.setColor('#0099ff')
 	.setTitle('Positions Available')
 	.addFields(
-		{ name: data.Positions0.Name, value: `Total Questions: 7 \n Status: ${data.Positions0.Status.capitalize()}`, inline: true },
+		{ name: data.Positions0.Name, value: `Total Questions: 6 \n Status: ${data.Positions0.Status.capitalize()}`, inline: true },
 		{ name: data.Positions1.Name, value: `Total Questions: 7 \n Status: ${data.Positions1.Status.capitalize()}`, inline: true },
-    { name: data.Positions2.Name, value: `Total Questions: 11 \n Status: ${data.Positions2.Status.capitalize()}`, inline: true },
+    { name: data.Positions2.Name, value: `Total Questions: 12 \n Status: ${data.Positions2.Status.capitalize()}`, inline: true },
 	) 
 message.channel.send(exampleEmbed)
     }
