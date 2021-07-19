@@ -8,7 +8,7 @@ module.exports = {
   cooldown: '0',
   category: 'Applications',
   permissions: [],
-  description: "Shows's the availible positions for the server!",
+  description: "Shows's the available positions for the server!",
   
   async execute(client, message, cmd,  args) {
 
@@ -27,7 +27,7 @@ module.exports = {
 
     let exampleEmbed = new Discord.MessageEmbed()
 	.setColor('#0099ff')
-	.setTitle('Positions Availible')
+	.setTitle('Positions Available')
 	.addFields(
 		{ name: data.Positions0.Name, value: `Total Questions: 7 \n Status: ${data.Positions0.Status.capitalize()}`, inline: true },
 		{ name: data.Positions1.Name, value: `Total Questions: 7 \n Status: ${data.Positions1.Status.capitalize()}`, inline: true },
