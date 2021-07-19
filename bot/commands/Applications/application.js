@@ -9,7 +9,7 @@ module.exports = {
 	category: 'Applications',
 	permissions: [],
 	description:
-		'This command lets you apply for the current availible positions!',
+		'This command lets you apply for the current available positions!',
 	async execute(client, message, cmd, args) {
 		if (message.channel.id === '764885369933791299') {
 		message.react('<a:EE_blurplecheck:866355607615438888>');
@@ -36,7 +36,7 @@ module.exports = {
 		const msg = await message.author.send(
 			new Discord.MessageEmbed()
 				.setColor('#0099ff')
-				.setTitle('Positions Availible')
+				.setTitle('Positions Available')
 				.addFields(
 					{
 						name: `1.${data.Positions0.Name}`,
