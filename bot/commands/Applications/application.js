@@ -40,7 +40,7 @@ module.exports = {
 				.addFields(
 					{
 						name: `1.${data.Positions0.Name}`,
-						value: `Total Questions: 7 \n Status: ${data.Positions0.Status.capitalize()}`,
+						value: `Total Questions: 6 \n Status: ${data.Positions0.Status.capitalize()}`,
 						inline: true,
 					},
 					{
@@ -50,7 +50,7 @@ module.exports = {
 					},
 					{
 						name: `3.${data.Positions2.Name}`,
-						value: `Total Questions: 11 \n Status: ${data.Positions2.Status.capitalize()}`,
+						value: `Total Questions: 12 \n Status: ${data.Positions2.Status.capitalize()}`,
 						inline: true,
 					}
 				)
@@ -421,6 +421,7 @@ module.exports = {
 									`What's your discord ID? (if need help contact a staff member to tell you your discord ID.)`,
 									`What's your timezone? (PST, CST, EST...)`,
 									`How long have you been in Elite Empire?`,
+									`How old are you?`,
 									`What's your current Amari level?`,
 									`Do you have any previous experience with moderation? If so, explain.`,
 									`Why should we choose you over other applicants?`,
