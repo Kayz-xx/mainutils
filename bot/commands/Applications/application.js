@@ -40,12 +40,12 @@ module.exports = {
 				.addFields(
 					{
 						name: `1.${data.Positions0.Name}`,
-						value: `Total Questions: 6 \n Status: ${data.Positions0.Status.capitalize()}`,
+						value: `Total Questions: 7 \n Status: ${data.Positions0.Status.capitalize()}`,
 						inline: true,
 					},
 					{
 						name: `2.${data.Positions1.Name}`,
-						value: `Total Questions: 7 \n Status: ${data.Positions1.Status.capitalize()}`,
+						value: `Total Questions: 6 \n Status: ${data.Positions1.Status.capitalize()}`,
 						inline: true,
 					},
 					{
