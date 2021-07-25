@@ -7,17 +7,18 @@ module.exports = {
 	aliases: [],
 	category: 'Applications',
 	cooldown: '0',
-	usage: '<message.id> <Event Manager | Giveaway Manager | Moderator>',
+	usage: '<channel.id> <message.id> <Event Manager | Giveaway Manager | Moderator>',
 	description: "This a command that accept's applicants. (Only Admins can use this command)",
 	permissions: [],
 	
 	  async execute(client, message, cmd,  args) {
 		if (!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send('This command can only be used by administrators!')
-		const messageID = args[0];
-		let acceptQuery = args.slice(1).join(' ').toLowerCase()
+		const messageID = args[1];
+		const channelID = args[0]
+		let acceptQuery = args.slice(2).join(' ').toLowerCase()
 		try {
 			const applicationChannel =
-				message.guild.channels.cache.get('764885370558349373');
+				message.guild.channels.cache.get(channelID)
 			const applicationdEmbed = await applicationChannel.messages.fetch(
 				messageID
 			);
@@ -53,7 +54,6 @@ module.exports = {
 					color: '#77ACF1',
 				},
 			});
-    		message.react("<a:EE_thumbsup:848244792802541628>")
 
 			// user.roles.add(data3.Staffrole)
 		} catch (err) {
