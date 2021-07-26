@@ -22,7 +22,7 @@ module.exports = {
     const coins = await economy.getCoins(guildId, userId)
 
     let embed = new MessageEmbed()
-    .setAuthor(`Donations at ${message.guild.name}`)
+    .setAuthor(`${target.tag}'s Donations`)
     .setColor("RANDOM")
     .addField(`Amount Donated in ${message.guild.name}:`, formatter.format(coins), true)
     .setTimestamp()
