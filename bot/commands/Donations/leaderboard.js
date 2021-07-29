@@ -29,7 +29,7 @@ module.exports = {
         .setTitle(`Donation Leaderboard in ${message.guild.name}`)
         .setDescription(desc)
         .setFooter(`These are normal donations`)
-        .setColor('88FFF7')
+        .setColor('3B14A7')
 
         message.channel.send(embed)
 
