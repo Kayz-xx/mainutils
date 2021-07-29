@@ -28,7 +28,7 @@ module.exports = {
         const embed = new MessageEmbed ()
         .setTitle(`Donation Leaderboard in ${message.guild.name}`)
         .setDescription(desc)
-        .setFooter(`These are normal donations`)
+        .setFooter(`These are normal donations | Top 10 Donors`)
         .setColor('3B14A7')
 
         message.channel.send(embed)
