@@ -19,10 +19,10 @@ module.exports = {
             const guildId = message.guild.id
         const data = await economy.getDonation(guildId);
         let desc = ""
-            
+
         for (let i = 0; i < Math.min(10, data.length); i ++) {
           let user = data [i];
-          desc += `${i+1}) <@!${user.userId}> - **${user.coins} coins**\n`
+          desc += `${i+1}) <@!${user.userId}> - **${formatter.format(user.coins)} coins**\n`
         };
 
         const embed = new MessageEmbed ()
