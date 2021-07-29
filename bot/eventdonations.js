@@ -9,7 +9,7 @@ module.exports = (client) => {}
 module.exports.addCoins = async (guildId, userId, eventcoins) => {
   return await mongo().then(async (mongoose) => {
     try {
-      console.log('Running findOneAndUpdate()')
+
 
       const result = await eventSchema.findOneAndUpdate(
         {
@@ -29,7 +29,7 @@ module.exports.addCoins = async (guildId, userId, eventcoins) => {
         }
       )
 
-      console.log('RESULT:', result)
+
 
       eventcoinsCache[`${guildId}-${userId}`] = result.eventcoins
 
@@ -43,7 +43,7 @@ module.exports.addCoins = async (guildId, userId, eventcoins) => {
 module.exports.removeCoins = async (guildId, userId, eventcoins) => {
   return await mongo().then(async (mongoose) => {
     try {
-      console.log('Running findOneAndUpdate()')
+ 
 
       const result = await eventSchema.findOneAndUpdate(
         {
@@ -63,7 +63,7 @@ module.exports.removeCoins = async (guildId, userId, eventcoins) => {
         }
       )
 
-      console.log('RESULT:', result)
+ 
 
       eventcoinsCache[`${guildId}-${userId}`] = result.eventcoins
 
@@ -82,20 +82,19 @@ module.exports.getCoins = async (guildId, userId) => {
 
   return await mongo().then(async (mongoose) => {
     try {
-      console.log('Running findOne()')
+   
 
       const result = await eventSchema.findOne({
         guildId,
         userId,
       })
 
-      console.log('RESULT:', result)
 
       let eventcoins = 0
       if (result) {
         eventcoins = result.eventcoins
       } else {
-        console.log('Inserting a document')
+
         await new eventSchema({
           guildId,
           userId,
@@ -120,32 +119,15 @@ module.exports.getDonation = async (guildId, userId) => {
 
   return await mongo().then(async (mongoose) => {
     try {
-      console.log('Running find()')
+      const data = await eventSchema.find ({ 
+        guildId
+      });
+      
+      data.sort ((a, b) => b.eventcoins - a.eventcoins);
 
-      const result = await eventSchema.findOne({
-        guildId,
-        userId,
-      })
-
-      console.log('RESULT:', result)
-
-      let eventcoins = 0
-      if (result) {
-        eventcoins = result.eventcoins
-      } else {
-        console.log('Inserting a document')
-        await new eventSchema({
-          guildId,
-          userId,
-          eventcoins,
-        }).save()
-      }
-
-      eventcoinsCache[`${guildId}-${userId}`] = eventcoins
-
-      return eventcoins
+      return data
     } finally {
+
     }
   })
 }
-
