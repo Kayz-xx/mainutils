@@ -22,7 +22,7 @@ module.exports = {
             
         for (let i = 0; i < Math.min(10, data.length); i ++) {
           let user = data [i];
-          desc += `${i}) <@!${user.userId}> - **${user.coins} coins**\n`
+          desc += `${i+1}) <@!${user.userId}> - **${user.coins} coins**\n`
         };
 
         const embed = new MessageEmbed ()
