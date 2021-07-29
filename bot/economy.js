@@ -119,30 +119,13 @@ module.exports.getDonation = async (guildId, userId) => {
 
   return await mongo().then(async (mongoose) => {
     try {
+      const data = await profileSchema.find ({ 
+        guildId
+      });
+      
+      data.sort ((a, b) => b.coins - a.coins);
 
-
-      const result = await profileSchema.find({
-        guildId,
-        userId,
-      })
-
-
-
-      let coins = 0
-      if (result) {
-        coins = result.coins
-      } else {
-
-        await new profileSchema({
-          guildId,
-          userId,
-          coins,
-        }).save()
-      }
-
-      coinsCache[`${guildId}-${userId}`] = coins
-
-      return coins
+      return data
     } finally {
 
     }
