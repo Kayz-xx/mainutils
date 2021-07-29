@@ -121,7 +121,7 @@ module.exports.getDonation = async (guildId, userId) => {
     try {
 
 
-      const result = await profileSchema.findOne({
+      const result = await profileSchema.find({
         guildId,
         userId,
       })
