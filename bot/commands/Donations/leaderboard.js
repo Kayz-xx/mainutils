@@ -24,14 +24,21 @@ module.exports = {
           let user = data [i];
           desc += `${i+1}) <@!${user.userId}> - **${formatter.format(user.coins)} coins**\n`
         };
+let load = new MessageEmbed().setDescription('Loading...').setColor('FFFFFF')
 
+  return message.channel.send(load).
+        then(async message => {
+        const generateEmbed = () => {
         const embed = new MessageEmbed ()
         .setTitle(`Donation Leaderboard in ${message.guild.name}`)
         .setDescription(desc)
-        .setFooter(`These are normal donations | Top 10 Donors`)
+        .setFooter(`These are normal donations`)
         .setColor('3B14A7')
-
-        message.channel.send(embed)
+               
+                return embed
+        }
+        message.edit(generateEmbed(0))
+    })
 
     }
 }
