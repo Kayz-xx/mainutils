@@ -32,6 +32,7 @@ module.exports = {
 		{ name: data.Positions0.Name, value: `Total Questions: 7 \n Status: ${data.Positions0.Status.capitalize()}`, inline: true },
 		{ name: data.Positions1.Name, value: `Total Questions: 6 \n Status: ${data.Positions1.Status.capitalize()}`, inline: true },
     		{ name: data.Positions2.Name, value: `Total Questions: 12 \n Status: ${data.Positions2.Status.capitalize()}`, inline: true },
+    { name: data.Positions3.Name, value: `Total Questions: 5 \n Status: ${data.Positions2.Status.capitalize()}`, inline: true },
 	) 
 message.channel.send(exampleEmbed)
     }
