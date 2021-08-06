@@ -10,7 +10,7 @@ module.exports = {
     category: 'Applications',
   
     async execute(client, message, cmd,  args) {
-   if (!message.member.hasPermission('ADMINISTRATOR'))
+     if (!message.member.hasPermission('ADMINISTRATOR'))
       return message.channel.send('Coming Soon!');
       let data =
 			(await db
@@ -24,6 +24,7 @@ module.exports = {
       `Please specify status for ${data.Positions0.Name}!`,
       `Please specify status for ${data.Positions1.Name}!`,
       `Please specify status for ${data.Positions2.Name}!`,
+      `Please specify status for ${data.Positions3.Name}!`,
     ]
     let counter = 0
 
@@ -35,10 +36,22 @@ module.exports = {
       max: questions.length,
       time: 100000,
     })
-    message.channel.send(questions[counter++])
+    message.channel.send({
+      embed: {
+        description:
+          questions[counter++],
+        color: '#77ACF1',
+      },
+    });
     collector.on('collect', (m) => {
       if (counter < questions.length) {
-        m.channel.send(questions[counter++])
+        m.channel.send({
+          embed: {
+            description:
+              questions[counter++],
+            color: '#77ACF1',
+          },
+        });
       }
     })
 
