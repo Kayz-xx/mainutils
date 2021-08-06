@@ -38,28 +38,28 @@ module.exports = {
 				.setTitle(`An Error Occurred`)
 				.setColor('DA0037')
 				.setDescription(
-					`This application(1) has not been setup by the staff!`
+					`One or more of the applications has not been setup correctly!`
 				))
 				else if(!data.Positions1) return message.author.send(
 					new Discord.MessageEmbed()
 						.setTitle(`An Error Occurred`)
 						.setColor('DA0037')
 						.setDescription(
-							`This application(2) has not been setup by the staff!`
+						`One or more of the applications has not been setup correctly!`
 						))
 						else if(!data.Positions2) return message.author.send(
 							new Discord.MessageEmbed()
 								.setTitle(`An Error Occurred`)
 								.setColor('DA0037')
 								.setDescription(
-									`This application(3) has not been setup by the staff!`
+									`One or more of the applications has not been setup correctly!`
 								))
 								else if(!data.Positions3) return message.author.send(
 									new Discord.MessageEmbed()
 										.setTitle(`An Error Occurred`)
 										.setColor('DA0037')
 										.setDescription(
-											`This application(4) has not been setup by the staff!`
+												`One or more of the applications has not been setup correctly!`
 										))
 		const msg = await message.author.send(
 			new Discord.MessageEmbed()
