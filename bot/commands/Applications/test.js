@@ -12,13 +12,13 @@ module.exports = {
     description: "This command set's the positions availible for the server",
   
     async execute(client, message, cmd,  args) {
-     if (!message.member.hasPermission('ADMINISTRATOR'))
+     if (message.author.id !== "491933949686448138")
       return message.channel.send('Coming Soon!');
-        message.channel.send("These are the name for the positions availible!")
     const questions = [
       'Please specify position number 1',
       'Please specify position number 2',
       'Please specify position number 3',
+      'Please specify position number 4',
     ]
     let counter = 0
 
@@ -31,10 +31,22 @@ module.exports = {
       time: 100000,
     })
 
-    message.channel.send(questions[counter++])
+    message.channel.send({
+      embed: {
+        description:
+          questions[counter++],
+        color: '#77ACF1',
+      },
+    });
     collector.on('collect', (m) => {
       if (counter < questions.length) {
-        m.channel.send(questions[counter++])
+        m.channel.send({
+          embed: {
+            description:
+              questions[counter++],
+            color: '#77ACF1',
+          },
+        });
       }
     })
 
