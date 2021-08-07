@@ -49,7 +49,7 @@ module.exports = {
 					},
 					{
 						name: `4.${data.Positions3.Name}`,
-						value: `Total Questions: 5 \n Status: ${data.Positions2.Status.capitalize()}`,
+						value: `Total Questions: 5 \n Status: ${data.Positions3.Status.capitalize()}`,
 						inline: true,
 					}
 				)
