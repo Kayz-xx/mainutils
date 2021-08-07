@@ -66,13 +66,14 @@ module.exports = {
 			.then(async (message) => {
 				message = message.first();
 				if (message.content.toUpperCase() == '1') {
+					let embed = new MessageEmbed().setTitle('Application Questions').setColor("WHITE")
 					const q = data.Positions0.Questions
 					let val = 0
 					if(q) return q.forEach(a => {
 						embed.addField(`${val++}) ${a}`)
 					})
 					message.channel.send(
-						`You have 120 seconds, to setup the questions for ${data.Positions0.Name}! When you are done type \`done\` or after 12 questions it will auto-set.`
+						embed
 					);
 					const questions = [
 						'Specify an intro message',	
