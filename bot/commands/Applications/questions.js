@@ -70,7 +70,7 @@ module.exports = {
 					const q = data.Positions0.Questions
 					let val = 0
 					if(q) return q.forEach(a => {
-						embed.addField(`${val++}) ${a}`)
+						embed.addField(`${val++}`, `${a}`)
 					})
 					message.channel.send(
 						embed
