@@ -26,10 +26,10 @@ module.exports = {
 		String.prototype.capitalize = function() {
 			return this.charAt(0).toUpperCase() + this.slice(1);
 		};
-		if(!data.Positions0.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions0.Status.capitalize()}`)
-		if(!data.Positions1.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions1.Status.capitalize()}`)
-		if(!data.Positions2.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions2.Status.capitalize()}`)
-		if(!data.Positions3.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions3.Status.capitalize()}`)
+		if(!data.Positions0.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions0.Name.capitalize()}`)
+		if(!data.Positions1.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions1.Name.capitalize()}`)
+		if(!data.Positions2.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions2.Name.capitalize()}`)
+		if(!data.Positions3.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions3.Name.capitalize()}`)
 		const msg = await message.channel.send(
 			new Discord.MessageEmbed()
 				.setColor('#0099ff')
