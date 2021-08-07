@@ -66,7 +66,7 @@ module.exports = {
 			.then(async (message) => {
 				message = message.first();
 				if (message.content.toUpperCase() == '1') {
-					let embed = new MessageEmbed().setTitle('Application Questions').setColor("WHITE")
+					let embed = new Discord.MessageEmbed().setTitle('Application Questions').setColor("WHITE")
 					const q = data.Positions0.Questions
 					let val = 0
 					if(q) return q.forEach(a => {
