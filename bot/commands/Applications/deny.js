@@ -18,7 +18,7 @@ module.exports = {
 		let denyQuery = args.slice(1).join(' ').toLowerCase()
 		try{
 			const applicationChannel =
-				message.guild.channels.cache.get(message.guild.id)
+				message.guild.channels.cache.get(message.channel.id)
 			const applicationdEmbed = await applicationChannel.messages.fetch(
 				messageID
 			);
