@@ -542,7 +542,7 @@ module.exports = {
 							);
 						});
 					} else if(message.content === '4'){
-						if (data.Positions0.Status === 'closed')
+						if (data.Positions3.Status === 'closed')
 						return message.author.send(
 							new Discord.MessageEmbed()
 								.setTitle(`An Error Occurred`)
