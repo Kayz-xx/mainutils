@@ -42,18 +42,18 @@ let data2 =
 		db.ref(`Applications/${message.guild.id}`);
 
 			if (acceptQuery === 'event manager') {
-				acceptQuery =
-					'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Event Manager, you have been given the 》Event Manager《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>';
-			} else if (acceptQuery === 'giveaway manager') {
-				acceptQuery =
-					'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Giveaway Manager, you have been given the 》Giveaway Manger《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>' 
-			} else if (acceptQuery === 'moderator') {
-				acceptQuery =
-					'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Moderator, you have been given the 》Trial Mod《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>'
-			} else if (acceptQuery === 'karuta manager') {
-				acceptQuery = data.Positions3.Questions[1]
-					
-			}
+					acceptQuery =
+						'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Event Manager, you have been given the 》Event Manager《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>';
+				} else if (acceptQuery === 'giveaway manager') {
+					acceptQuery =
+						'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Giveaway Manager, you have been given the 》Giveaway Manger《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>' 
+				} else if (acceptQuery === 'moderator') {
+					acceptQuery =
+						'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Moderator, you have been given the 》Trial Mod《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>'
+				} else if (acceptQuery === 'karuta manager') {
+					acceptQuery = data.Positions3.Questions[1]
+						
+				}
 			const user = await client.users.cache.find(
 				(u) => u.tag === data.author.name
 			);
