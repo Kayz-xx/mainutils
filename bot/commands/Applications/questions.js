@@ -12,7 +12,7 @@ module.exports = {
 		"This command set's the positions' status(Open or Closed) availible for the server",
 	async execute(client, message, cmd, args) {
 		if (!message.member.hasPermission('ADMINISTRATOR'))
-		return;
+		return message.channel.send('You cannot use this command!')
 		const filter = (m) => m.author.id === message.author.id;
 
 		let data =
