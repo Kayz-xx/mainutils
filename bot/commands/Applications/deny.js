@@ -38,15 +38,15 @@ module.exports = {
 			);
 			if (denyQuery === 'event manager') {
 				denyQuery =
-					'Your application for event manager has been denied, thank you for applying!',
+					'Your application for event manager has been denied, thank you for applying!'
 			} else if (denyQuery === 'giveaway manager') {
 				denyQuery =
-					'Your application for giveaway manager has been denied, thank you for applying!',
+					'Your application for giveaway manager has been denied, thank you for applying!'
 			} else if (denyQuery === 'moderator') {
 				denyQuery =
-					'Your application for moderator has been denied, thank you for applying!',
+					'Your application for moderator has been denied, thank you for applying!'
 			} else if (denyQuery === 'karuta manager') {
-				denyQuery = 'Your application for karuta manager has been denied, thank you for applying!',
+				denyQuery = 'Your application for karuta manager has been denied, thank you for applying!'
 					
 			}
 			user.send({
