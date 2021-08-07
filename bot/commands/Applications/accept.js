@@ -33,6 +33,14 @@ module.exports = {
 	
 			applicationdEmbed.edit({ embed: acceptEmbed});
 
+let data2 =
+			(await db
+				.ref(`Applications/${message.guild.id}`)
+				.once('value')
+				.then((snapshot) => snapshot.val())) || [];
+
+		db.ref(`Applications/${message.guild.id}`);
+
 			if (acceptQuery === 'event manager') {
 				acceptQuery =
 					'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Event Manager, you have been given the 》Event Manager《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>';
@@ -42,6 +50,9 @@ module.exports = {
 			} else if (acceptQuery === 'moderator') {
 				acceptQuery =
 					'Congratulations! <a:EE_nyaJump:866031709056401408> You have been accepted as a Moderator, you have been given the 》Trial Mod《 role. Please wait for further instructions.<a:EE_qb_dance:866031344941400064>'
+			} else if (acceptQuery === 'karuta manager') {
+				acceptQuery = data.Positions3.Questions[1]
+					
 			}
 			const user = await client.users.cache.find(
 				(u) => u.tag === data.author.name
