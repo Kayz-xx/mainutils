@@ -13,12 +13,11 @@ module.exports = {
 	
 	  async execute(client, message, cmd,  args) {
 		if (!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send('This command can only be used by administrators!')
-		const messageID = args[1];
-		const channelID = args[0]
-		let acceptQuery = args.slice(2).join(' ').toLowerCase()
+		const messageID = args[0];
+		let acceptQuery = args.slice(1).join(' ').toLowerCase()
 		try {
 			const applicationChannel =
-				message.guild.channels.cache.get(channelID)
+				message.guild.channels.cache.get(message.channel.id)
 			const applicationdEmbed = await applicationChannel.messages.fetch(
 				messageID
 			);
