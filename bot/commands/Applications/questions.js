@@ -26,6 +26,10 @@ module.exports = {
 		String.prototype.capitalize = function() {
 			return this.charAt(0).toUpperCase() + this.slice(1);
 		};
+		if(!data.Positions0.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions0.Status.capitalize()}`)
+		if(!data.Positions1.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions1.Status.capitalize()}`)
+		if(!data.Positions2.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions2.Status.capitalize()}`)
+		if(!data.Positions3.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions3.Status.capitalize()}`)
 		const msg = await message.channel.send(
 			new Discord.MessageEmbed()
 				.setColor('#0099ff')
@@ -62,6 +66,11 @@ module.exports = {
 			.then(async (message) => {
 				message = message.first();
 				if (message.content.toUpperCase() == '1') {
+					const q = data.Positions0.Questions
+					let val = 0
+					if(q) return q.forEach(a => {
+						embed.addField(`${val++}) ${a}`)
+					})
 					message.channel.send(
 						`You have 120 seconds, to setup the questions for ${data.Positions0.Name}! When you are done type \`done\` or after 12 questions it will auto-set.`
 					);
