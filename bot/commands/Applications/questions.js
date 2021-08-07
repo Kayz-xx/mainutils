@@ -66,11 +66,12 @@ module.exports = {
 			.then(async (message) => {
 				message = message.first();
 				if (message.content.toUpperCase() == '1') {
-					let embed = new Discord.MessageEmbed().setTitle('Application Questions').setColor("WHITE")
-					const q = data.Positions0.Questions
+						const q = data.Positions0.Questions
 					let val = 0
-					if(q) return q.forEach(a => {
-						embed.addField(`${val++}`, `${a}`)
+					let embed = new MessageEmbed()     
+					embed.setTitle(`Application Questions`)
+					q.forEach(a => {
+					  embed.addField(`${val++}`, `${a}`)
 					})
 					message.channel.send(
 						embed
