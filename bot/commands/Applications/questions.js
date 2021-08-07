@@ -26,7 +26,7 @@ module.exports = {
 		String.prototype.capitalize = function() {
 			return this.charAt(0).toUpperCase() + this.slice(1);
 		};
-		const msg = message.channel.send(
+		const msg = await message.channel.send(
 			new Discord.MessageEmbed()
 				.setColor('#0099ff')
 				.setTitle('Positions Availible')
