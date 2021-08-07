@@ -29,7 +29,7 @@ module.exports = {
     let counter = 0
 
     const filter = (m) => {
-      return m.author.id === message.author.id
+        m.author.id === message.author.id
     }
 
     const collector = new DiscordJS.MessageCollector(message.channel, filter, {
