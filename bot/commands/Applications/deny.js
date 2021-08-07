@@ -36,6 +36,19 @@ module.exports = {
 			const user = await client.users.cache.find(
 				(u) => u.tag === data.author.name
 			);
+			if (denyQuery === 'event manager') {
+				denyQuery =
+					'Your application for event manager has been denied, thank you for applying!',
+			} else if (acceptQuery === 'giveaway manager') {
+				denyQuery =
+					'Your application for giveaway manager has been denied, thank you for applying!',
+			} else if (acceptQuery === 'moderator') {
+				denyQuery =
+					'Your application for moderator has been denied, thank you for applying!',
+			} else if (acceptQuery === 'karuta manager') {
+				denyQuery = 'Your application for karuta manager has been denied, thank you for applying!',
+					
+			}
 			user.send({
 				embed: {
 					description:
