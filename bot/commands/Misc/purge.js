@@ -10,7 +10,7 @@ module.exports = {
     category: 'Misc',
    
   async execute(client, message, cmd,  args) {
-      if(!message.member.roles.has('764885367400693764') && !message.member.hasPermission('ADMINISTRATOR')) return;
+      if(!message.member.roles.cache.some(x => x.id === '764885367400693764') && !message.member.hasPermission('ADMINISTRATOR')) return;
         const usage = '```\npurge <amount>\npurge <amount> --users\npurge <amount> --bots\n```';
         if (!args.length) return message.channel.send(`No Amount Specified.\n${usage}`);
         let amount = parseInt(args[0]);
