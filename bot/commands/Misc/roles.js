@@ -14,13 +14,11 @@ module.exports = {
         .sort((a, b) => b.position - a.position)
         .map(r => r)
         .join("\n");
-
+        if (rolemap.length > 1024) rolemap = "To many roles to display";
         if (!rolemap) rolemap = "No roles";
-        for (let i = 0; i < rolemap.length; i += 2048) {
         const embed = new Discord.MessageEmbed()
         .addField("Role List" , rolemap)
-        message.channel.send(embed);
-            }
+        message.channel.send({embeds: [embed]});
         } catch (error) {
             console.log(error)
         }
