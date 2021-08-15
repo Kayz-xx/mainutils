@@ -19,7 +19,7 @@ module.exports = {
         for (let i = 0; i < rolemap.length; i += 2048) {
         const embed = new Discord.MessageEmbed()
         .addField("Role List" , rolemap)
-        message.channel.send({embeds: [embed]});
+        message.channel.send(embed);
             }
         } catch (error) {
             console.log(error)
