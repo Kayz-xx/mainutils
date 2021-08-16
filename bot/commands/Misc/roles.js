@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: 'roles',
 	aliases: [],
-	cooldown: 0,
+	cooldown: 5,
 	permissions: [],
     category: 'Misc',
 	
@@ -14,7 +14,7 @@ module.exports = {
         .sort((a, b) => b.position - a.position)
         .map(r => r)
         .join("\n");
-        if (rolemap.length > 1024) rolemap = "To many roles to display";
+        if (rolemap.length > 1024) rolemap = "Too many roles to display";
         if (!rolemap) rolemap = "No roles";
         const embed = new Discord.MessageEmbed()
         .addField("Role List" , rolemap)
