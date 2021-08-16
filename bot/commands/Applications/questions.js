@@ -67,16 +67,6 @@ module.exports = {
 			.then(async (message) => {
 				message = message.first();
 				if (message.content.toUpperCase() == '1') {
-						const q = data.Positions0.Questions
-					let val = 0
-					let embed = new Discord.MessageEmbed()  
-					embed.setTitle(`Application Questions`)
-					q.forEach(a => {
-					  embed.addField(`${val++}`, `${a}`)
-					})
-					message.channel.send(
-						embed
-					);
 					const questions = [
 						'Specify an intro message',	
 						'Specify an acceptance message',
