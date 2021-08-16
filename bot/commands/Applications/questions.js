@@ -1,6 +1,7 @@
 const DiscordJS = require('discord.js');
 const { db } = require('../../firebase');
 const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js')
 
 module.exports = {
 	name: 'questions',
