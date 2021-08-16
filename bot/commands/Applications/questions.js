@@ -10,7 +10,7 @@ module.exports = {
 	permissions: [],
 	category: 'Applications',
 	description:
-		"This command sets the positions questions for the server",
+		"This command sets the position's questions for the server",
 	async execute(client, message, cmd, args) {
 		if (!message.member.hasPermission('ADMINISTRATOR') && !message.author.id === '491933949686448138')
 		return message.channel.send('You cannot use this command!')
