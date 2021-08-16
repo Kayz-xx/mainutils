@@ -69,7 +69,7 @@ module.exports = {
 				if (message.content.toUpperCase() == '1') {
 						const q = data.Positions0.Questions
 					let val = 0
-					let embed = new MessageEmbed()     
+					let embed = new Discord.MessageEmbed()  
 					embed.setTitle(`Application Questions`)
 					q.forEach(a => {
 					  embed.addField(`${val++}`, `${a}`)
