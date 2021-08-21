@@ -35,7 +35,7 @@ module.exports = {
     if(coins >= check[7]) val = check[8]
     
     let num = val - coins
-    if(val = check[8])
+    if(val == check[8])
     num = 0
 
     let bar = `<:pb1:871998564849582121><:pb2:871998577717698592><:pb2:871998577717698592><:pb2:871998577717698592><:pb3:871998593039495168>`
