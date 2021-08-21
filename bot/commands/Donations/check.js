@@ -59,11 +59,15 @@ module.exports = {
             if(per >= 80) bar = `<a:pbf1:871999120901029909><a:pbf2:871999177662533763><a:pbf2:871999177662533763><a:pbh1:872363339441901588><:pb3:871998593039495168>`
             if(per >= 90) bar = `<a:pbf1:871999120901029909><a:pbf2:871999177662533763><a:pbf2:871999177662533763><a:pbf2:871999177662533763><a:pbl3:872366029454577664>`
             if(per >= 100) bar = `<a:pbf1:871999120901029909><a:pbf2:871999177662533763><a:pbf2:871999177662533763><a:pbf2:871999177662533763><a:pbf3:871999189205254154>`
+            
+            let mesg = `${formatter.format(num)} left for next donation role`
+            if(num === 0)
+            mesg = `Congrats, you have all the roles`
 
     let embed = new MessageEmbed()
     .setAuthor(`${target.tag}'s Donations`)
     .setColor("RANDOM")
-    .addField(`Amount Donated in ${message.guild.name}:`, `${formatter.format(coins)} / ${formatter.format(val)} \`(${(per)}%)\`\n\`${formatter.format(num)} left for next donation role\``, true)
+    .addField(`Amount Donated in ${message.guild.name}:`, `${formatter.format(coins)} / ${formatter.format(val)} \`(${(per)}%)\`\n\`${mesg}\``, true)
     .addField(`Progress`, `${bar}`)
     .setTimestamp()
     message.channel.send(embed)
