@@ -34,7 +34,9 @@ module.exports = {
     if(coins >= check[6]) val = check[7]
     if(coins >= check[7]) val = check[8]
     
-    const num = val - coins
+    let num = val - coins
+    if(val = check[8])
+    num = 0
 
     let bar = `<:pb1:871998564849582121><:pb2:871998577717698592><:pb2:871998577717698592><:pb2:871998577717698592><:pb3:871998593039495168>`
 
@@ -62,7 +64,7 @@ module.exports = {
     .setAuthor(`${target.tag}'s Donations`)
     .setColor("RANDOM")
     .addField(`Amount Donated in ${message.guild.name}:`, `${formatter.format(coins)} / ${formatter.format(val)} \`(${(per)}%)\``, true)
-    .addField(`Progress`, `${num}\n${bar}`)
+    .addField(`Progress`, `${formatter.format(num)} left for next donation role.\n${bar}`)
     .setTimestamp()
     message.channel.send(embed)
   },
