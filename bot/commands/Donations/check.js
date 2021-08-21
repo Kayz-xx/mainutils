@@ -9,7 +9,7 @@ module.exports = {
     permissions: [],
     category: 'Donations',
     usage: '<user>',
-    description: 'Checks a user\'s donation or your own donation!',
+    description: 'Checks a users donation or your own donation!',
     
     async execute(client, message, cmd,  args) {
     
@@ -62,7 +62,7 @@ module.exports = {
             
             let mesg = `${formatter.format(num)} left for next donation role`
             if(num === 0)
-            mesg = `Congrats, you have all the roles`
+            mesg = `Congrats, you have all the donation roles`
 
     let embed = new MessageEmbed()
     .setAuthor(`${target.tag}'s Donations`)
