@@ -63,8 +63,8 @@ module.exports = {
     let embed = new MessageEmbed()
     .setAuthor(`${target.tag}'s Donations`)
     .setColor("RANDOM")
-    .addField(`Amount Donated in ${message.guild.name}:`, `${formatter.format(coins)} / ${formatter.format(val)} \`(${(per)}%)\``, true)
-    .addField(`Progress`, `${formatter.format(num)} left for next donation role.\n${bar}`)
+    .addField(`Amount Donated in ${message.guild.name}:`, `${formatter.format(coins)} / ${formatter.format(val)} \`(${(per)}%)\`\n\`${formatter.format(num)} left for next donation role\``, true)
+    .addField(`Progress`, `${bar}`)
     .setTimestamp()
     message.channel.send(embed)
   },
