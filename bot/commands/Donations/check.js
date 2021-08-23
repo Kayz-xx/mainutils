@@ -9,7 +9,7 @@ module.exports = {
     permissions: [],
     category: 'Donations',
     usage: '<user>',
-    description: 'Checks a users donation or your own donation!',
+    description: 'Checks a user\'s donation or your own donation!',
     
     async execute(client, message, cmd,  args) {
     
