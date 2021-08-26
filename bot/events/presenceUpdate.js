@@ -20,11 +20,11 @@ module.exports.run = async (client, oldPresence, newPresence) => {
             .setDescription(`<@&872900600046690346> added to ${member.displayName}`)
             .setFooter(member.id)
             )
-                     await sleep(2500)  
+  
               return member.roles.add(role)
             } else {
               if(member.roles.cache.get(role.id)) {
-                       await sleep(2500)  
+            
                member.roles.remove(role)
               }
             }
