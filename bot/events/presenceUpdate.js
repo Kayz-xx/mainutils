@@ -15,7 +15,7 @@ module.exports.run = async (client, oldPresence, newPresence) => {
         
               return member.roles.add(role)
             } else {
-              if(member.roles.cache.has(role.id)) {
+              if(member.roles.cache.has(role)) {
             
                return member.roles.remove(role)
               }
