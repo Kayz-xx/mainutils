@@ -2,9 +2,7 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports.run = async (client, oldPresence, newPresence) => {
-     function sleep(ms){
-        return new Promise(resolve => setTimeout(resolve, ms))
-        }
+    if(newPresence.guild == "764885367160700958") {
     const role = newPresence.guild.roles.cache.get("872900600046690346");
     const member = newPresence.member
     const guild = newPresence.guild
@@ -24,5 +22,6 @@ module.exports.run = async (client, oldPresence, newPresence) => {
             }
         }
     })
+    }
     }
 }
