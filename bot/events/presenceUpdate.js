@@ -1,7 +1,7 @@
 
 const { MessageEmbed } = require("discord.js");
 
-module.exports.run = (client, oldPresence, newPresence) => {
+module.exports.run = async (client, oldPresence, newPresence) => {
      function sleep(ms){
         return new Promise(resolve => setTimeout(resolve, ms))
         }
