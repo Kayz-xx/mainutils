@@ -4,7 +4,7 @@ module.exports = {
   name: "joke",
   category: "fun",
 
-  description: "Get Fresh Joke :D",
+  description: "Get fresh jokes!",
   async execute(client, message, cmd,  args) {
 
 
