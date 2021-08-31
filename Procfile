@@ -1,2 +1,1 @@
-Worker: node server.js
-web: nuxt start
+Worker: node index.js

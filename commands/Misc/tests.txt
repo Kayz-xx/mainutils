@@ -1,0 +1,953 @@
+
+const { MessageButton, MessageActionRow } = require("discord-buttons");
+const config = require('../../config.json')
+const Nuggies = require('nuggies');
+
+module.exports = {
+    name: 'reactionroles',
+    aliases: ['rr'],
+    cooldown: '0',
+    permissions: [],
+  
+    async execute(client, message, cmd,  args, Discord) {
+        const brmanager = new Nuggies.buttonroles();
+        message.channel.send('Send messages in `roleID color label emoji` syntax! Once finished say `done`.');
+    
+        const filter = m => m.author.id === message.author.id;
+        const collector = message.channel.createMessageCollector(filter, { max: Infinity });
+
+        collector.on('collect', async (msg) => {
+            if (!msg.content) return message.channel.send('Invalid syntax');
+            if (msg.content.toLowerCase() == 'done') return collector.stop('DONE');
+            const colors = ['grey', 'gray', 'red', 'blurple', 'green'];
+            if (!msg.content.split(' ')[0].match(/[0-9]{18}/g) || !colors.includes(msg.content.split(' ')[1])) return message.channel.send('Invalid syntax');
+    
+            const role = msg.content.split(' ')[0];
+            // const role = message.guild.roles.cache.get(roleid);
+            if (!role) return message.channel.send('Invalid role');
+    
+            const color = colors.find(color => color == msg.content.split(' ')[1]);
+            if (!color) return message.channel.send('Invalid color');
+    
+            const label = msg.content.split(' ').slice(2, msg.content.split(' ').length - 1).join(' ');
+    
+            const reaction = (await msg.react(msg.content.split(' ').slice(msg.content.split(' ').length - 1).join(' ')).catch(/*() => null*/console.log));
+    
+            const final = {
+                role, color, label, emoji: reaction ? reaction.emoji.id || reaction.emoji.name : null,
+            };
+            brmanager.addrole(final);
+        })
+    
+        collector.on('end', async (msgs, reason) => {
+            if (reason == 'DONE') {
+                const embed = new Discord.MessageEmbed()
+                    .setTitle('Button roles!')
+                    .setDescription('Click on the buttons to get the specific role or vice-versa')
+                    .setColor('RANDOM')
+                    .setTimestamp();
+                Nuggies.buttonroles.create({ message, content: embed, role: brmanager, channelID: message.channel.id })
+        
+            }
+        
+        })
+        client.on('clickButton', button => {
+            
+            Nuggies.buttonclick(client, button);
+        });
+    }
+    
+
+}
+
+         <code>Aliases : </code><kbd>{{ cmd.aliases ? cmd.aliases.join(", ") : "None"}}</kbd> <br>
+
+         const {Client, Message, MessageEmbed}= require('discord.js');
+const {afk} = require('')
+module.exports = {
+    name: 'afk',
+  aliases: ['afk'],
+  cooldown: '0',
+  permissions: [],
+  category: "info",
+
+  async execute(client, message, cmd,  args) {
+      const reason = args.join(' ') || 'No reason';
+
+      afk.set(message.author.id, [Date.now(), reason])
+
+      message.reply(`Afk set to \`${reason}\``)
+  }
+  }
+
+  const {afk} = 'afk'
+const moment = require('moment')
+module.exports.run = (client, message) => {
+ if(!message.guild || message.author.bot) return
+
+ const mentionedMember = message.mentions.members.first()
+     if(mentionedMember){
+         const data = afk.get(mentionedMember.id)
+
+         if(data){
+             const [ timestamp, reason] = data
+             const timeAgo = moment(timestamp).fromNow()
+
+             message.reply(`${mentionedMember} is currenly afk (${timeAgo})\nReason: ${reason}`)
+         }
+     }
+
+     const getData = afk.get(message.author.id)
+     if(getData) {
+         afk.delete(message.author.id)
+         message.reply(`${message.author} afk has been removed!`)
+     }
+}
+
+//message.js/*const client = require('../index')
+const config = require(`../config.json`)
+const { Collection } = require('discord.js');
+const Timeout = new Collection();
+const ms = require('ms')
+
+
+module.exports.run = async (client, message) => {
+	if(message.author.bot) return;
+	if(!message.content.startsWith(config.prefix)) return;
+	if(!message.guild) return;
+	const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+	const cmd = args.shift().toLowerCase();
+	if(cmd.length == 0 ) return;
+	let command = client.commands.get(cmd)
+	if(!command) command = client.commands.get(client.aliases.get(cmd));
+	if (!command) return message.reply(`invalid command`)
+
+  if(command.cooldown) {
+			if(Timeout.has(`${command.name}${message.author.id}`)) return message.channel.send(new MessageEmbed()
+						.setTitle('An Error Occured <:sim:860034795169251358>')
+						.setAuthor('Cooldown')
+						.setDescription(
+							`Please wait ${time_left.toFixed(
+								1
+							)} more seconds before using ${command.name}`
+						)
+						.setFooter(`Run -help [command] to check cooldowns`)
+						.setTimestamp()
+						.setColor('CE1212')
+				)) - Date.now(), {long : true})}\` cooldown.`)
+			Timeout.set(`${command.name}${message.author.id}`, Date.now() + command.cooldown)
+			setTimeout(() => {
+				Timeout.delete(`${command.name}${message.author.id}`)
+			}, command.cooldown)
+		}
+	  if(command.subcommands && (command.subcommands.includes(args[0]))){
+			let subcommand = args.shift()
+			subcommand = command[subcommand]
+
+			if(subcommand.args){
+			  return message.reply(`Missing argument `)
+			}
+			if(subcommand.guildOnly){
+			 if(!message.guild){
+				return message.reply(`You cannot run this command in dms`)
+			  }
+			}
+
+            	if (command) {
+		if (command.ownerOnly) {
+			if (message.author.id !== '491933949686448138') return message.channel.send("This command can only be use by owner!")
+		  }
+	}
+
+			return subcommand.run(client, message, args);
+		  }else{
+			if(command.args && !args.length){
+			  return message.channel.send(`Missing arguments \nUsage : \`${config.prefix}${command.usage}\``)
+			}
+				try {
+		command.run(client, message, args);
+	} catch (err) {
+		message
+			.reply(
+				new MessageEmbed()
+					.setTitle(
+						'An Error Occured <:sim:860034795169251358>, use `help`'
+					)
+					.setDescription('This command does not exist!')
+					.setFooter(
+						`Use \`help\` [command] to see specific commands`
+					)
+					.setTimestamp()
+					.setColor('CE1212')
+			)
+			.then((msg) => {
+				msg.delete({ timeout: 3000 });
+			});
+		  }
+
+
+};*/
+
+const { Message, Client, MessageEmbed } = require('discord.js');
+const { db } = require('../../firebase.js');
+module.exports = {
+	name: 'slist',
+	aliases: ['slistedit'],
+	cooldown: '0',
+	permissions: [],
+	category: 'Misc',
+	ownerOnly: true,
+	async execute(client, message, cmd, args) {
+		if (cmd === 'slist') {
+			let data =
+				(await db
+					.ref(`Lists/slist`)
+					.once('value')
+					.then((snapshot) => snapshot.val())) || [];
+
+			const slist = `• Alcohol - 7,500
+ • Apple - 5,000
+ • Cheese - 35,000
+ • Coin Bomb - 16,000
+ • Fake ID - 800
+ • Fishing Pole - 14,000
+ • Horseshoe - 9,000
+ • Hunting Rifle - 14,000
+ • Landmine - 6,000
+ • Laptop - 2,000
+ • Life Saver - 10,000
+ • Padlock - 2,000
+ • Rare Pepe - 50,000
+ • Pepe Coin - 500,000
+ • Pepe Crown - 240,000,000
+ • Pepe Medal - 7,000,000
+ • Pepe Trophy - 35,000,000
+ • Cell Phone - 800
+ • Pink Phallic Object - 5
+ • Pizza Slice - 175,000
+ • Box of Sand - 2,000
+ • Shovel - 12,000
+ • Fidget Spinner - 5,000
+ • Robber's Wishlist - 20,000
+ • Tidepod - 10,000`;
+
+			db.ref(`Lists/slist`).set(slist);
+			const embed = new MessageEmbed()
+				.setTitle('Shop Items List')
+				.setDescription(data)
+				.setFooter(message.guild.name)
+                .setImage(message.guild.iconURL(), )
+			let msg = await message.channel.send(embed);
+		}
+	},
+};
+
+const config = require('../config.json');
+const { MessageEmbed } = require('discord.js');
+const cooldowns = new Map();
+const Discord = require('discord.js');
+module.exports.run = (client, message) => {
+	const prefix = config.prefix;
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+	const args = message.content.slice(prefix.length).split(/ +/);
+	const cmd = args.shift().toLowerCase();
+
+	const command =
+		client.commands.get(cmd) ||
+		client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+
+	const validPermissions = [
+		'CREATE_INSTANT_INVITE',
+		'KICK_MEMBERS',
+		'BAN_MEMBERS',
+		'ADMINISTRATOR',
+		'MANAGE_CHANNELS',
+		'MANAGE_GUILD',
+		'ADD_REACTIONS',
+		'VIEW_AUDIT_LOG',
+		'PRIORITY_SPEAKER',
+		'STREAM',
+		'VIEW_CHANNEL',
+		'SEND_MESSAGES',
+		'SEND_TTS_MESSAGES',
+		'MANAGE_MESSAGES',
+		'EMBED_LINKS',
+		'ATTACH_FILES',
+		'READ_MESSAGE_HISTORY',
+		'MENTION_EVERYONE',
+		'USE_EXTERNAL_EMOJIS',
+		'VIEW_GUILD_INSIGHTS',
+		'CONNECT',
+		'SPEAK',
+		'MUTE_MEMBERS',
+		'DEAFEN_MEMBERS',
+		'MOVE_MEMBERS',
+		'USE_VAD',
+		'CHANGE_NICKNAME',
+		'MANAGE_NICKNAMES',
+		'MANAGE_ROLES',
+		'MANAGE_WEBHOOKS',
+		'MANAGE_EMOJIS',
+	];
+	if (command) {
+		if (!cooldowns.has(command.name)) {
+			cooldowns.set(command.name, new Discord.Collection());
+		}
+
+		const current_time = Date.now();
+		const time_stamps = cooldowns.get(command.name);
+		const cooldown_amount = command.cooldown * 1000;
+
+		//If time_stamps has a key with the author's id then check the expiration time to send a message to a user.
+		if (time_stamps.has(message.author.id)) {
+			const expiration_time =
+				time_stamps.get(message.author.id) + cooldown_amount;
+
+			if (current_time < expiration_time) {
+				const time_left = (expiration_time - current_time) / 1000;
+
+				return message.reply(
+					new MessageEmbed()
+						.setTitle('An Error Occured <:sim:860034795169251358>')
+						.setAuthor('Cooldown')
+						.setDescription(
+							`Please wait ${time_left.toFixed(
+								1
+							)} more seconds before using ${command.name}`
+						)
+						.setFooter(`Run -help [command] to check cooldowns`)
+						.setTimestamp()
+						.setColor('CE1212')
+				);
+			}
+		}
+
+		//If the author's id is not in time_stamps then add them with the current time.
+		time_stamps.set(message.author.id, current_time);
+		//Delete the user's id once the cooldown is over.
+		setTimeout(
+			() => time_stamps.delete(message.author.id),
+			cooldown_amount
+		);
+	}
+
+	if (command) {
+		if (command.ownerOnly) {
+			if (message.author.id !== '491933949686448138') return message.channel.send("This command can only be use by owner!")
+		  } 
+		}
+
+		if(command.subcommands && (command.subcommands.includes(args[0]))){
+			let subcommand = args.shift()
+			subcommand = command[subcommand]
+
+			if(subcommand.args){
+			  return message.reply(`Missing argument `)
+			}
+			if(subcommand.guildOnly){
+			 if(!message.guild){
+				return message.reply(`You cannot run this command in dms`)
+			  }
+			}
+
+			return subcommand.run(client, message, args)
+		} else {
+
+			if(command.args && !args.length){
+			  return message.channel.send(`Missing arguments \nUsage : \`${prefix}${command.usage}\``)
+			}
+			command.run(client, message, args);
+		  }
+	}
+
+
+const Discord = require('discord.js')
+let auctionOn = 'false'
+let auctionStatus = 'false'
+module.exports = {
+    name: "auction",
+    aliases: ["auc", "auc start", "bid"],
+    category: 'Misc',
+    description: "An auction system!",
+    cooldown: 0,
+    permissions: [],
+    
+    async execute(client, message, cmd, args) {
+        if(cmd === 'auc'){
+       let user = message.mentions.users.first()
+       if(!user) return message.channel.send("Mention a user!")
+       let item = args.slice(1, 3).join(" ")
+       if(!item) return message.channel.send("Specify an item!")
+       let price = args[3]
+       if(!price) return message.channel.send("Specify a prize!")
+
+       let emb = new Discord.MessageEmbed()
+       .setColor("RED")
+       .setTitle(`${item} auction`)
+       .setDescription(`starting price: \`${price}\`\nseller: ${user}`)
+       .setFooter('Auction will start when there are 3 reactions.')
+       message.channel.send(emb).then(function (message) {
+        message.react("👍")
+      })
+       auctionOn = 'true'
+    }
+
+      if(cmd === 'auc start') {
+        if(auctionOn === "true") {
+          return message.channel.send("Auction has started")
+          } else if ( auctionStatus = 'true' ) {
+              return message.channel.send("An auction is already being hosted!")
+          } 
+      } auctionStatus = 'true'
+      console.log(auctionStatus)
+     
+      if(cmd === 'bid'){
+          if(auctionStatus === "true") {
+              return message.channel.send(`Kayz bid ${args[0]}`)
+          }
+      } auctionStatus = 'false'
+    }
+}
+    
+	
+const DiscordJS = require('discord.js');
+module.exports = {
+	name: 'guessthenumber',
+	aliases: ['gtn', 'guess'],
+	cooldown: '0',
+	permissions: [],
+	category: 'Fun',
+	description: 'Just a regular guess command',
+
+	async execute(client, message, cmd, args) {
+		let number = 20
+        let guess = args[0]
+		if(guess) number = guess
+		if(guess > 100) return message.inlineReply("The max guess is 100!")
+		let attempts = 4
+		if(number >= 40) attempts = 6
+		if(number >= 60) attempts = 8
+		if(number >= 80) attempts = 10
+		if(number >= 100) attempts = 12
+		message.inlineReply(`You've got ${attempts} attempts to try and guess the random number between **1 and ${number}**. Type the number in chat, type \`end\` to end`)
+
+		let num = Math.floor(Math.random() * number)
+		console.log(num)
+
+		let counter = 0;
+
+					const filter = (m) => {
+						return m.author.id === message.author.id;
+					};
+
+					const collector = new DiscordJS.MessageCollector(
+						message.channel,
+						filter,
+						{
+							max: attempts,
+							time: 120000,
+						}
+					);
+
+					collector.on('collect', (m) => {
+						if (m.content.toLowerCase() == 'end')
+							return collector.stop('END');
+						if(m.content > number) return message.inlineReply(`You need to enter a valid number between 1 and ${number}\n You have \`${attempts}\` attempts`)
+						m.content.forEach(message => {
+							attempts--
+						})
+					});
+
+					collector.on('end', (collected, reason) => {
+						if (reason == 'END') {
+							message.inlineReply("You ended the game.");
+						}
+						if (reason == 'ALL') {
+							message.inlineReply("You used all of your attempts.");
+						}
+						collected.forEach((value) => {
+							console.log(value.content);
+						});
+					});
+	},
+};
+
+const { MessageEmbed } = require('discord.js')
+const {db} = require('../../firebase.js')
+const Discord = require('discord.js')
+const {ReactionPages} = require('reconlx')
+const {MessageAttachment} = require('discord.js')
+
+
+    exports.name = 'report',
+    exports.description = 'Reports a specific user!',
+    exports.usage = '<Mention Reason>'
+
+    exports.run = async(client, message, args) => {
+      const flags = new Map()
+      let type;
+          try {
+            
+            const remainder = ` ${args.join(" ")}`;
+            const params = remainder.split(/ --| —/).filter(el => !!el);
+            
+            console.log(remainder)
+            console.log(params)
+            
+            params.forEach(content => {
+              if(!content.startsWith(" ")){
+              console.log(content)
+              flags.set(` ${content.split(' ').slice(0,1).join(' ')}`,`${content.split(' ').slice(1).join(' ')}`)
+            }
+            })
+            console.log(flags)   
+    
+            /*if(flags.get(` type`)){
+                type = flags.get(` type`)
+            }else{
+                return message.reply(`missing the flag \`--type\``)
+            }*/
+    
+            
+              } catch (e) {
+            message.channel.send(e.message)
+            console.log(e.stack)
+        }
+      
+      
+      let types = ["dmc scams","partnership scams","discord tos","others"]
+      if(flags.get(` type`) != null || !types.includes(flags.get(` type`))){
+        if(!types) return message.reply('Specify a type!').then(m => m.delete({timeout: 15000}))
+      }
+       
+      
+      
+
+      
+      let data2;
+      
+      if(flags.get(` type`) != null){
+         data2 = await db
+    .ref(`reports/info`)
+    .once("value")
+    .then(snapshot => snapshot.val()) 
+        
+       data2 = data2.filter((a) => {
+         return a.type == flags.get(` type`)
+       })
+        
+     /*   data2 = Object.filter(data2, (data,x) => {
+          console.log(data2)
+          console.log(data)
+          console.log(data2[data])
+          data2[data].type == flags.get(` type`)
+        }); */
+      }else{
+         data2 = await db
+    .ref(`reports/info`)
+    .once("value")
+    .then(snapshot => snapshot.val()) 
+      }
+      
+      
+        console.log(data2)
+      
+      
+        if(data2 == null){
+             return message.reply(`There are no reports`)
+           } 
+        //console.log(data2)
+      let report_case = Object.keys(data2)
+      report_case = report_case.reverse()
+      const author = message.author
+      return message.channel.send('Loading...').
+        then(async message => {
+        const index  = 10
+            const generateEmbed = start => {
+                const current = report_case.slice(start, start + index)
+              const embed = new MessageEmbed()
+      embed.setTitle(`Top 10 most recent cases`)
+      current.forEach(a => {
+        embed.addField(`Case ${data2[a].case}`,`Reported user id : ${data2[a].reported_user_id}`)
+      })
+              embed.setDescription(`${data2.length} reports have been submitted, run **\`report view <id>\`** to view a specific report`)
+      embed.setFooter('syntax : ')
+               
+                return embed
+              
+              }
+              if (report_case.length > 0){
+                message.edit(generateEmbed(0))
+                    if (report_case.length <= index) return
+                    message.react('➡️')
+                    const collector = message.createReactionCollector(
+                      (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && user.id === author.id ,
+                      {time: 120*1000}
+                    )
+                  
+                    let currentIndex = 0
+                    collector.on('collect', reaction => {
+                      message.reactions.removeAll().then(async () => {
+                        reaction.emoji.name === '⬅️' ? currentIndex -= index : currentIndex += index
+                        message.edit(generateEmbed(currentIndex))
+                        if (currentIndex !== 0) await message.react('⬅️')
+                        if (currentIndex + index < report_case.length) message.react('➡️')
+                      })
+                    })
+            
+                }else{
+                    return message.channel.send(`0 reports`)
+
+                }
+              })
+    }
+
+  exports.subcommands = [
+    "view",
+    "logs",
+    "delete",
+    "submit",
+    "edit"
+  ]
+
+exports.view = {
+    name: 'view',
+    description: 'Views an existing report!',
+    usage:'<view><report>',
+
+     run: async (client, message, args)  => {
+       
+        //message.delete({timeout: 5000});
+        let report = args[0] || null
+        if(report === null){
+        return message.channel.send('```You did not select a specific report```')
+        } else {
+           let data = await db
+    .ref(`reports/info`)
+    .once("value")
+    .then(snapshot => snapshot.val()) || []
+           if(data.length == 0){  
+             return message.reply(`There are no reports`)
+           }else if (report > data.length){
+             return message.reply(`there is only ${data.length} reports, not ${report}`)
+           }
+          report = report - 1
+          data = data[report]
+          if(data == null) return message.channel.send(`Case ${report} has been deleted.`)
+          return message.channel.send({ content : ``, embed : {
+            title : `Case ${parseInt(report + 1)}`,
+            //description : `**Reason :** \n${data.reason}`,
+            fields : [
+              {name : `Reason :` , value: data.reason},
+              {name : `Proof :` , value : data.proof},
+              {name : `Reponsible Moderator`, value : data.responsible_moderator_tag + `\n<@${data.responsible_moderator_id}> \n\`${data.responsible_moderator_id}\``,inline : true},
+              //{name : `Reason`, value : data.Reason},
+              {name : `Reported User`, value : `<@${data.reported_user_id}>`,inline : true},
+              
+            ],
+            footer : {
+              text : `user id - ${data.reported_user_id} | Server : ${data.server_name}`
+            }, color : "RANDOM"
+          }})
+          
+        }
+     }
+}
+
+
+exports.delete = {
+    name: 'delete',
+    description: 'Deletes an existing report!',
+    //args:true,
+    usage:'<delete><report>',
+
+     run: async (client, message, args)  => {
+       
+      
+        let report = args[0] || null
+        if(report === null){
+        return message.channel.send('```You did not select a specific report```').then(m => m.delete({timeout: 15000}));
+        } else {
+           let data = await db
+    .ref(`reports/info`)
+    .once("value")
+    .then(snapshot => snapshot.val()) || []
+           if(data == null){
+             return message.reply(`There are no reports`) 
+           }else if (report > data.length){
+             return message.reply(`there is only ${data.length} reports, not ${report}`)
+            
+           }else {
+             delete data[parseInt(report - 1)]
+             db.ref(`reports/info`).set(data)
+             return message.channel.send({
+          embed : {
+            description : `Report Deleted!`,
+            color : "RANDOM"
+          }
+        })
+             
+             //let reports = Object.keys(data)
+             //console.log(reports)
+             //let new_reports = reports.slice(report,report)
+             //c//onsole.log(new_reports)
+             //d//b.ref(`reports/info`).set(new_reports)
+           }
+}
+             }
+        }
+
+exports.submit = {
+       name: 'submit',
+       description: 'Reports a specific user!',
+       usage: '<userid> <reason>',
+
+        run: async(client, message, args) => {
+          
+          /*let data2 = await db
+          .ref(`reports/${message.guild.id}/settings/`)
+          .once("value")
+          .then(snapshot => snapshot.val()) || []
+          if(!message.member.roles.cache.has(`${data2.mod_role}`)) return message.channel.send('You do not have permissions to use this command')*/
+            
+        /*let User = args[0] || null //if we use args 0 // they would be able to ping a role instead too
+        if(User === null){
+        return message.channel.send('You must include a user id!').then(m => m.delete({timeout: 15000}));
+
+ }
+
+        let reason = args.slice(1).join(" ");
+        if(!reason) return message.reply('Specify a reason!').then(m => m.delete({timeout: 15000}));*/
+            let user;
+            let reason;
+            let type;
+            let proof;
+          try {
+            const flags = new Map()
+            const remainder = ` ${args.join(" ")}`;
+            const params = remainder.split(/ --| —/).filter(el => !!el);
+            
+            console.log(remainder)
+            console.log(params)
+            
+            params.forEach(content => {
+              if(!content.startsWith(" ")){
+              console.log(content)
+              flags.set(` ${content.split(' ').slice(0,1).join(' ')}`,`${content.split(' ').slice(1).join(' ')}`)
+             // message.channel.send(`Flag : ${content.split(' ').slice(0,1).join(' ')}`)
+              //message.channel.send(`Content in flag : ${content.split(' ').slice(1).join(' ')}`)
+            }
+            })
+            console.log(flags)   
+
+          
+            if(flags.get(` user`)){
+                user = flags.get(` user`)
+            }else{
+                return message.reply(`missing the flag \`--user\``)
+            }
+    
+            if(flags.get(` reason`)){
+                reason = flags.get(` reason`)
+                if(reason.length >=1024){
+                  return message.reply(`Reason cannot contain more than 1024 character`)
+                }
+            }else{
+                return message.reply(`missing the flag \`--reason\``)
+            }
+            
+            if(flags.get(` type`)){
+                type = flags.get(` type`)
+            }else{
+                return message.reply(`missing the flag \`--type\``)
+            }
+            
+            if(flags.get(` proof`)){
+                proof = flags.get(` proof`)
+              if(proof.length >=1024){
+                  return message.reply(`Proof cannot contain more than 1024 character`)
+                }
+            }else{
+                return message.reply(`missing the flag \`--proof\``)
+            }
+            
+            let types = ["dmc scams","partnership scams","discord tos","others"]
+            if(!types.includes(type)){
+              return message.reply(`\`${type}\` is not a valid type of report.`)
+            }
+    
+            
+        } catch (e) {
+            message.channel.send(e.message)
+            console.log(e.stack)
+        }
+          
+
+ const embed =   new Discord.MessageEmbed()
+        
+        .setTitle('Report!')
+        .setColor('RANDOM')
+        // .setDescription(`**Reason :** \n${reason}`)
+        .addFields(
+        {name : "Reason :",value: reason},
+        {name : "Proof :" ,value : proof},
+        {name: "Action Taken By", value: `${message.author} \n${message.author.tag} \n\`${message.author.id}\``, inline: true},
+        {name: "User Reported", value: `\`${user}\``, inline: true},
+        //{name: "Reason", value: `${reason}`, inline: false},
+    )
+        .setTimestamp()
+ .setFooter(`Server : ${message.guild.name}`)
+  
+          
+          let filter = m => m.author.id === message.author.id
+           message.channel.send(`Are you sure you want to submit the report \`YES\` / \`NO\``,embed).then(() => {
+           message.channel.awaitMessages(filter, {
+          max: 1,
+          time: 30000,
+          errors: ['time']
+        })
+        .then(async msg => {
+             
+          message = msg.first()
+          if (message.content.toUpperCase() == 'YES' || message.content.toUpperCase() == 'Y') {
+            
+            const guild = message.guild;
+      
+      const data = await db
+    .ref(`reports/info`)
+    .once("value")
+    .then(snapshot => snapshot.val())|| []
+      
+      let report_case = Object.keys(data)
+      console.log(report_case)
+      if(report_case.length <= 0){
+        console.log(1)
+        report_case = 1
+      }else{
+        report_case = parseInt(report_case.unshift() + 1)
+      }
+      
+
+      data.push({
+        "reason" : reason,
+        "proof" : proof,
+    "responsible_moderator_id" : `${message.author.id}`,
+    "responsible_moderator_tag" : `${message.author.tag}`,
+    "timestamp" : Date.now(),
+    "reported_user_id" : user,
+    "server_id" : guild.id,
+        "server_name" : guild.name,
+        "type" : type ,
+        "case" : `${report_case}`
+      })
+      db.ref(`reports/info`).set(data)
+            message.channel.send(`Your Report Has Been Submitted !`,embed)
+          } else if (message.content.toUpperCase() == 'NO' || message.content.toUpperCase() == 'N') {
+            message.channel.send(`Report has not been sent!`)
+          } else {
+            message.channel.send(`Invalid Response`)
+          }
+        })
+        .catch(error => {
+             console.log(error)
+            message.channel.send('Timeout');
+        });
+    })
+            
+          
+            
+     /* 
+     let channel = args[0] || null
+        if(channel === null){
+        return message.channel.send('``You havent set a report channel``').then(m => m.delete({timeout: 15000}));
+        } else {
+        let data3 = await db
+    .ref(`reports/${message.guild.id}/settings/logs`)
+    .once("value")
+    .then(snapshot => snapshot.val()) 
+        
+           if(data3 == null){
+             return message.reply(`No channel has been set`)
+           }
+            console.log(data3)
+                                 
+       message.guild.channels.cache.get(data3).
+           send(
+   new Discord.MessageEmbed()
+        
+        .setTitle('Report!')
+        .setColor('RANDOM')
+         .setDescription(`**Reason :** \n${reason}`)
+        .addFields(
+        {name: "Action Taken By", value: `${message.author.tag}`, inline: true},
+        {name: "User Reported", value: `${user}`, inline: true},
+        //{name: "Reason", value: `${reason}`, inline: false},
+    )
+        .setTimestamp()
+  )
+      
+    }*/
+  }
+}
+
+exports.edit = {
+       name: 'edit',
+       description: 'Edits an existing report',
+       usage: '<case number>',
+
+          run: async(client, message, args) => {
+        let report = args[0] || null
+        if(report === null){
+        return message.channel.send('```You did not select a specific report```')
+        } else {
+            let data = await db
+    .ref(`reports/info`)
+    .once("value")
+    .then(snapshot => snapshot.val()) 
+                 
+              if(data == null){
+             return message.reply(`There are no reports`) 
+           }else if (report > data.length){
+             return message.reply(`there is only ${data.length} reports, not ${report}`)
+            
+           }
+              const newreason = args.slice(1).join(" ");
+        if(!newreason) return message.reply('Please specify a new reason').then(m => m.delete({timeout: 15000}));
+           const guild = message.guild;
+          const User = message.mentions.users.first() || null
+          
+          data[parseInt(report - 1)] = {
+            "reason" : newreason,
+            "responsible_moderator_id" : `${message.author.id}`,
+            "responsible_moderator_tag" : `${message.author.tag}`,
+            "timestamp" : Date.now(),
+            "reported_user_id" : data[parseInt(report - 1)].reported_user_id,
+            "server_id" : guild.id
+          }
+          db.ref(`reports/info`).set(data)
+          return message.channel.send(`Reason Edited`)
+          
+          /*
+            console.log(data)
+          const newreason = args.slice(1).join(" ");
+        if(!newreason) return message.reply('Please specify a new reason').then(m => m.delete({timeout: 15000}));
+          
+           data.push({
+            "reason" : newreason,
+        })
+           db.ref(`reports/info`).set(data)
+          
+            
+            report = report - 1
+            data = data[report]
+            let list = [`${data.reason}`]
+            list.splice(0,100, `${newreason}`);
+            console.log(list)*/
+          
+          }
+  
+          }
+}
+      
+

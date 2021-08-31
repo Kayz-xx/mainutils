@@ -1,0 +1,83 @@
+const ms = require('ms')
+const Discord = require("discord.js")
+const {db} = require('../../firebase.js')
+module.exports = {
+    name: 'remind',
+    aliases: ['rm'],
+    cooldown: '0',
+    permissions: [],
+    category: 'Misc',
+    usage: '<time> <reminder>',
+    description: 'Reminds a user about something',
+   
+  async execute(client, message, cmd,  args) {
+
+        let time = args[0];
+        let user = message.author
+        let reminder = args.splice(1).join(' ')
+
+        const notime = new Discord.MessageEmbed()
+            .setColor('#F30B04')
+            .setDescription(`**Please specify the time!**`)
+
+        const wrongtime = new Discord.MessageEmbed()
+            .setColor('#F30B04')
+            .setDescription(`**Sorry I only do d, m, h, or s.**`)
+
+        const reminderembed = new Discord.MessageEmbed()
+            .setColor('#F30B04')
+            .setDescription(`**Please tell me what you want to be reminded off**`)
+
+        if (!args[0]) return message.channel.send({embeds: [notime]})
+        if (
+            !args[0].endsWith("d") &&   
+            !args[0].endsWith("m") &&
+            !args[0].endsWith("h") &&
+            !args[0].endsWith("s")
+        )
+
+
+            return message.channel.send({embeds: [wrongtime]})
+        if (!reminder) return message.channel.send({embeds: [reminderembed]})
+
+
+        message.channel.send({content: `Alright **${message.member.displayName}**, I'll remind you about ${reminder} in ${time}`})
+
+   
+
+        let data2 = await db
+        .ref(`Reminders/${message.guild.id}/${message.author.id}/List`)
+        .once("value")
+        .then(snapshot => snapshot.val())|| []
+        let remindId = Object.keys(data2)
+        if(remindId.length <= 0){
+          console.log(1)
+          remindId = 1
+        } else {
+          remindId = parseInt(remindId.unshift() + 1)
+        }
+        data2.push({
+            "time": time,
+            "reminder": reminder,
+            "id": remindId
+        })
+        db.ref(`Reminders/${message.guild.id}/${message.author.id}/List`).set(data2)
+    
+        const reminderdm = new Discord.MessageEmbed()
+        .setColor('#7289DA')
+        .setTitle(`Reminder`)
+        .setDescription(`${data2.time} ago you asked me to be reminded of: "${data2.reminder}"`)  
+        .addField('Original Message', message.url)
+
+
+        setTimeout(async function () {
+            try{
+ 
+             await user.send({embeds: [reminderdm]})
+            }catch(err){
+ 
+            } 
+            
+         }, ms(time));
+    }
+}

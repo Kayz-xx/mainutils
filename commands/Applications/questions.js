@@ -1,0 +1,360 @@
+const DiscordJS = require('discord.js');
+const { db } = require('../../firebase');
+const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js')
+const {Permissions} = require('discord.js')
+
+module.exports = {
+	name: 'questions',
+	aliases: ['appsetup'],
+	cooldown: '0',
+	permissions: [],
+	category: 'Applications',
+	description:
+		"This command sets the position's questions for the server",
+	async execute(client, message, cmd, args) {
+		if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) && !message.author.id === '491933949686448138')
+		return;
+		const filter = (m) => m.author.id === message.author.id;
+
+		let data =
+			(await db
+				.ref(`Applications/${message.guild.id}`)
+				.once('value')
+				.then((snapshot) => snapshot.val())) || [];
+
+		db.ref(`Applications/${message.guild.id}`);
+
+		String.prototype.capitalize = function() {
+			return this.charAt(0).toUpperCase() + this.slice(1);
+		};
+		//if(!data.Positions0.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions0.Name.capitalize()}`)
+		//if(!data.Positions1.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions1.Name.capitalize()}`)
+		//if(!data.Positions2.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions2.Name.capitalize()}`)
+		//if(!data.Positions3.Questions) message.channel.send(`This guild has not setup questions for position- ${data.Positions3.Name.capitalize()}`)
+		const msg = await message.channel.send({embeds: [
+			new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle('Positions Availible')
+				.setAuthor('Select one of the below!')
+				.addFields(
+					{
+						name: `1.${data.Positions0.Name}`,
+						value: `Total Questions: 7 \n Status: ${data.Positions0.Status.capitalize()}`,
+						inline: true,
+					},
+					{
+						name: `2.${data.Positions1.Name}`,
+						value: `Total Questions: 6 \n Status: ${data.Positions1.Status.capitalize()}`,
+						inline: true,
+					},
+					{
+						name: `3.${data.Positions2.Name}`,
+						value: `Total Questions: 12 \n Status: ${data.Positions2.Status.capitalize()}`,
+						inline: true,
+					},
+					{
+						name: `4.${data.Positions3.Name}`,
+						value: `Total Questions: 5 \n Status: ${data.Positions3.Status.capitalize()}`,
+						inline: true,
+					}
+				)]}
+		);
+		const collected = await msg.channel
+			.awaitMessages(filter, {
+				max: 1,
+				time: 60000,
+			})
+			.then(async (message) => {
+				message = message.first();
+				if (message.content.toUpperCase() == '1') {
+					const questions = [
+						'Specify an intro message',	
+						'Specify an acceptance message',
+						'What do you want as the 1st question?',
+						'What do you want as the 2nd question?',
+						'What do you want as the 3rd question?',
+						'What do you want as the 4th question?',
+						'What do you want as the 5th question?',
+						'What do you want as the 6th question?',
+						'What do you want as the 7th question?',
+						'What do you want as the 8th question?',
+						'What do you want as the 9th question?',
+						'What do you want as the 10th question?',
+						'What do you want as the 11th question?',
+						'What do you want as the 12th question?',
+					];
+					let counter = 0;
+
+					const filter = (m) => {
+						return m.author.id === message.author.id;
+					};
+
+					const collector = new DiscordJS.MessageCollector(
+						message.channel,
+						filter,
+						{
+							max: questions.length,
+							time: 120000,
+						}
+					);
+
+					message.channel.send({
+						embeds: [{
+							description: questions[counter++],
+							color: '#77ACF1',
+						}]
+					});
+					collector.on('collect', (m) => {
+						if (m.content.toLowerCase() == 'done')
+							return collector.stop('DONE');
+						if (counter < questions.length) {
+							m.channel.send({
+								embeds: [{
+									description: questions[counter++],
+									color: '#77ACF1',
+								}]
+							});
+						}
+					});
+
+					collector.on('end', (collected, reason) => {
+
+						if (reason == 'DONE') {
+							message.channel.send({content:
+								'Setup Ended, questions set!'});
+						}
+
+
+						let index = 0;
+						collected.forEach((value) => {
+							if (value.content.toUpperCase() === 'DONE') return;
+							db.ref(
+								`Applications/${
+									message.guild.id
+								}/Positions0/Questions/${index++}`
+							).set(value.content);
+						});
+					});
+				} else if (message.content.toUpperCase() == '2') {
+					message.channel.send({content:
+						`You have 120 seconds, to setup the questions for ${data.Positions1.Name}! When you are done type \`done\` or after 12 questions it will auto-set.`
+					});
+					const questions = [
+						'Specify an intro message',	
+						'Specify an acceptance message',
+						'What do you want as the 1st question?',
+						'What do you want as the 2nd question?',
+						'What do you want as the 3rd question?',
+						'What do you want as the 4th question?',
+						'What do you want as the 5th question?',
+						'What do you want as the 6th question?',
+						'What do you want as the 7th question?',
+						'What do you want as the 8th question?',
+						'What do you want as the 9th question?',
+						'What do you want as the 10th question?',
+						'What do you want as the 11th question?',
+						'What do you want as the 12th question?',
+					];
+					let counter = 0;
+
+					const filter = (m) => {
+						return m.author.id === message.author.id;
+					};
+
+					const collector = new DiscordJS.MessageCollector(
+						message.channel,
+						filter,
+						{
+							max: questions.length,
+							time: 120000,
+						}
+					);
+
+					message.channel.send({
+						embeds: [{
+							description: questions[counter++],
+							color: '#77ACF1',
+						}]
+					});
+					collector.on('collect', (m) => {
+						if (m.content.toLowerCase() == 'done')
+							return collector.stop('DONE');
+						if (counter < questions.length) {
+							m.channel.send({
+								embeds: [{
+									description: questions[counter++],
+									color: '#77ACF1',
+								}]
+							});
+						}
+					});
+
+					collector.on('end', (collected, reason) => {
+		
+						if (reason == 'DONE') {
+							message.channel.send({content:'Setup Ended, questions set!'});
+						}
+
+					
+						let index = 0;
+						collected.forEach((value) => {
+							if (value.content.toUpperCase() === 'DONE') return;
+							db.ref(
+								`Applications/${
+									message.guild.id
+								}/Positions1/Questions/${index++}`
+							).set(value.content);
+						});
+					});
+				} else if (message.content.toUpperCase() == '3') {
+					message.channel.send({content:
+						`You have 120 seconds, to setup the questions for ${data.Positions2.Name}! When you are done type \`done\` or after 12 questions it will auto-set.`
+					});
+					const questions = [
+						'Specify an intro message',	
+						'Specify an acceptance message',
+						'What do you want as the 1st question?',
+						'What do you want as the 2nd question?',
+						'What do you want as the 3rd question?',
+						'What do you want as the 4th question?',
+						'What do you want as the 5th question?',
+						'What do you want as the 6th question?',
+						'What do you want as the 7th question?',
+						'What do you want as the 8th question?',
+						'What do you want as the 9th question?',
+						'What do you want as the 10th question?',
+						'What do you want as the 11th question?',
+						'What do you want as the 12th question?',
+					];
+					let counter = 0;
+
+					const filter = (m) => {
+						return m.author.id === message.author.id;
+					};
+
+					const collector = new DiscordJS.MessageCollector(
+						message.channel,
+						filter,
+						{
+							max: questions.length,
+							time: 120000,
+						}
+					);
+
+					message.channel.send({
+						embeds: [{
+							description: questions[counter++],
+							color: '#77ACF1',
+						}]
+					});
+					collector.on('collect', (m) => {
+						if (m.content.toLowerCase() == 'done')
+							return collector.stop('DONE');
+						if (counter < questions.length) {
+							m.channel.send({
+								embeds: [{
+									description: questions[counter++],
+									color: '#77ACF1',
+								}]
+							});
+						}
+					});
+
+					collector.on('end', (collected, reason) => {
+						if (reason == 'DONE') {
+							message.channel.send({content:'Setup Ended, questions set!'});
+						}
+
+			
+						let index = 0;
+						collected.forEach((value) => {
+							if (value.content.toUpperCase() === 'DONE') return;
+							db.ref(
+								`Applications/${
+									message.guild.id
+								}/Positions2/Questions/${index++}`
+							).set(value.content);
+						});
+					});
+				} else if (message.content.toUpperCase() == '4') {
+						message.channel.send({content:
+							`You have 120 seconds, to setup the questions for ${data.Positions3.Name}! When you are done type \`done\` or after 12 questions it will auto-set.`
+						});
+						const questions = [
+							'Specify an intro message',	
+							'Specify an acceptance message',
+							'What do you want as the 1st question?',
+							'What do you want as the 2nd question?',
+							'What do you want as the 3rd question?',
+							'What do you want as the 4th question?',
+							'What do you want as the 5th question?',
+							'What do you want as the 6th question?',
+							'What do you want as the 7th question?',
+							'What do you want as the 8th question?',
+							'What do you want as the 9th question?',
+							'What do you want as the 10th question?',
+							'What do you want as the 11th question?',
+							'What do you want as the 12th question?',
+						];
+						let counter = 0;
+	
+						const filter = (m) => {
+							return m.author.id === message.author.id;
+						};
+	
+						const collector = new DiscordJS.MessageCollector(
+							message.channel,
+							filter,
+							{
+								max: questions.length,
+								time: 120000,
+							}
+						);
+	
+						message.channel.send({
+							embeds: [{
+								description: questions[counter++],
+								color: '#77ACF1',
+							}]
+						});
+						collector.on('collect', (m) => {
+							if (m.content.toLowerCase() == 'done')
+								return collector.stop('DONE');
+							if (counter < questions.length) {
+								m.channel.send({
+									embeds: [{
+										description: questions[counter++],
+										color: '#77ACF1',
+									}]
+								});
+							}
+						});
+	
+						collector.on('end', (collected, reason) => {
+				
+							if (reason == 'DONE') {
+								message.channel.send({content:'Setup Ended, questions set!'});
+							}
+	
+					
+							let index = 0;
+							collected.forEach((value) => {
+								if (value.content.toUpperCase() === 'DONE') return;
+								db.ref(
+									`Applications/${
+										message.guild.id
+									}/Positions3/Questions/${index++}`
+								).set(value.content);
+							});
+						});
+				} else {
+					message.channel.send({content:`Terminated: Invalid Response`});
+				}
+			})
+			.catch(async (error) => {
+				console.log(error);
+				return message.channel.send({content:'No response. Prompt Cancelled'});
+			});
+	},
+};

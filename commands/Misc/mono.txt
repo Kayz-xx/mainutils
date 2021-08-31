@@ -1,0 +1,839 @@
+"use strict";
+let __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (let s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (let p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+let __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+let __generator = (this && this.__generator) || function (thisArg, body) {
+    let _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const canvas_1 = require('canvas')
+let discord_js_1 = require("discord.js");
+let path_1 = require("path");
+let parseList_1 = require("../../parselist.js");
+let Player = /** @class */ (function () {
+    function Player(id, token) {
+        this.money = 750;
+        this.estates = [];
+        this.cards = [];
+        this.tile = 0;
+        this.inActiveStreak = 0;
+        this.inJail = false;
+        this._id = id;
+        this._token = token;
+        this.loadImage();
+    }
+    Player.prototype.loadImage = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            let _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, canvas_1.loadImage('https://e7.pngegg.com/pngimages/669/663/png-clipart-chess-piece-pawn-white-and-black-in-chess-king-chess-game-king-thumbnail.png')];
+                    case 1:
+                        _a.img = _b.sent();
+                        return [2 /*return*/, this.img];
+                }
+            });
+        });
+    };
+    Object.defineProperty(Player.prototype, "token", {
+        get: function () {
+            return this._token;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Player.prototype, "id", {
+        get: function () {
+            return this._id;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Player;
+}());
+let size = 110;
+let estates = [
+    {
+        name: "GO",
+        color: "rgba(32, 255, 32, 0.25)",
+        rent: 0,
+        x: size * 0,
+        y: size * 0,
+    },
+    {
+        name: "M. Avenue",
+        color: "purple",
+        rent: 8,
+        x: size * 1,
+        y: size * 0,
+    },
+    {
+        name: "Chest",
+        color: "rgba(128, 255, 128, 0.2)",
+        rent: 0,
+        x: size * 2,
+        y: size * 0,
+    },
+    {
+        name: "B. Avenue",
+        color: "purple",
+        rent: 10,
+        x: size * 3,
+        y: size * 0,
+    },
+    {
+        name: "Income Tax",
+        color: "rgba(32, 32, 32, 0.5)",
+        rent: 0,
+        x: size * 4,
+        y: size * 0,
+    },
+    {
+        name: "R. Railroad",
+        color: "rgba(0, 0, 0, 0.5)",
+        rent: 0,
+        x: size * 5,
+        y: size * 0,
+    },
+    {
+        name: "O. Avenue",
+        color: "skyblue",
+        rent: 15,
+        x: size * 6,
+        y: size * 0,
+    },
+    {
+        name: "Chance",
+        color: "rgba(0, 255, 255, 0.2)",
+        rent: 0,
+        x: size * 7,
+        y: size * 0,
+    },
+    {
+        name: "Ver. Avenue",
+        color: "skyblue",
+        rent: 20,
+        x: size * 8,
+        y: size * 0,
+    },
+    {
+        name: "C. Avenue",
+        color: "skyblue",
+        rent: 26,
+        x: size * 9,
+        y: size * 0,
+    },
+    {
+        name: "JAIL",
+        color: "rgba(255, 0, 0, 0.25)",
+        rent: 0,
+        x: size * 10,
+        y: size * 0,
+    },
+    {
+        name: "St. S Place",
+        color: "pink",
+        rent: 30,
+        x: size * 10,
+        y: size * 1,
+    },
+    {
+        name: "Electric Co.",
+        color: "rgba(0, 0, 0, 0)",
+        rent: 0,
+        x: size * 10,
+        y: size * 2,
+    },
+    {
+        name: "S. Avenue",
+        color: "pink",
+        rent: 34,
+        x: size * 10,
+        y: size * 3,
+    },
+    {
+        name: "Vir. Avenue",
+        color: "pink",
+        rent: 38,
+        x: size * 10,
+        y: size * 4,
+    },
+    {
+        name: "P. Railroad",
+        color: "rgba(0, 0, 0, 0.5)",
+        rent: 0,
+        x: size * 10,
+        y: size * 5,
+    },
+    {
+        name: "St. J Place",
+        color: "orange",
+        rent: 44,
+        x: size * 10,
+        y: size * 6,
+    },
+    {
+        name: "Chest",
+        color: "rgba(128, 255, 128, 0.2)",
+        rent: 0,
+        x: size * 10,
+        y: size * 7,
+    },
+    {
+        name: "T. Avenue",
+        color: "orange",
+        rent: 50,
+        x: size * 10,
+        y: size * 8,
+    },
+    {
+        name: "NY Avenue",
+        color: "orange",
+        rent: 54,
+        x: size * 10,
+        y: size * 9,
+    },
+    {
+        name: "FREE",
+        color: "rgba(32, 255, 32, 0.25)",
+        rent: 0,
+        x: size * 10,
+        y: size * 10,
+    },
+    {
+        name: "K. Avenue",
+        color: "red",
+        rent: 60,
+        x: size * 9,
+        y: size * 10,
+    },
+    {
+        name: "Chance",
+        color: "rgba(0, 255, 255, 0.2)",
+        rent: 0,
+        x: size * 8,
+        y: size * 10,
+    },
+    {
+        name: "Ill. Avenue",
+        color: "red",
+        rent: 64,
+        x: size * 7,
+        y: size * 10,
+    },
+    {
+        name: "Ind. Avenue",
+        color: "red",
+        rent: 70,
+        x: size * 6,
+        y: size * 10,
+    },
+    {
+        name: "B. Railroad",
+        color: "rgba(0, 0, 0, 0.5)",
+        rent: 0,
+        x: size * 5,
+        y: size * 10,
+    },
+    {
+        name: "A. Avenue",
+        color: "#f6c136",
+        rent: 75,
+        x: size * 4,
+        y: size * 10,
+    },
+    {
+        name: "Ven. Avenue",
+        color: "#f6c136",
+        rent: 82,
+        x: size * 3,
+        y: size * 10,
+    },
+    {
+        name: "Water Works",
+        color: "rgba(0, 0, 0, 0)",
+        rent: 0,
+        x: size * 2,
+        y: size * 10,
+    },
+    {
+        name: "M. Gardens",
+        color: "#f6c136",
+        rent: 90,
+        x: size * 1,
+        y: size * 10,
+    },
+    {
+        name: "TO JAIL",
+        color: "rgba(255, 0, 0, 0.25)",
+        rent: 0,
+        x: size * 0,
+        y: size * 10,
+    },
+    {
+        name: "Pac. Avenue",
+        color: "green",
+        rent: 96,
+        x: size * 0,
+        y: size * 9,
+    },
+    {
+        name: "NC Avenue",
+        color: "green",
+        rent: 104,
+        x: size * 0,
+        y: size * 8,
+    },
+    {
+        name: "Chest",
+        color: "rgba(128, 255, 128, 0.2)",
+        rent: 0,
+        x: size * 0,
+        y: size * 7,
+    },
+    {
+        name: "Pen. Avenue",
+        color: "green",
+        rent: 112,
+        x: size * 0,
+        y: size * 6,
+    },
+    {
+        name: "S. Railroad",
+        color: "rgba(0, 0, 0, 0.5)",
+        rent: 0,
+        x: size * 0,
+        y: size * 5,
+    },
+    {
+        name: "Chance",
+        color: "rgba(0, 255, 255, 0.2)",
+        rent: 0,
+        x: size * 0,
+        y: size * 4,
+    },
+    {
+        name: "Park Place",
+        color: "blue",
+        rent: 125,
+        x: size * 0,
+        y: size * 3,
+    },
+    {
+        name: "Luxary Tax",
+        color: "rgba(32, 32, 32, 0.5)",
+        rent: 0,
+        x: size * 0,
+        y: size * 2,
+    },
+    {
+        name: "Boardwalk",
+        color: "blue",
+        rent: 135,
+        x: size * 0,
+        y: size * 1,
+    },
+].map(function (e) { return (__assign(__assign({}, e), { houses: 0 })); });
+let moves = ["game_die", "shopping_cart", "house"];
+let toDesc = {
+    game_die: "Move ahead",
+    shopping_cart: "Buy the estate you are on",
+    house: "Buy a house",
+};
+let toUni = {
+    game_die: "🎲",
+    shopping_cart: "🛒",
+    house: "🏠",
+};
+let baseChanceCards = [
+    {
+        description: "",
+        execute: function (player, message) { },
+    },
+].map(function (c) { return (__assign(__assign({}, c), { type: "chance" })); });
+let baseChestCards = [
+    {
+        description: "",
+        execute: function (player, message) { },
+    },
+].map(function (c) { return (__assign(__assign({}, c), { type: "chest" })); });
+let canvas = canvas_1.createCanvas(1210, 1210)
+let ctx = canvas.getContext('2d')
+ctx.textAlign = "center";
+ctx.strokeStyle = "white";
+module.exports = {
+	name: 'monopoly',
+	aliases: [],
+	cooldown: '0',
+	permissions: [],
+	description:
+		'Monopoly',
+	category: 'Misc',
+
+	async execute(client, message, cmd, args) {
+        return __awaiter(this, void 0, void 0, function () {
+            function play(turn) {
+                return __awaiter(this, void 0, Promise, function () {
+                    function playerTurn() {
+                        let _a, _b, _c;
+                        return __awaiter(this, void 0, Promise, function () {
+                            let bail, bailChoice, react, choice, _d, dice, rolling, oldTile, newEstate_1, owner, tax, card, m, railroads, railroadCost, dice_1, cost_1, landed, estate_1, cost, house_1, p;
+                            let _this = this;
+                            return __generator(this, function (_e) {
+                                switch (_e.label) {
+                                    case 0:
+                                        if (!player.inJail) return [3 /*break*/, 5];
+                                        return [4 /*yield*/, message.channel.send("Do you wish to pay 100 dollars to bail?")];
+                                    case 1:
+                                        bail = _e.sent();
+                                        return [4 /*yield*/, bail.react("❌")];
+                                    case 2:
+                                        _e.sent();
+                                        return [4 /*yield*/, bail.react("✅")];
+                                    case 3:
+                                        _e.sent();
+                                        return [4 /*yield*/, bail.awaitReactions(function (reaction, user) {
+                                                return ["❌", "✅"].includes(reaction.emoji.name) &&
+                                                    user.id === player.id;
+                                            }, { max: 1, time: 15000 })];
+                                    case 4:
+                                        bailChoice = (_a = (_e.sent()).first()) === null || _a === void 0 ? void 0 : _a.emoji.name;
+                                        if (!bailChoice || bailChoice === "❌") {
+                                            return [2 /*return*/, message.channel.send("Skipping turn, not bailing.")];
+                                        }
+                                        if (player.money < 100) {
+                                            return [2 /*return*/, message.channel.send("Sorry, you don't have enough to bail.")];
+                                        }
+                                        player.money -= 100;
+                                        player.inJail = false;
+                                        return [2 /*return*/, message.channel.send("You have bailed and you are now out of jail!")];
+                                    case 5: return [4 /*yield*/, message.channel.send("<@!" + player.id + ">, what do you want to do?\n" + moves
+                                            .map(function (m) { return ":" + m + ": \u2013 " + toDesc[m]; })
+                                            .join("\n"))];
+                                    case 6:
+                                        react = _e.sent();
+                                        moves.forEach(function (m) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+                                            switch (_a.label) {
+                                                case 0: return [4 /*yield*/, react.react(toUni[m])];
+                                                case 1: return [2 /*return*/, _a.sent()];
+                                            }
+                                        }); }); });
+                                        return [4 /*yield*/, react.awaitReactions(function (reaction, user) {
+                                                return moves.map(function (m) { return toUni[m]; }).includes(reaction.emoji.name) &&
+                                                    user.id === player.id;
+                                            }, {
+                                                max: 1,
+                                                time: 30000,
+                                            })];
+                                    case 7:
+                                        choice = (_b = (_e.sent()).first()) === null || _b === void 0 ? void 0 : _b.emoji.name;
+                                        if (!choice) {
+                                            message.channel.send("Skipping your turn due to inactivity...");
+                                            player.inActiveStreak++;
+                                            if (player.inActiveStreak >= 5) {
+                                                players.splice(turn, 1);
+                                                message.channel.send("<@!" + player.id + "> was kicked for being inactive.");
+                                            }
+                                            turn = ++turn % players.length;
+                                            if (players.every(function (p) { return p.inActiveStreak > 0; }))
+                                                return [2 /*return*/, message.channel.send("Ending game since no one was active...")];
+                                            return [2 /*return*/, play(turn)];
+                                        }
+                                        player.inActiveStreak = 0;
+                                        _d = choice;
+                                        switch (_d) {
+                                            case toUni["game_die"]: return [3 /*break*/, 8];
+                                            case toUni["shopping_cart"]: return [3 /*break*/, 26];
+                                            case toUni["house"]: return [3 /*break*/, 27];
+                                        }
+                                        return [3 /*break*/, 29];
+                                    case 8:
+                                        dice = Math.floor(Math.random() * 11 + 2);
+                                        return [4 /*yield*/, message.channel.send("Rolling the dice...")];
+                                    case 9:
+                                        rolling = _e.sent();
+                                        return [4 /*yield*/, wait(Math.random() * 1000 + 2000)];
+                                    case 10:
+                                        _e.sent();
+                                        return [4 /*yield*/, rolling.edit("You rolled " + ([8, 11].includes(dice) ? "an" : "a") + " " + dice + "!")];
+                                    case 11:
+                                        _e.sent();
+                                        oldTile = player.tile;
+                                        player.tile = (player.tile + dice) % estates.length;
+                                        if (player.tile < oldTile) {
+                                            player.money += 100;
+                                            message.channel.send("You passed GO and earned 100 dollars!");
+                                        }
+                                        newEstate_1 = estates[player.tile];
+                                        owner = players.find(function (p) {
+                                            return p.estates.map(function (e) { return e.name; }).includes(newEstate_1.name);
+                                        });
+                                        if (!(newEstate_1.name === "Income Tax")) return [3 /*break*/, 12];
+                                        tax = Math.min(Math.ceil(player.money * 0.1), 100);
+                                        player.money -= tax;
+                                        message.channel.send("Ouch, you paid your income tax (" + tax + " dollars)!");
+                                        return [3 /*break*/, 25];
+                                    case 12:
+                                        if (!(newEstate_1.name === "Luxary Tax")) return [3 /*break*/, 13];
+                                        player.money -= 100;
+                                        message.channel.send("You paid your luxary tax (100 dollars)!");
+                                        return [3 /*break*/, 25];
+                                    case 13:
+                                        if (!(newEstate_1.name === "TO JAIL")) return [3 /*break*/, 14];
+                                        message.channel.send("You were sent to jail! Pay 100 dollars to bail on your next turn.");
+                                        player.inJail = true;
+                                        return [2 /*return*/];
+                                    case 14:
+                                        if (!(newEstate_1.name === "Chance")) return [3 /*break*/, 17];
+                                        message.channel.send("You landed on a chance! Drawing a card...");
+                                        if (!(chanceCards.length === 0)) return [3 /*break*/, 16];
+                                        message.channel.send("Out of chance cards! Reshuffling...");
+                                        chanceCards = baseChanceCards
+                                            .sort(function () { return Math.random() - 0.5; })
+                                            .reverse()
+                                            .sort(function () { return Math.random() - 0.5; });
+                                        return [4 /*yield*/, wait(Math.random() * 500 + 500)];
+                                    case 15:
+                                        _e.sent();
+                                        message.channel.send("Drawing a card...");
+                                        _e.label = 16;
+                                    case 16:
+                                        card = chanceCards.shift();
+                                        message.channel.send(new discord_js_1.MessageEmbed()
+                                            .setTitle("Chance card!")
+                                            .setDescription(card.description)
+                                            .setColor("RANDOM")
+                                            .setURL("https://www.youtube.com/watch?v=oHg5SJYRHA0"));
+                                        card.execute(player, message);
+                                        return [3 /*break*/, 25];
+                                    case 17:
+                                        if (!(newEstate_1.name === "Chest")) return [3 /*break*/, 20];
+                                        message.channel.send("You landed on a chest! Drawing a card...");
+                                        if (!(chanceCards.length === 0)) return [3 /*break*/, 19];
+                                        message.channel.send("Out of chest cards! Reshuffling...");
+                                        chestCards = baseChestCards
+                                            .sort(function () { return Math.random() - 0.5; })
+                                            .reverse()
+                                            .sort(function () { return Math.random() - 0.5; });
+                                        return [4 /*yield*/, wait(Math.random() * 500 + 500)];
+                                    case 18:
+                                        _e.sent();
+                                        message.channel.send("Drawing a card...");
+                                        _e.label = 19;
+                                    case 19:
+                                        card = chestCards.shift();
+                                        message.channel.send(new discord_js_1.MessageEmbed()
+                                            .setTitle("Chest card!")
+                                            .setDescription(card.description)
+                                            .setColor("RANDOM")
+                                            .setURL("https://www.youtube.com/watch?v=oHg5SJYRHA0"));
+                                        card.execute(player, message);
+                                        return [3 /*break*/, 25];
+                                    case 20:
+                                        if (!owner)
+                                            return [2 /*return*/];
+                                        if (!![
+                                            "Water Works",
+                                            "Electric Co.",
+                                            "B. Railroad",
+                                            "P. Railroad",
+                                            "R. Railroad",
+                                            "S. Railroad",
+                                        ].includes(newEstate_1.name)) return [3 /*break*/, 21];
+                                        m = newEstate_1.houses + 1;
+                                        player.money -= newEstate_1.rent * m;
+                                        owner.money += newEstate_1.rent * m;
+                                        message.channel.send("Uh oh! You landed on <@!" + owner.id + ">'s property and paid them " + newEstate_1.rent + " dollars!");
+                                        return [3 /*break*/, 25];
+                                    case 21:
+                                        if (!newEstate_1.name.endsWith("Railroad")) return [3 /*break*/, 22];
+                                        railroads = owner.estates.filter(function (e) {
+                                            return e.name.endsWith("Railroad");
+                                        }).length;
+                                        railroadCost = railroads * 75;
+                                        player.money -= railroadCost;
+                                        owner.money += railroadCost;
+                                        message.channel.send("You landed on <@!" + owner.id + ">'s railroad and since they have " + (railroads === 1 ? "a railroad" : railroads + " railroads") + ", you paid them " + railroadCost + " dollars.");
+                                        return [3 /*break*/, 25];
+                                    case 22:
+                                        dice_1 = Math.floor(Math.random() * 7);
+                                        cost_1 = dice_1 * 50;
+                                        player.money -= cost_1;
+                                        owner.money += cost_1;
+                                        return [4 /*yield*/, message.channel.send("You landed on <@!" + owner.id + ">'s special service! Rolling a die to determine cost...")];
+                                    case 23:
+                                        landed = _e.sent();
+                                        return [4 /*yield*/, wait(Math.random() * 1000 + 2000)];
+                                    case 24:
+                                        _e.sent();
+                                        landed.edit("You landed on <@!" + owner.id + ">'s special service! You rolled " + ([8, 11].includes(dice_1) ? "an" : "a") + " " + dice_1 + " and paid them " + cost_1 + " dollars!");
+                                        _e.label = 25;
+                                    case 25:
+                                        if (player.money < 0) {
+                                            message.channel.send("You went bankrupt! Good luck next time!");
+                                            players.splice(turn, 1);
+                                        }
+                                        return [2 /*return*/];
+                                    case 26:
+                                        estate_1 = estates[player.tile];
+                                        cost = estate_1.rent * 5;
+                                        if (players.some(function (p) {
+                                            return p.estates.map(function (e) { return e.name; }).includes(estate_1.name);
+                                        })) {
+                                            message.channel.send("`" + estate_1.name + "` was already purchased!");
+                                            return [2 /*return*/, playerTurn()];
+                                        }
+                                        if (!cost &&
+                                            ![
+                                                "Water Works",
+                                                "Electric Co.",
+                                                "B. Railroad",
+                                                "P. Railroad",
+                                                "R. Railroad",
+                                                "S. Railroad",
+                                            ].includes(estate_1.name)) {
+                                            message.channel.send("You can't buy `" + estate_1.name + "`!");
+                                            return [2 /*return*/, playerTurn()];
+                                        }
+                                        if (estate_1.name.endsWith("Railroad"))
+                                            cost = 200;
+                                        else if (["Water Works", "Electric Co."].includes(estate_1.name))
+                                            cost = 300;
+                                        if (player.money < cost) {
+                                            message.channel.send("You need " + cost + " dollars to buy `" + estate_1.name + "`");
+                                            return [2 /*return*/, playerTurn()];
+                                        }
+                                        player.money -= cost;
+                                        player.estates.push(estates.find(function (e) { return e.name === estate_1.name; }));
+                                        message.channel.send("You bought `" + estate_1.name + "` for " + cost + " dollars!");
+                                        return [2 /*return*/];
+                                    case 27: return [4 /*yield*/, message.channel.awaitMessages(function (msg) { return msg.author.id === player.id; }, {
+                                            max: 1,
+                                            time: 15000,
+                                        })];
+                                    case 28:
+                                        house_1 = (_c = (_e.sent()).first()) === null || _c === void 0 ? void 0 : _c.content;
+                                        if (!house_1)
+                                            return [2 /*return*/];
+                                        p = player.estates.find(function (e) { return e.name.toLowerCase() === house_1.toLowerCase(); });
+                                        if (!p) {
+                                            message.channel.send("I couldn't find an estate with that name!");
+                                            return [2 /*return*/, playerTurn()];
+                                        }
+                                        if (player.money < p.rent * 5) {
+                                            message.channel.send("Sorry, you don't have enough. You need " + p.rent * 5 + " dollars to buy a house for `" + p.name + "`");
+                                            return [2 /*return*/, playerTurn()];
+                                        }
+                                        player.money -= p.rent * 5;
+                                        p.houses++;
+                                        message.channel.send("You paid " + p.rent * 5 + " dollars for a house!");
+                                        return [2 /*return*/];
+                                    case 29: return [2 /*return*/];
+                                }
+                            });
+                        });
+                    }
+                    let player, y, x, attachment;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                player = players[turn];
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                ctx.save();
+                                ctx.lineWidth = 2;
+                                ctx.strokeStyle = "white";
+                                ctx.beginPath();
+                                ctx.moveTo(0, 0);
+                                ctx.lineTo(canvas.width, 0);
+                                ctx.lineTo(canvas.width, canvas.height);
+                                ctx.lineTo(0, canvas.height);
+                                ctx.closePath();
+                                ctx.stroke();
+                                ctx.translate(1, 1);
+                                estates.forEach(function (e, i) {
+                                    let corner = ["GO", "TO JAIL", "JAIL", "FREE"].includes(e.name);
+                                    ctx.font = (corner ? (e.name === "GO" ? 36 : 26) : 17) + "px Arial";
+                                    ctx.fillStyle = e.color;
+                                    ctx.fillRect(e.x, e.y, size, size);
+                                    ctx.fillStyle = ["#f6c136", "pink", "skyblue"].includes(e.color)
+                                        ? "black"
+                                        : "white";
+                                    ctx.fillText(e.name, e.x + size / 2, e.y + size / 2 + 4 + (corner ? 8 : 0));
+                                });
+                                ctx.beginPath();
+                                for (y = size; y < canvas.height; y += size) {
+                                    ctx.moveTo(0, y);
+                                    ctx.lineTo(canvas.width, y);
+                                }
+                                for (x = size; x < canvas.width; x += size) {
+                                    ctx.moveTo(x, 0);
+                                    ctx.lineTo(x, canvas.height);
+                                }
+                                ctx.closePath();
+                                ctx.stroke();
+                                ctx.clearRect(size + 1, size + 1, size * 9 - 2, size * 9 - 2);
+                                players.forEach(function (_a) {
+                                    let img = _a.img, tile = _a.tile;
+                                    let pos = estates[tile];
+                                    ctx.drawImage(img, pos.x + (Math.random() * size) / 2.5, pos.y + (Math.random() * size) / 2.5, size / 1.5, size / 1.5);
+                                });
+                                attachment = new discord_js_1.MessageAttachment(canvas.toBuffer(), "game.png");
+                                return [4 /*yield*/, message.channel.send("It is <@!" + player.id + ">'s turn!", new discord_js_1.MessageEmbed()
+                                        .setTitle(message.author.username + "'s monopoly game")
+                                        .setDescription(players
+                                        .sort(function (a, b) { return a.money - b.money; })
+                                        .map(function (p) {
+                                        return "<@!" + p.id + "> \u2013 " + p.token + "\n*Cash: " + p.money + " dollars*\n*Estates: " + (parseList_1.default(p.estates.map(function (e) { return e.name; })) || "None") + "*";
+                                    })
+                                        .join("\n\n") + "\n\n**Click to expand!**")
+                                        .attachFiles([attachment])
+                                        .setImage("attachment://game.png")
+                                        .setColor("RANDOM"))];
+                            case 1:
+                                _a.sent();
+                                return [4 /*yield*/, playerTurn()];
+                            case 2:
+                                _a.sent();
+                                ctx.restore();
+                                turn = ++turn % players.length;
+                                return [2 /*return*/, play(turn)];
+                        }
+                    });
+                });
+            }
+            let maxPlayers, tokens, players, chanceCards, chestCards, turn, startMessage, joinedPlayers;
+            let _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.inProgress) {
+                            message.channel.send("A game is in progress!");
+                            return [2 /*return*/, "invalid"];
+                        }
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        this.inProgress = true;
+                        maxPlayers = parseInt(args[0]) || 4;
+                        if (maxPlayers < 2)
+                            maxPlayers = 2;
+                        if (maxPlayers > 8)
+                            maxPlayers = 8;
+                        tokens = [
+                            ":smiling_face_with_3_hearts:",
+                            ":stuck_out_tongue_winking_eye:",
+                            ":partying_face:",
+                            ":hot_face:",
+                            ":cold_face:",
+                            ":scream:",
+                            ":woozy_face:",
+                            ":innocent:",
+                        ]
+                            .sort(function () { return Math.random() - 0.5; })
+                            .reverse()
+                            .sort(function () { return Math.random() - 0.5; });
+                        players = [new Player(message.author.id, tokens.shift())];
+                        chanceCards = baseChanceCards
+                            .sort(function () { return Math.random() - 0.5; })
+                            .reverse()
+                            .sort(function () { return Math.random() - 0.5; });
+                        chestCards = baseChestCards
+                            .sort(function () { return Math.random() - 0.5; })
+                            .reverse()
+                            .sort(function () { return Math.random() - 0.5; });
+                        turn = 0;
+                        return [4 /*yield*/, message.channel.send("**<@!" + message.author + "> has started a monopoly game! Type `::join` to join!**\n*" + maxPlayers + " players max*\nPlayers:\n" + players
+                                .map(function (p) { return "<@!" + p.id + ">"; })
+                                .join("\n"))];
+                    case 1:
+                        startMessage = _a.sent();
+                        return [4 /*yield*/, message.channel.awaitMessages(function (msg) { return __awaiter(_this, void 0, void 0, function () {
+                                return __generator(this, function (_a) {
+                                    switch (_a.label) {
+                                        case 0:
+                                            if (msg.content.toLowerCase() !== "::join" || msg.author.bot)
+                                                return [2 /*return*/, false];
+                                            if (players.map(function (p) { return p.id; }).includes(msg.author.id)) {
+                                                message.channel.send("<@!" + msg.author.id + ">, you have joined already!");
+                                                return [2 /*return*/, false];
+                                            }
+                                            players.push(new Player(msg.author.id, tokens.shift()));
+                                            return [4 /*yield*/, startMessage.edit("**<@!" + message.author + "> has started a monopoly game! Type `GIMME SUM MONEY` to join!**\n*" + maxPlayers + " players max*\nPlayers:\n" + players
+                                                    .map(function (p) { return "<@!" + p.id + ">"; })
+                                                    .join("\n"))];
+                                        case 1:
+                                            _a.sent();
+                                            message.channel.send("<@!" + msg.author.id + "> joined the game!");
+                                            msg.delete();
+                                            return [2 /*return*/, true];
+                                    }
+                                });
+                            }); }, {
+                                max: maxPlayers - 1,
+                                time: 30000,
+                            })];
+                    case 2:
+                        joinedPlayers = _a.sent();
+                        if (!joinedPlayers.size) {
+                            message.channel.send("Nobody joined your game.");
+                            this.inProgress = false;
+                            return [2 /*return*/];
+                        }
+                        startMessage.edit("This game has already started. Join the next one!");
+                        return [4 /*yield*/, message.channel.send("Here are the players:\n" + players
+                                .map(function (p) { return "<@!" + p.id + "> is playing as " + p.token; })
+                                .join("\n"))];
+                    case 3:
+                        _a.sent();
+                        play(turn);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    },
+};
+let wait = function (time) {
+    return new Promise(function (resolve) { return setTimeout(resolve, time); });
+};
+z

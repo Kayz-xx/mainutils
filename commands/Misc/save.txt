@@ -1,0 +1,387 @@
+const { Client, Message, MessageEmbed, Collection, MessageActionRow, MessageButton } = require('discord.js');
+const formatter = new Intl.NumberFormat('en');
+const { db } = require('../../firebase.js');
+let currentPage = 1
+module.exports = {
+	name: 'itemlist',
+	aliases: ['list'],
+	cooldown: '0',
+	usage: '',
+	permissions: [],
+	category: 'Donations',
+
+	async execute(client, message, cmd, args) {
+		let data =
+			(await db
+				.ref(`Donations/Info/${message.guild.id}/List`)
+				.once('value')
+				.then((snapshot) => snapshot.val())) || [];
+		db.ref(`Donations/Info/${message.guild.id}/List`);
+		data = data.sort()
+	
+		let first = new MessageButton()
+		.setEmoji('<:fastb:878937208818630706>')
+		.setCustomId('first')
+		.setStyle('SECONDARY')
+		
+		let back = new MessageButton()
+		.setEmoji('<:behind:875319719161397248>')
+		.setCustomId('back')
+		.setStyle('SECONDARY')
+		
+		let next = new MessageButton()
+		.setEmoji('<:ahead:875319731220017162>')
+		.setCustomId('next')
+		.setStyle('SECONDARY')
+		
+		let last = new MessageButton()
+		.setEmoji('<:fasta:878937199578607626>')
+		.setCustomId('last')
+		.setStyle('SECONDARY')
+
+		let del = new MessageButton()
+		.setEmoji('<:Cancel:875313311640616971>')
+		.setCustomId('del')
+		.setStyle('DANGER')
+
+		let row = new MessageActionRow()
+		.addComponents(first, back, next, last, del)	
+
+		const newd = data.map((d) => {
+			return `${
+				d.name
+			}<a:im5:859288337280925746> ⏣ **${formatter.format(
+				d.amount
+			)}**`
+		}).slice(0, 10).join(`\n\n`)
+
+		let embed = new MessageEmbed()
+			.setTitle('Item List')
+
+			.setDescription(newd)
+			.setColor('RANDOM');
+
+		let embed1 = new MessageEmbed()
+			.setTitle('Item List')
+
+			.setDescription(desc2)
+			.setColor('RANDOM');
+
+			let embed2 = new MessageEmbed()
+			.setTitle('Item List')
+
+			.setDescription(desc3)
+			.setColor('RANDOM');
+
+			let embed3 = new MessageEmbed()
+			.setTitle('Item List')
+
+			.setDescription('bye')
+			.setColor('RANDOM');
+
+			let embed4 = new MessageEmbed()
+			.setTitle('Item List')
+
+			.setDescription('see')
+			.setColor('RANDOM');
+
+			let embed5 = new MessageEmbed()
+			.setTitle('Item List')
+
+			.setDescription('okay')
+			.setColor('RANDOM');
+
+		let embeds = [embed, embed1, embed2, embed3, embed4, embed5]	
+
+		const newBed = () => {
+			const embed = embeds[currentPage - 1];
+			const newEmbed = new MessageEmbed(embed);
+			if (embed?.footer?.text) {
+				return newEmbed.setFooter(
+					`${embed.footer.text} - Page ${currentPage} of ${embeds.length}`,
+					embed.footer.iconURL
+				);
+			}
+			return newEmbed.setFooter(`Page ${currentPage} of ${embeds.length}`);
+		};
+
+		const msg = await message.channel.send({ embeds: [embed], components: [row] });
+
+		const filter = (btn) => btn.user.id === message.author.id;
+
+		const collector = msg.createMessageComponentCollector({
+			filter,
+			time: 40000,
+		});
+
+		collector.on("collect", async (btn) => {
+			if (btn.customId === "first") currentPage = 1;
+		
+			if (btn.customId === "back") currentPage--;
+	
+			if (btn.customId === "next") currentPage++;
+		
+			if (btn.customId === "last") currentPage = embeds.length;
+
+			if (btn.customId === "del") {
+				btn.update({embeds: [], components: []});
+				collector.stop();
+			}
+
+			btn.update({
+				embeds: [newBed()],
+				components: [row],
+			});
+		});	
+		collector.on("end", (reason) => {
+			msg.components[0].components.forEach((com) => {
+				com.setDisabled(true);
+				com.setStyle('SECONDARY');
+			});
+			let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
+			msg.edit({
+				components: [rows2],
+		});
+	})
+	},
+};
+
+
+const { Client, Message, MessageEmbed, Collection, MessageActionRow, MessageButton } = require('discord.js');
+const formatter = new Intl.NumberFormat('en');
+const { db } = require('../../firebase.js');
+let current = 1
+let page = 0
+let page2 = 10
+module.exports = {
+	name: 'itemlist',
+	aliases: ['list'],
+	cooldown: '0',
+	usage: '',
+	permissions: [],
+	category: 'Donations',
+
+	async execute(client, message, cmd, args) {
+		let data =
+			(await db
+				.ref(`Donations/Info/${message.guild.id}/List`)
+				.once('value')
+				.then((snapshot) => snapshot.val())) || [];
+		db.ref(`Donations/Info/${message.guild.id}/List`);
+		data = data.sort()
+	
+		let first = new MessageButton()
+		.setEmoji('<:fastb:878937208818630706>')
+		.setCustomId('first')
+		.setStyle('SECONDARY')
+		
+		let back = new MessageButton()
+		.setEmoji('<:behind:875319719161397248>')
+		.setCustomId('back')
+		.setStyle('SECONDARY')
+		
+		let next = new MessageButton()
+		.setEmoji('<:ahead:875319731220017162>')
+		.setCustomId('next')
+		.setStyle('SECONDARY')
+		
+		let last = new MessageButton()
+		.setEmoji('<:fasta:878937199578607626>')
+		.setCustomId('last')
+		.setStyle('SECONDARY')
+
+		let del = new MessageButton()
+		.setEmoji('<:Cancel:875313311640616971>')
+		.setCustomId('del')
+		.setStyle('DANGER')
+
+		let row = new MessageActionRow()
+		.addComponents(first, back, next, last, del)	
+
+		const newd = data.map((d) => {
+			return `${
+				d.name
+			}<a:im5:859288337280925746> ⏣ **${formatter.format(
+				d.amount
+			)}**`
+		})
+
+		const embed = new MessageEmbed()
+			.setTitle('Item List')
+			.setDescription(newd.slice(page, page2).join(`\n\n`))
+			.setColor('RANDOM');
+
+
+		const newBed = () => {
+			const newEmbed = new MessageEmbed(embed);
+			if (embed?.description?.text) {
+				return newEmbed.setDescription(
+					`${newd.slice(page, page2).join(`\n\n`)}`
+				);
+			}
+			if (embed?.footer?.text) {
+				return newEmbed.setFooter(
+					`${embed.footer.text} - Page ${current} of ${(newd.length / 10).toFixed(0)}`,
+					embed.footer.iconURL
+				);
+			}
+			return newEmbed.setDescription(newd.slice(page, page2).join(`\n\n`)),
+			newEmbed.setFooter(`Page ${current} of ${(newd.length / 10).toFixed(0)}`)
+		};
+
+		const msg = await message.channel.send({ embeds: [embed], components: [row] });
+
+		const filter = (btn) => btn.user.id === message.author.id;
+
+		const collector = msg.createMessageComponentCollector({
+			filter,
+			time: 40000,
+		});
+
+		collector.on("collect", async (btn) => {
+			if (btn.customId === "first") {
+				page = 0
+				page2 = 10;
+				current = 1
+			}
+			if (btn.customId === "back") {
+				page = page - 10
+				page2 = page2 - 10;
+				current--
+			}
+			if (btn.customId === "next") {
+				page = page + 10
+				page2 = page2 + 10;
+				current++
+			}
+			if (btn.customId === "last") {
+				page = (newd.length) - 10;
+				page2 = (newd.length)
+				current = (newd.length / 10).toFixed(0)
+			}
+			if (btn.customId === "del") {
+				btn.update({embeds: [], components: []});
+				collector.stop();
+			}
+			console.log(newd.length, page, page2)
+			btn.update({
+				embeds: [newBed()],
+				components: [row],
+			});
+		});	
+		collector.on("end", (reason) => {
+			msg.components[0].components.forEach((com) => {
+				com.setDisabled(true);
+				com.setStyle('SECONDARY');
+			});
+			let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
+			msg.edit({
+				components: [rows2],
+		});
+	})
+	},
+};
+
+
+
+  const { Client, Message, MessageEmbed, Collection } = require('discord.js')
+  const economy = require('../../economy')
+  const formatter = new Intl.NumberFormat('en')
+
+
+
+  module.exports = {
+      name: 'leaderboard',
+      aliases: ['lb'],
+      cooldown: '0',
+      usage: '',
+      permissions: [],
+      commands: ['leaderboard'],
+      category: 'Donations',
+      description: 'Donation Leaderboard',
+      
+      async execute(client, message, cmd,  args) {
+              const guildId = message.guild.id
+          const data = await economy.getDonation(guildId);
+          const total = await economy.getTotal(guildId);
+          const donors = await economy.getDonors(guildId);
+          let desc = ""
+
+          for (let i = 0; i < Math.min(10, data.length); i ++) {
+            let user = data [i];
+            desc += `${i+1}) <@!${user.userId}> - **${formatter.format(user.coins)} coins**\n`
+          };
+  let load = new MessageEmbed().setDescription('Loading...').setColor('FFFFFF')
+
+    return message.channel.send({embeds: [load]}).
+          then(async message => {
+          const generateEmbed = () => {
+          const embed = new MessageEmbed ()
+          .setTitle(`Donation Leaderboard in ${message.guild.name}`)
+          .setDescription(desc)
+          .setFooter(`These are normal donations`)
+          .setColor('88FFF7')
+          return embed
+          }
+          message.edit({embeds: [generateEmbed()]})
+      })
+
+      }
+  }
+
+
+const { MessageEmbed } = require('discord.js')
+const Discord = require('discord.js')
+
+
+
+module.exports = {
+    name: 'donate',
+    aliases: ['donate'],
+    cooldown: '0',
+    permissions: [],
+    usage: '<prize> <time> <winners> <requirement> <message>',
+    description: 'Donate towards the server!',
+    category: 'Misc',
+
+  
+    async execute(client, message, cmd,  args) {
+    setTimeout(() => message.delete(), 100)
+    const prize = args[0]
+    if(!prize) return message.channel.send("Please specify a prize")
+    const time = args[1]
+    if(!time) return message.channel.send("Please specify an amount of time")
+    const winners = args[2]
+    if(!winners) return message.channel.send("Please specify a winners")
+    const requirement = args[3]
+    if(!requirement) return message.channel.send("Please specify a requirement")
+    const msg = args.slice(4).join(' ');
+    if(!msg) return message.channel.send("Please specify a message")
+
+    let embed = new MessageEmbed()
+    .setAuthor('Donations', message.author.avatarURL({ dynamic:true }))
+    .setTitle(`${message.author.tag} wants to donate ${prize} <a:im4:858370157890371595>`)
+    .setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
+    .setColor('5C33F6')
+    .addField(`<a:im5:859288337280925746> Time`, `${args[1]}`) 
+    .addField(`<a:im5:859288337280925746> Winners`, args[2]) 
+    .addField(`<a:im5:859288337280925746> Requirement`, args[3]) 
+    .addField(`<a:im5:859288337280925746> Message`, args.slice(4).join(' ')) 
+    .setFooter(`Thanks for your donation ${message.author.tag}`)
+    .setTimestamp()
+    message.channel.send(embed)
+    message.channel.send('<@&768129052623372348>')
+  }
+}
+
+     if(cmd === 'giveaway'){
+    setTimeout(() => message.delete(), 100)
+      const msg = args.slice(0).join(' ');
+      message.channel.send({content:`<@&859323544138809364> ${msg} **- ${message.author.tag}**`})
+     } if(cmd === 'eventping'){
+        setTimeout(() => message.delete(), 100)
+        const msg = args.slice(0).join(' ');
+        message.channel.send({content:`<@&859323607678844928> ${msg} **- ${message.author.tag}**`})
+     }
+  }
+}	
