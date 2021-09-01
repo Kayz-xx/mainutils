@@ -1,103 +1,70 @@
-const { token } = require('./config.json');
+const {mongoPath} = require('../config.json')
+const mongoose = require('mongoose');
+mongoose.connect(mongoPath, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
+const db = mongoose.connection;
 
-const discord = require('discord.js');
 
-const { GiveawaysManager } = require('discord-giveaways')
-const giveawayModel = require('./schemas/giveaway-schema')
-
-
-const client = new discord.Client({
-	allowedMentions: {
-	  parse: ["roles", "users", "everyone"],
-	  repliedUser: true,
-	},
-	partials: ["MESSAGE", "CHANNEL", "REACTION"],
-	intents: [
-	  "GUILDS",
-	  "GUILD_MEMBERS",
-	  "GUILD_BANS",
-	  "GUILD_MESSAGE_REACTIONS",
-	  "GUILD_MESSAGES",
-	  "GUILD_PRESENCES",
-	  "GUILD_MESSAGE_REACTIONS"
-	],
-  });
-//const category = {};
-const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
-
-    async getAllGiveaways() {
-      
-        return await giveawayModel.find({});
+db.on('error', console.error.bind(console, 'Connection error:'));
+db.once('open', () => {
+    console.log('Connected to MongoDB(Giveaways)');
+});
+const giveawaySchema = new mongoose.Schema({
+    messageId: String,
+    channelId: String,
+    guildId: String,
+    startAt: Number,
+    endAt: Number,
+    ended: Boolean,
+    winnerCount: Number,
+    prize: String,
+    messages: {
+        giveaway: String,
+        giveawayEnded: String,
+        inviteToParticipate: String,
+        drawing: String,
+        dropMessage: String,
+        winMessage: mongoose.Mixed,
+        embedFooter: mongoose.Mixed,
+        noWinner: String,
+        winners: String,
+        endedAt: String,
+        hostedBy: String
+    },
+    thumbnail: String,
+    hostedBy: String,
+    winnerIds: [String],
+    reaction: mongoose.Mixed,
+    botsCanWin: Boolean,
+    embedColor: mongoose.Mixed,
+    embedColorEnd: mongoose.Mixed,
+    exemptPermissions: [],
+    exemptMembers: String,
+    bonusEntries: String,
+    extraData: mongoose.Mixed,
+    lastChance: {
+        enabled: Boolean,
+        content: String,
+        threshold: Number,
+        embedColor: mongoose.Mixed
+    },
+    pauseOptions: {
+        isPaused: Boolean,
+        content: String,
+        unPauseAfter: Number,
+        embedColor: mongoose.Mixed,
+        durationAfterPause: Number
+    },
+    isDrop: Boolean,
+    allowedMentions: {
+        parse: [String],
+        users: [String],
+        roles: [String]
     }
-
-    async saveGiveaway(messageId, giveawayData) {
- 
-        await giveawayModel.create(giveawayData);
-    
-        return true;
-    }
-
- 
-    async editGiveaway(messageId, giveawayData) {
-   
-        await giveawayModel.findOneAndUpdate({ messageId }, giveawayData, { omitUndefined: true }).exec();
-
-        return true;
-    }
-
-   
-    async deleteGiveaway(messageId) {
-    
-        await giveawayModel.findOneAndDelete({ messageId }).exec();
-    
-        return true;
-    }
-};
-
-const Creator = new GiveawayManagerWithOwnDatabase(client, {
-    hasGuildMembersIntent: true,
-    default: {
-        botsCanWin: false,
-		exemptPermissions: [],
-        embedColor: '2D46B9',
-        embedColorEnd: '171717',
-        reaction: '<a:EE_check:881050609959190528>'
-		}
-    })
-
-
-client.commands = new discord.Collection();
-client.aliases = new discord.Collection();
-client.snipes = new discord.Collection();
-client.vouches = new Map();
-client.giveaways = Creator
-
-require('@weky/inlinereply');
-
-let array = ['command', 'events', 'giveaways'];
-array.forEach((handler) => {
-	require(`./handlers/${handler}`)(client);
 });
 
 
-/*client.commands.forEach((obj) => {
-	let cmdObject = {
-		name: obj.name,
-		permissions: obj.authorPermission,
-		usage: obj.usage,
-		aliases: obj.aliases,
-		cooldown: obj.cooldown,
-		description: obj.description,
-		category: obj.category,
-	};
-	if (Object.keys(category).find((x) => x === obj.category)) {
-		category[obj.category].push(cmdObject);
-	} else {
-		category[obj.category] = [cmdObject];
-	}
-});*/
-
-client.login(token);
-
-
-
+module.exports = mongoose.model('giveaways', giveawaySchema);
