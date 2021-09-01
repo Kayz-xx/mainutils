@@ -3,7 +3,7 @@ const { token } = require('./config.json');
 const discord = require('discord.js');
 
 const { GiveawaysManager } = require('discord-giveaways')
-
+const giveawayModel = require('./schemas/giveaway-schema')
 
 
 const client = new discord.Client({
@@ -23,8 +23,38 @@ const client = new discord.Client({
 	],
   });
 //const category = {};
-const Creator = new GiveawaysManager(client, {
-    storage: './giveaways.json',
+const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
+
+    async getAllGiveaways() {
+      
+        return await giveawayModel.find({});
+    }
+
+    async saveGiveaway(messageId, giveawayData) {
+ 
+        await giveawayModel.create(giveawayData);
+    
+        return true;
+    }
+
+ 
+    async editGiveaway(messageId, giveawayData) {
+   
+        await giveawayModel.findOneAndUpdate({ messageId }, giveawayData, { omitUndefined: true }).exec();
+
+        return true;
+    }
+
+   
+    async deleteGiveaway(messageId) {
+    
+        await giveawayModel.findOneAndDelete({ messageId }).exec();
+    
+        return true;
+    }
+};
+
+const Creator = new GiveawayManagerWithOwnDatabase(client, {
     hasGuildMembersIntent: true,
     default: {
         botsCanWin: false,
