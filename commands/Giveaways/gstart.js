@@ -10,6 +10,7 @@ module.exports = {
 	category: 'Giveaways',
 
 	async execute(client, message, cmd, args) {
+		setTimeout(() => message.delete(), 100)
 		const time = args[0];
 		if (!time) {
 			return message.reply({
