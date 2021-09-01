@@ -69,7 +69,11 @@ module.exports = {
 
 		const embed = new MessageEmbed()
 			.setTitle('Item List')
-			.setDescription(newd.slice(0, 10).join(`\n\n`))
+			.setDescription(
+				`Total Items: **${data.length}** \n\n ${newd
+					.slice(0, 10)
+					.join(`\n\n`)}`
+			)
 			.setColor('RANDOM')
 			.setFooter(`Page 0 of ${Math.floor(pg / 10)}`);
 
@@ -136,7 +140,7 @@ module.exports = {
 			}
 			if (btn.customId === 'del') {
 				setTimeout(() => msg.delete(), 500);
-				btn.deferUpdate();
+				collector.stop();
 			}
 		});
 		collector.on('end', (reason) => {

@@ -15,9 +15,9 @@ module.exports = {
 	async execute(client, message, cmd, args) {
 		try {
 			if (!args[0]) {
-				readdirSync('./bot/commands/').forEach((dir) => {
+				readdirSync('./commands/').forEach((dir) => {
 					const commands = readdirSync(
-						`./bot/commands/${dir}/`
+						`./commands/${dir}/`
 					).filter((file) => file.endsWith('.js'));
 
 					const cmds = commands.map((command) => {
@@ -111,6 +111,7 @@ module.exports = {
 			const btn3 = new MessageButton()
 				.setLabel('Fun')
 				.setCustomId('3')
+				.setEmoji('<a:fun:862223812950360065>')
 				.setStyle('PRIMARY');
 			const btn4 = new MessageButton()
 				.setLabel('Info')
@@ -120,6 +121,13 @@ module.exports = {
 			const btn5 = new MessageButton()
 				.setLabel('Misc')
 				.setCustomId('5')
+				.setEmoji('<a:misc:862223831044325426>')
+				.setStyle('PRIMARY');
+
+				const btn6 = new MessageButton()
+				.setLabel('Giveaway')
+				.setCustomId('6')
+				.setEmoji('<a:im2:858369862190628875>')
 				.setStyle('PRIMARY');
 
 			const row = new MessageActionRow().addComponents(
@@ -127,8 +135,9 @@ module.exports = {
 				btn2,
 				btn3,
 				btn4,
-				btn5
-			);
+				btn6,
+			)
+			const row2 = new MessageActionRow().addComponents(btn5)
 
 			const basic = new Discord.MessageEmbed()
 				.setTitle('Help Menu')
@@ -157,6 +166,11 @@ module.exports = {
 						inline: true,
 					},
 					{
+						name: '<a:im2:858369862190628875> Giveaways',
+						value: '`Giveaway Commands`',
+						inline: true,
+					},
+					{
 						name: '<a:misc:862223831044325426> Misc',
 						value: '`Miscellaneous Commands`',
 						inline: true,
@@ -170,6 +184,8 @@ module.exports = {
 			const found3 = categories.find((e) => e.name == 'Fun');
 
 			const found4 = categories.find((e) => e.name == 'Info');
+
+			const found6 = categories.find((e) => e.name == 'Giveaways');
 
 			const found5 = categories.find((e) => e.name == 'Misc');
 
@@ -198,10 +214,15 @@ module.exports = {
 				.setDescription(found5.value)
 				.setTimestamp()
 				.setColor('5C33F6');
+			const embed6 = new Discord.MessageEmbed()
+				.setTitle('Giveaways')
+				.setDescription(found6.value)
+				.setTimestamp()
+				.setColor('5C33F6');
 
 			let msg = await message.channel.send({
 				embeds: [basic],
-				components: [row],
+				components: [row, row2],
 			});
 
 			const filter = (button) => button.user.id === message.author.id;
@@ -222,6 +243,8 @@ module.exports = {
 					button.reply({ embeds: [embed4], ephemeral: true });
 				} else if (button.customId === '5') {
 					button.reply({ embeds: [embed5], ephemeral: true });
+				} else if (button.customId === '6') {
+					button.reply({ embeds: [embed6], ephemeral: true });
 				}
 			});
 		} catch (err) {

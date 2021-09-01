@@ -83,7 +83,7 @@ module.exports = {
 	
 
 			message.guild.channels.cache
-				.get(`${data3}`) // replace with donation log channel id
+				.get(`${data3}`) 
 				.send({embeds: [
 					new MessageEmbed()
 						.setTitle('Donation Logging')

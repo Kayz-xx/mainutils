@@ -7,7 +7,7 @@ const eventdonations = require('../../eventdonations');
 const {Permissions} = require('discord.js')
 module.exports = {
 	name: 'removedono',
-	aliases: ['remdono', 'removedono', 'eventdonoremove'],
+	aliases: ['removedono', 'eventdonoremove'],
 	cooldown: '0',
 	permissions: [],
 	usage: '<user> <amount>, -eventdonoremove <user> <amount> <event>',
