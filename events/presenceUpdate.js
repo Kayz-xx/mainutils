@@ -1,4 +1,4 @@
-/*
+
 module.exports.run = async (client, oldPresence, newPresence) => {
   if(newPresence.guild == "764885367160700958") {
   const role = newPresence.guild.roles.cache.get("872900600046690346");
@@ -17,4 +17,4 @@ module.exports.run = async (client, oldPresence, newPresence) => {
        })
      }
   }
-}*/
+}
