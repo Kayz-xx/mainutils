@@ -35,7 +35,7 @@ module.exports.addCoins = async (guildId, userId, eventcoins) => {
 
       return result.eventcoins
     } finally {
-      mongoose.connection.close()
+
     }
   })
 }
@@ -69,7 +69,7 @@ module.exports.removeCoins = async (guildId, userId, eventcoins) => {
 
       return result.eventcoins
     } finally {
-      mongoose.connection.close()
+
     }
   })
 }
@@ -106,7 +106,7 @@ module.exports.getCoins = async (guildId, userId) => {
 
       return eventcoins
     } finally {
-      mongoose.connection.close()
+
     }
   })
 }
