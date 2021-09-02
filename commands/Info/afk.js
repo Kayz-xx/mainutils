@@ -14,6 +14,7 @@ module.exports = {
 
   
     async execute(client, message, cmd,  args) {
+        if(message.member.roles.cache.some(x => x.id === '764885367241048073')) return; 
         const reason = args.join(" ") || 'AFK'
         const left = 3
 
