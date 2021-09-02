@@ -9,7 +9,7 @@ module.exports = {
     name: "dictionary",
     category: "info",
     aliases: [],
-    description: "Get information about a word!",
+    description: "Get information and sentences about a word!",
     usage: "<word>",
     
     async execute(client, message, cmd,  args) {
