@@ -130,7 +130,7 @@ module.exports = {
       let hasRole6 = auser.roles.cache.some(role => role.id === data4.Donorole6)
       let hasRole7 = auser.roles.cache.some(role => role.id === data4.Donorole7)
       let hasRole8 = auser.roles.cache.some(role => role.id === data4.Donorole8)
-      let hasRole9 = auser.roles.cache.some(role => role.id === data4.Donorole8)
+      let hasRole9 = auser.roles.cache.some(role => role.id === data4.Donorole9)
 
       function sleep(ms){
         return new Promise(resolve => setTimeout(resolve, ms))
