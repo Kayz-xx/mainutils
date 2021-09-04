@@ -15,7 +15,7 @@ module.exports = {
 		try {
 			let button = new Array([], [], [], [], []);
 			let row = [];
-			let time = 60000;
+			let time = 120000;
 			let text = [
 				'Clear',
 				'(',
@@ -92,7 +92,7 @@ module.exports = {
 							time: time,
 						});
 
-						collect.on('collect', async (x) => {
+						collect.on('collect', async (btn) => {
 							if (result === 'new') value = ' ';
 							else if (isWrong) {
 								value = val;
@@ -104,11 +104,26 @@ module.exports = {
 							} else value += val;
 
 							embed1.setDescription('```' + value + '```');
-							x.update({
+							btn.update({
 								embeds: [embed1],
 								components: [row1, row2, row3, row4, row5],
 							});
 						});
+						collect.on('end', async (collected, reason) => {
+							embed1.setDescription(
+								'Your 2 minutes for using calculator is up!'
+							);
+							embed1.setColor('RED');
+							msg.components[0].components.forEach((com) => {
+							com.setDisabled(true);
+							com.setStyle('SECONDARY');
+							com.setLabel(" ")
+							com.setEmoji('<:Cancel:875313311640616971>')
+					});
+					let rows2 = new disbut.MessageActionRow().addComponents(msg.components[0].components)
+					msg.edit({embeds: [embed1], components: [rows2]});
+				
+				})
 					}
 
 					for (let txt of text) {
@@ -118,17 +133,7 @@ module.exports = {
 						else result = false;
 						createCollector(txt, result);
 					}
-
-					setTimeout(() => {
-						embed1.setDescription(
-							'Your 1 minute for using calculator is up!'
-						);
-						embed1.setColor('RED');
-						msg.reply({
-							embeds: [embed1],
-						});
-					}, time);
-				});
+		})
 
 			function createButton(lable, style = 'SECONDARY') {
 				if (lable === 'Clear') style = 'DANGER';
