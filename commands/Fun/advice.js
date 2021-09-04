@@ -12,5 +12,5 @@ module.exports = {
     let data = await Random.getAdvice()
     message.channel.send({embeds: [data.embed]})
     }
-}
+
 }
