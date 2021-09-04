@@ -35,7 +35,7 @@ module.exports = {
     }
 
     
-
+	setTimeout(() => message.delete(), 1000)
        client.giveaways.delete(giveaway.messageId)
         .then(() => {
         })
