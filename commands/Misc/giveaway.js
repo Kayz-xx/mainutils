@@ -1,7 +1,7 @@
 const {Permissions, MessageEmbed} = require("discord.js")
 module.exports = {
     name: 'giveaway',
-    aliases: ['eping', 'fping', 'mudae'],
+    aliases: ['eping', 'fping', 'mping'],
     cooldown: 0,
     category: 'Misc',
 
@@ -11,14 +11,14 @@ module.exports = {
       if(message.member.roles.cache.some(x => x.id === '768129052623372348') && message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return; 
     setTimeout(() => message.delete(), 100)
       const msg = args.slice(0).join(' ');
-      message.channel.send({content:`<@&859323544138809364> ${msg} **- ${message.author.tag}**`})
+      message.channel.send({content:`<@&764885367241048064> ${msg} **- ${message.author.tag}**`})
         }
      } if(cmd === 'eping'){
         if(message.guild.id === "764885367160700958") {
         if(message.member.roles.cache.some(x => x.id === '792799102140022785') && message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return; 
         setTimeout(() => message.delete(), 100)
         const msg = args.slice(0).join(' ');
-        message.channel.send({content:`<@&859323607678844928> ${msg} **- ${message.author.tag}**`})
+        message.channel.send({content:`<@&778355810043559976> ${msg} **- ${message.author.tag}**`})
         }
      }
      if(cmd === 'fping'){
