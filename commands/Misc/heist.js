@@ -9,7 +9,7 @@ module.exports = {
     category: 'Misc',
 
     async execute(client, message, cmd,  args) {
-      if(!message.member.roles.cache.has("770365283147317248") && message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
+      if(!message.member.roles.cache.has("770365283147317248") && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
       const prize = args[0]
       if(!prize) return message.channel.send("Please specify an amount")
       const time = args[1]
