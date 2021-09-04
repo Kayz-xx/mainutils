@@ -5,7 +5,7 @@ module.exports = {
     aliases: [],
     cooldown: '0',
     permissions: [],
-    description: 'Heist Ping!',
+    description: 'Heist Ping',
     category: 'Misc',
 
     async execute(client, message, cmd,  args) {
