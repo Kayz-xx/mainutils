@@ -12,6 +12,7 @@ module.exports = {
     category: 'Donations',
     
     async execute(client, message, cmd,  args) {
+         if(!message.member.roles.cache.has("764885367400693764")) return;
         let name = args[0]
         if(!name)
         return message.channel.send({content: "Specify an item to edit."})
