@@ -20,6 +20,8 @@ module.exports = {
       if(!requirement) return message.channel.send("Please specify a requirement")
       const msge = args.slice(4).join(' ');
       if(!msge) return message.channel.send("Please specify a message")
+        
+       setTimeout(() => message.delete(), 1000)
   
       const embed = new MessageEmbed()
       .setAuthor('Heist!', message.author.avatarURL({ dynamic:true }))
