@@ -35,7 +35,7 @@ module.exports = {
             return message.reply({content:'Giveaway "'+ args.join(' ') + '" not found.'});
         }
     
-
+	setTimeout(() => message.delete(), 1000)
        client.giveaways.reroll(giveaway.messageId, {
            winnerCount: winner,
            messages: {
