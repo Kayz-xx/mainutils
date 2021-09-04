@@ -77,7 +77,7 @@ module.exports = {
 				);
 			}
 		});
-
+		setTimeout(() => message.delete(), 1000)
 		let msg;
 		let donor;
 		let v;
