@@ -18,14 +18,14 @@ const { MessageEmbed } = require("discord.js");
     d2.forEach(d => {
     bypass.push(d.id)
     })
-
+    let ad = ["813228228671045653", "829083877892948009"]
 
     names.map((d, i) => {
 		nam += `${d},`
 	})
     if(role.length == 0) return;
     if(bypass.length == 0) b = false
-        if (!role.every(r => member.roles.cache.has(r)) && !bypass.some(r => member.roles.cache.has(r)) && !member.roles.cache.has("829083877892948009")) {
+        if (!role.every(r => member.roles.cache.has(r)) && !bypass.some(r => member.roles.cache.has(r)) && !ad.some(r => member.roles.cache.has(r))) {
             reaction.users.remove(member.user);
             let embed = new MessageEmbed()
             .setTitle("Missing Giveaway Requirement")
@@ -36,7 +36,7 @@ const { MessageEmbed } = require("discord.js");
             .setTimestamp()
             member.send({embeds: [embed]});
        } else if (b == false) {
-        if (!role.every(r => member.roles.cache.has(r)) && !member.roles.cache.has("829083877892948009")) {
+        if (!role.every(r => member.roles.cache.has(r)) && !ad.some(r => member.roles.cache.has(r))) {
             reaction.users.remove(member.user);
             let embed = new MessageEmbed()
             .setTitle("Missing Giveaway Requirement")
