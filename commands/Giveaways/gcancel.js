@@ -13,9 +13,7 @@ module.exports = {
 
 	async execute(client, message, cmd, args) {
 	
-        if(!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) && !message.member.roles.cache.some((r) => r.name === "Giveaways")){
-            return;
-        }
+        if(message.member.roles.cache.some(x => x.id === '774008242127765535')) {
     
 
         if(!args[0]){
@@ -49,5 +47,6 @@ module.exports = {
                 message.reply({content:'The giveaway hasn\'t ended yet.'});
             }
         });
+     }
 	},
 };
