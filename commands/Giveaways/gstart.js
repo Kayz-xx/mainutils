@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const ms = require('ms');
-const { db } = require('../../firebase.js');
+const giveawayModel = require('../../schemas/giveaway-schema')
 
 module.exports = {
 	name: 'gstart',
@@ -10,7 +10,7 @@ module.exports = {
 	category: 'Giveaways',
 
 	async execute(client, message, cmd, args) {
-		setTimeout(() => message.delete(), 200)
+		if(message.member.roles.cache.some(x => x.id === '774008242127765535')) {
 		const time = args[0];
 		if (!time) {
 			return message.reply({
@@ -225,111 +225,6 @@ module.exports = {
 		} else if (!flags.get(` msg`)) {
 			msg = 'No Message';
 		}
+	}
 	},
 };
-/* let rolesRegex = new RegExp(/(?<Roles>(\d{18}(\[(role|bypassrole|blrole)\])?( +)?)+)/, 'igm');
-        let inputRoleMatch = new RegExp(/(?<RoleID>\d{18})(\[(?<Type>(role|bypassrole|blrole))\])?/, 'igm')
-
-        const { Roles } = rolesRegex.exec(message.content).groups;
-
-        let roles = [...Roles.matchAll(inputRoleMatch)]
-
-        let roled = ''
-        let bl = ''
-        let bypass = ''
-
-        for(const { RoleID, Type } of roles){
-        if(Type === "role") {
-         roled = message.guild.roles.cache.find(r => r.id == RoleID)
-        if(Type === "blrole") {
-          bl = message.guild.roles.cache.find(r => r.id == RoleID)
-           }
-        if(Type === "bypassrole") {
-         bypass = message.guild.roles.cache.find(r => r.id == RoleID)
-        }
-}
-*/
-
-/*
-        let data = await db
-        .ref(`Giveaways/Role`)
-        .once("value")
-        .then(snapshot => snapshot.val())|| []
-    
-        db.ref(`Giveaways/Role`).set(req.id)
-        
-*/
-
-/*	let rolearray = args[2].split(',');
-let req = [];
-let role = [];
-rolearray.forEach((e) => {
-	req.push(
-		message.guild.roles.cache.find((r) => r.id === e) ||
-		message.guild.roles.cache.find((r) => r.name === e)
-	);
-});
-
-const flags = new Map();
-const remainder = ` ${args.join(' ')}`;
-const params = remainder.split(/ --| —/).filter((el) => !!el);
-
-params.forEach((content) => {
-	if (!content.startsWith(' ')) {
-		flags.set(
-			` ${content
-				.split(' ')
-				.slice(0, 1)
-				.join(' ')}`,
-			`${content
-				.split(' ')
-				.slice(1)
-				.join(' ')}`
-		);
-	}
-});
-
-if (flags.get(` bypass`)) {
-	roles = flags.get(` bypass`);
-	if (roles.length >= 1024) {
-		return message.reply(
-			`Roles cannot contain more than 1024 character`
-		);
-	}
-} else {
-}
-let rolesinfo = roles.split(',')
-rolesinfo.forEach((rolesinfo) => {
-	role.push(
-		message.guild.roles.cache.find((r) => r.id === rolesinfo)
-	);
-});
-if (rolearray == 'none') req = null;
-let prize = args.slice(3).join(' ').split('--')[0]
-const host = message.author;
-const add = ms(time);
-const date = parseInt(new Date().getTime()) + parseInt(add);
-const rdate = Math.ceil(date / 1000);
-let str = '';
-let rolec = '';
-if (req) {
-	id = req.id;
-	name = req.name;
-
-	if (typeof rolearray === 'string') {
-
-		rolec = `<@&${req[0].id}>`;
-		str = `\n\n**Requirement:**\n Roles: ${rolec}`;
-	} else {
-		for (let i = 0; i < Math.min(10, req.length); i ++) {
-			let r = req [i];
-			rolec += `<@&${r.id}>,`
-		  };
-		str = `\n\n**Requirement:**\n Roles: ${rolec}`;
-	}
-		str += `\nBypass Roles: `
-	for (let i = 0; i < Math.min(10, role.length); i ++) {
-		let r = role [i];
-		str += `<@&${r.id}>,`
-	  };
-}*/
