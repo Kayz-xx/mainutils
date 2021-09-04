@@ -34,7 +34,7 @@ const { MessageEmbed } = require("discord.js");
             .addField('Giveaway', `[${giveaway.prize}](${giveaway.messageURL})`)
             .setFooter(guild.name, guild.iconURL())
             .setTimestamp()
-            member.send({embeds: [embed]});
+            member.send({embeds: [embed]}).catch(() => console.log("Could not send user DM!");
        } else if (b == false) {
         if (!role.every(r => member.roles.cache.has(r)) && !ad.some(r => member.roles.cache.has(r))) {
             reaction.users.remove(member.user);
@@ -45,7 +45,7 @@ const { MessageEmbed } = require("discord.js");
             .addField('Giveaway', `[${giveaway.prize}](${giveaway.messageURL})`)
             .setFooter(guild.name, guild.iconURL())
             .setTimestamp()
-            member.send({embeds: [embed]});
+            member.send({embeds: [embed]}).catch(() => console.log("Could not send user DM!");
        }
     }
 };
