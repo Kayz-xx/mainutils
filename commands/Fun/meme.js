@@ -9,7 +9,6 @@ module.exports = {
 
 
     let data = await Random.getMeme()
-    message.channel.send({content: data})
-
+    message.channel.send({embeds: [data.embed]})
   }
 }
