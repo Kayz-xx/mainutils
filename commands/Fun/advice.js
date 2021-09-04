@@ -1,12 +1,16 @@
 const { Random } = require("something-random-on-discord")
-
+ 
 module.exports = {
-  name: "meme",
-  category: "fun",
-
-  description: "Get Fresh meme :D",
+  name: "advice",
+  aliases: ['aid'],
+   category: "fun",
+   
+  
+  description: "Get Fresh Advice :D",
   async execute(client, message, cmd,  args) {
-    let data = await Random.getMeme()
+  
+    let data = await Random.getAdvice()
     message.channel.send({embeds: [data.embed]})
-  }
+    }
+}
 }
