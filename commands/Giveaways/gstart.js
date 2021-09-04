@@ -208,7 +208,7 @@ module.exports = {
 				winners: 'Winners: ',
 				endedAt: 'Ended at',
 				embedFooter: {
-					text: 'Ended At',
+					text: `Winners(${winners}) | Ends At`,
 					iconURL: message.guild.iconURL()
 				},
 			},
