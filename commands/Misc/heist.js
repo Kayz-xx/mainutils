@@ -14,10 +14,10 @@ module.exports = {
       if(!prize) return message.channel.send("Please specify an amount")
       const time = args[1]
       if(!time) return message.channel.send("Please specify an amount of time")
-      const requirement = args[2]
-      if(!requirement) return message.channel.send("Please specify a requirement")
-      const donor = client.users.cache.get(args[3]) || message.mentions.members.first()
+      const donor = client.users.cache.get(args[2]) || message.mentions.members.first()
       if(!donor) return message.channel.send("Please specify a donor")
+      const requirement = args[3]
+      if(!requirement) return message.channel.send("Please specify a requirement")
       const msge = args.slice(4).join(' ');
       if(!msge) return message.channel.send("Please specify a message")
   
@@ -25,6 +25,7 @@ module.exports = {
       .setAuthor('Heist!', message.author.avatarURL({ dynamic:true }))
       .setTitle('Heist Time')
       .addField(`<a:EE_nyaspin:787259537408786442> Time`, `${time}`) 
+        .addField(`<a:EE_nyaspin:787259537408786442> Time`, `${prize}`) 
       .addField(`<a:EE_nyaspin:787259537408786442> Donor`, `${donor}`) 
       .addField(`<a:EE_nyaspin:787259537408786442> Requirement`, requirement) 
       .addField(`<a:EE_nyaspin:787259537408786442> Message`, msge) 
