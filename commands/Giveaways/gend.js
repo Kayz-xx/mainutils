@@ -12,10 +12,8 @@ module.exports = {
 	category: 'Giveaways',
 
 	async execute(client, message, cmd, args) {
-	     setTimeout(() => message.delete(), 100)
-        if(!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) && !message.member.roles.cache.some((r) => r.name === "Giveaways")){
-            return;
-        }
+	 
+        if(message.member.roles.cache.some(x => x.id === '774008242127765535')) {
     
 
         if(!args[0]){
@@ -49,5 +47,6 @@ module.exports = {
                 console.error(e);
             }
         });
+    }
 	},
 };
