@@ -6,7 +6,7 @@ module.exports = {
    category: "fun",
    
   
-  description: "Get Fresh Advice :D",
+  description: "Get Fresh Advice",
   async execute(client, message, cmd,  args) {
   
     let data = await Random.getAdvice()
