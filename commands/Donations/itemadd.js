@@ -40,11 +40,11 @@ module.exports = {
         let type = args[3]
         if(!type)
         return message.channel.send({embeds: [embed5]})
-        let types = ['shop', 'work', 'collectables']
+        let types = ['shop', 'work', 'nonpurchasable']
         if(!types.includes(type)) {
             let embed = new MessageEmbed()
             .setTitle(`**Elite's Item List**`)
-            .setDescription(`\`\`\`markdown\nValid Types- <shop, work, collectables>\`\`\``)
+            .setDescription(`\`\`\`markdown\nValid Types- <shop, work, nonpurchasable>\`\`\``)
             .setColor('RANDOM')
             .setFooter(`Elite Empire`, `https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024`)
             return message.channel.send({embeds: [embed]})
