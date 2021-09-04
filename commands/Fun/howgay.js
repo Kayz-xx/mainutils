@@ -19,7 +19,7 @@ module.exports = {
 
         const embed = new Discord.MessageEmbed()
         .setTitle('Gay Rate Machine')
-        .setDescription(`${member} is ${random}% Gay🌈`)
+        .setDescription(`${member} is ${random}% gay🌈`)
         .setColor("BLUE")
         message.channel.send({content: embed})
     }
