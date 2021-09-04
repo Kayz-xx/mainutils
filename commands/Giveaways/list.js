@@ -22,7 +22,7 @@ module.exports = {
 	category: 'Giveaways',
 
 	async execute(client, message, cmd, args) {
-
+		if(message.member.roles.cache.some(x => x.id === '774008242127765535')) {
         let giveaways = client.giveaways.giveaways.filter(g => g.guildId === `${message.guild.id}` && !g.ended)
         if (giveaways.length === 0) return message.channel.send('No Giveaways In The Server.')
 
@@ -149,6 +149,7 @@ let pg = newd.length - 1
         components: [rows2],
       });
     });
+  }
 	
         }
     }
