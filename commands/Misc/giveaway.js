@@ -4,7 +4,6 @@ module.exports = {
     aliases: ['eping', 'fping', 'mudae'],
     cooldown: 0,
     category: 'Misc',
-    ownerOnly: true, 
 
     async execute(client, message, cmd,  args) {
     if(cmd === 'giveaway'){
