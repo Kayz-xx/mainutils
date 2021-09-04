@@ -124,7 +124,7 @@ module.exports = {
 							'Your 1 minute for using calculator is up!'
 						);
 						embed1.setColor('RED');
-						x.editReply({
+						msg.reply({
 							embeds: [embed1],
 						});
 					}, time);
