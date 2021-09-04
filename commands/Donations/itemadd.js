@@ -12,6 +12,7 @@ module.exports = {
     category: 'Donations',
     
     async execute(client, message, cmd,  args) {
+        if(!message.member.roles.cache.has("764885367400693764")) return;
         let embed2 = new MessageEmbed()
         .setDescription(`\`\`\`markdown\nitemadd <name> <amount> <aliases> <type>\n        ^^^^^^\nInvalid Syntax\`\`\``)
         .setColor('RANDOM')
