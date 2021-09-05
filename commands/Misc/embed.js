@@ -11,7 +11,7 @@ module.exports = {
     description: 'Creates a simple embed and returns it in the channel',
   
     async execute(client, message, cmd,  args) {
-      if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+      if (message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
           try{
           const { MessageEmbed, MessageActionRow, MessageSelectMenu, MessageButton } = require('discord.js')
           
