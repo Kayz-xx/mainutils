@@ -13,7 +13,7 @@ module.exports.run = async (client, giveaway, winners) => {
 			regex.lastIndex++;
 		}
 
-		host = client.users.cache.get(m[0]);
+		  host = await client.users.fetch(m[0]).catch(() => null);
 	}
 	let desc = ''
 	winners.map((d) => {
