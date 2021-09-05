@@ -21,7 +21,7 @@ module.exports.run = async (client, giveaway, winners) => {
 	})
 	let embed2 = new MessageEmbed()
 		.setTitle('Your giveaway ended!')
-		.setDescription(`Your winners are ${desc}\nMake sure to do payouts soon <:EE_Dogangry:869338671030104064>,\nIf the winners DM you/contact support before the 12 hours are up you can reroll them.`)
+		.setDescription(`Your winners are ${desc}\nMake sure to do payouts soon <:EE_Dogangry:869338671030104064>\nIf the winners DM you/contact support before the 12 hours are up you can reroll them.`)
 		.addField('Giveaway', `[${giveaway.prize}](${giveaway.messageURL})`)
 		.setColor('FFA0A0')
 		.setFooter(guild.name, guild.iconURL())
