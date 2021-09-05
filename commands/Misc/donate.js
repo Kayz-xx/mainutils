@@ -7,7 +7,7 @@ module.exports = {
     cooldown: '0',
     permissions: [],
     usage: '<prize> <time> <winners> <requirement> <message>, eventdono- <event> <winners> <prize> <req> <message>',
-    description: 'Donate towards the server!',
+    description: 'Donate towards the server and more!',
     category: 'Misc',
 
   
