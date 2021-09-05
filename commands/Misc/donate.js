@@ -45,10 +45,10 @@ try {
 
   let row = new MessageActionRow().addComponents(del);
 
-  let msg = await message.channel.send({content: '<@&872376861018177547>', embeds: [embed], components: [row]})
+  let msg = await message.channel.send({content: '<@&768129052623372348>', embeds: [embed], components: [row]})
                
     
-    const filter = (btn) => message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '855455543489331241') || message.guild.members.cache.find((member) => member.id === btn.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+    const filter = (btn) => message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '768129052623372348') || message.guild.members.cache.find((member) => member.id === btn.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
 
     const collector = msg.createMessageComponentCollector({
       filter,
@@ -88,7 +88,7 @@ try {
         });
         let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
         msg.edit({content: `No one **claimed** the donation proceed **manually**.`, components: [rows2]});
-        message.channel.send({content: '<@&872376861018177547>'})
+        message.channel.send({content: '<@&768129052623372348>'})
       }
     })
   } catch (e) {
@@ -130,10 +130,10 @@ try {
       
         let row = new MessageActionRow().addComponents(del);
       
-        let msg = await message.channel.send({content: '<@&872376861018177547>', embeds: [embed], components: [row]})
+        let msg = await message.channel.send({content: '<@&792799102140022785>', embeds: [embed], components: [row]})
                      
           
-          const filter = (btn) => message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '855455543489331241') || message.guild.members.cache.find((member) => member.id === btn.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+          const filter = (btn) => message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '792799102140022785') || message.guild.members.cache.find((member) => member.id === btn.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
       
           const collector = msg.createMessageComponentCollector({
             filter,
@@ -172,7 +172,7 @@ try {
               });
               let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
               msg.edit({content: `No one **claimed** the event donation proceed **manually**.`, components: [rows2]});
-              message.channel.send({content: '<@&872376861018177547>'})
+              message.channel.send({content: '<@&792799102140022785>'})
             }
           })
         } catch (e) {
