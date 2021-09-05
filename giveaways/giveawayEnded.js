@@ -29,7 +29,7 @@ module.exports.run = async (client, giveaway, winners) => {
 	if (winners.length === 0) {
 		embed2.setDescription('No winners were picked');
 	}
-	host.send({ embeds: [embed2] }).catch(() => console.log("Could not send user DM!");
+	host.send({ embeds: [embed2] }).catch(() => console.log("Could not send user DM!"))
 	winners.forEach((member) => {
 		let embed = new MessageEmbed()
 			.setTitle('You won a giveaway!')
@@ -43,6 +43,6 @@ module.exports.run = async (client, giveaway, winners) => {
 			)
 			.setFooter(guild.name, guild.iconURL())
 			.setTimestamp();
-		member.send({ embeds: [embed] }).catch(() => console.log("Could not send user DM!");
+		member.send({ embeds: [embed] }).catch(() => console.log("Could not send user DM!"))
 	});
 };
