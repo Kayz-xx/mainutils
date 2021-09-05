@@ -1,7 +1,7 @@
 const { Client, Message, MessageEmbed, Collection } = require('discord.js')
 const formatter = new Intl.NumberFormat('en')
 const {db} = require('../../firebase.js')
-
+const {Permissions} = require('discord.js')
 
 module.exports = {
     name: 'itemedit',
@@ -12,6 +12,7 @@ module.exports = {
     category: 'Donations',
     
     async execute(client, message, cmd,  args) {
+        if(!message.member.roles.cache.has("789854214288965644") && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
         let name = args[0]
         if(!name)
         return message.channel.send({content: "Specify an item to edit."})
