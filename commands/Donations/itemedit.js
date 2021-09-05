@@ -12,13 +12,15 @@ module.exports = {
     category: 'Donations',
     
     async execute(client, message, cmd,  args) {
-         if(!message.member.roles.cache.has("764885367400693764")) return;
         let name = args[0]
         if(!name)
         return message.channel.send({content: "Specify an item to edit."})
         let amount = args[1]
         if(!amount)
         return message.channel.send({content: "Specify an amount"})
+        let aliases = args[2]
+        if(!aliases)
+        return message.channel.send({content: "Specify an alias"})
         let data = await db
         .ref(`Donations/Info/${message.guild.id}/List`)
         .once("value")
@@ -29,13 +31,14 @@ module.exports = {
             data[place] = {
                 "name" : found.name,
                 "amount" : parseInt(amount),
-                "aliases": found.aliases,
+                "aliases": aliases,
                 "type" : found.type
               }
             db.ref(`Donations/Info/${message.guild.id}/List`).set(data)
             const item = data.find(item => item.name === name) || data.find(item => item.aliases === name)
             let embed6 = new MessageEmbed()
             .setAuthor(`Item ${name} price set to: ${amount}`)
+            .setDescription(`Alias set to ${aliases}`)
             .setColor("RANDOM")
             message.channel.send({embeds: [embed6]})
         } else {
