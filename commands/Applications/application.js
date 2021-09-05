@@ -91,7 +91,7 @@ module.exports = {
 		let index = 0;
 
 		const collected = await msg.channel
-			.awaitMessages(filter, {
+			.awaitMessages({filter, 
 				max: 1,
 				time: 60000,
 			})
@@ -141,7 +141,7 @@ module.exports = {
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
 					await msg
-						.awaitReactions(filter2, {
+						.awaitReactions({filter2, 
 							max: 1,
 							time: 60000,
 							errors: ['time'],
@@ -169,7 +169,7 @@ module.exports = {
 								const channel = appStart.channel;
 
 								const collector = channel.createMessageCollector(
-									filter
+									{filter}
 								);
 
 								collector.on('collect', (m) => {
@@ -292,7 +292,7 @@ module.exports = {
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
 					await msg
-						.awaitReactions(filter2, {
+						.awaitReactions({filter2, 
 							max: 1,
 							time: 60000,
 							errors: ['time'],
@@ -317,7 +317,7 @@ module.exports = {
 								const channel = appStart.channel;
 
 								const collector = channel.createMessageCollector(
-									filter
+									{filter}
 								);
 
 								collector.on('collect', (m) => {
@@ -440,7 +440,7 @@ module.exports = {
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
 					await msg
-						.awaitReactions(filter2, {
+						.awaitReactions({filter2, 
 							max: 1,
 							time: 60000,
 							errors: ['time'],
@@ -465,7 +465,7 @@ module.exports = {
 								const channel = appStart.channel;
 
 								const collector = channel.createMessageCollector(
-									filter
+									{filter}
 								);
 
 								collector.on('collect', (m) => {
@@ -585,7 +585,7 @@ module.exports = {
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
 					await msg
-						.awaitReactions(filter2, {
+						.awaitReactions({filter2, 
 							max: 1,
 							time: 60000,
 							errors: ['time'],
@@ -613,7 +613,7 @@ module.exports = {
 								const channel = appStart.channel;
 
 								const collector = channel.createMessageCollector(
-									filter
+									{filter}
 								);
 
 								collector.on('collect', (m) => {
