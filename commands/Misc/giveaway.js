@@ -1,7 +1,7 @@
 const {Permissions, MessageEmbed} = require("discord.js")
 module.exports = {
     name: 'giveaway',
-    aliases: ['eping', 'fping', 'mping', 'middleman'],
+    aliases: ['eping', 'fping', 'mping', 'mm'],
     cooldown: 0,
     category: 'Misc',
 
@@ -38,7 +38,7 @@ module.exports = {
       message.channel.send({content:`<@&794315002449231893> ${msg} **- ${message.author.tag}**`})
       }
     }
-    if(cmd === 'middleman'){
+    if(cmd === 'mm'){
       if(message.guild.id === "764885367160700958") {
       if(message.channel.id !== "805595301950783538") return;
       setTimeout(() => message.delete(), 100)
