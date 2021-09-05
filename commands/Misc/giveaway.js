@@ -43,7 +43,7 @@ module.exports = {
       if(message.channel.id !== "805595301950783538") return;
       setTimeout(() => message.delete(), 100)
       const msg = args.slice(0).join(' ');
-      message.channel.send({content:`<@&794315002449231893> ${msg} **- ${message.author.tag}**`})
+      message.channel.send({content:`<@&804024293175590942> ${msg} **- ${message.author.tag}**`})
       }
     }
   }
