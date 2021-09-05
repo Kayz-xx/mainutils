@@ -67,6 +67,11 @@ module.exports = {
 		});
 		let pg = newd.length - 1;
 
+		newd.sort(function (a, b) {
+			return a.localeCompare(b); 
+		  });
+		  
+		
 		const embed = new MessageEmbed()
 			.setTitle('Item List')
 			.setDescription(
