@@ -13,6 +13,6 @@ module.exports.run = async (client, giveaway, winners) => {
         .addField('Giveaway', `[${giveaway.prize}](${giveaway.messageURL})`)
         .setFooter(guild.name, guild.iconURL())
         .setTimestamp()
-        member.send({embeds: [embed]}).catch(() => console.log("Could not send user DM!");
+        member.send({embeds: [embed]}).catch(() => console.log("Could not send user DM!"))
     });
 };
