@@ -61,7 +61,7 @@ module.exports = {
 				)]}
 		);
 		const collected = await msg.channel
-			.awaitMessages(filter, {
+			.awaitMessages({filter, 
 				max: 1,
 				time: 60000,
 			})
@@ -92,8 +92,8 @@ module.exports = {
 
 					const collector = new DiscordJS.MessageCollector(
 						message.channel,
-						filter,
-						{
+						{filter,
+						
 							max: questions.length,
 							time: 120000,
 						}
@@ -164,8 +164,7 @@ module.exports = {
 
 					const collector = new DiscordJS.MessageCollector(
 						message.channel,
-						filter,
-						{
+						{filter,
 							max: questions.length,
 							time: 120000,
 						}
@@ -235,8 +234,7 @@ module.exports = {
 
 					const collector = new DiscordJS.MessageCollector(
 						message.channel,
-						filter,
-						{
+						{filter,
 							max: questions.length,
 							time: 120000,
 						}
@@ -305,8 +303,7 @@ module.exports = {
 	
 						const collector = new DiscordJS.MessageCollector(
 							message.channel,
-							filter,
-							{
+							{filter,
 								max: questions.length,
 								time: 120000,
 							}
