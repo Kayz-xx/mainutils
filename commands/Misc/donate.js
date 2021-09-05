@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 const {db} = require('../../firebase.js')
 module.exports = {
     name: 'donate',
-    aliases: ['donate', 'eventdono', 'donoheist'],
+    aliases: ['donate', 'eventdono', 'heistdono'],
     cooldown: '0',
     permissions: [],
     usage: '<prize> <time> <winners> <requirement> <message>, eventdono- <event> <winners> <prize> <req> <message>',
@@ -179,7 +179,7 @@ try {
           console.log(e)
         }
     }
-    if(cmd === 'donoheist') {
+    if(cmd === 'heistdono') {
       setTimeout(() => message.delete(), 100)
       const prize = args[0]
       if(!prize) return message.channel.send("Please specify an amount")
