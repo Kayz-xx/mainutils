@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed, Collection } = require('discord.js')
+const { Client, Message, MessageEmbed, Collection, Permissions} = require('discord.js')
 const formatter = new Intl.NumberFormat('en')
 const {db} = require('../../firebase.js')
 
@@ -12,7 +12,7 @@ module.exports = {
     category: 'Donations',
     
     async execute(client, message, cmd,  args) {
-        if(!message.member.roles.cache.has("764885367400693764")) return;
+        if(!message.member.roles.cache.has("789854214288965644") && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
         let embed2 = new MessageEmbed()
         .setDescription(`\`\`\`markdown\nitemadd <name> <amount> <aliases> <type>\n        ^^^^^^\nInvalid Syntax\`\`\``)
         .setColor('RANDOM')
