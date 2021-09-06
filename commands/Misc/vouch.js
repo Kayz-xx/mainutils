@@ -75,12 +75,10 @@ module.exports = {
 				});
 
 				/*let array = [targetId]
-
 				 array.push({
 					"LastGivenBy": authorId,
 					"LastGivenAt": Date.now()
 				})
-
 				console.log(array)
 				console.log(array[0])*/
 
@@ -118,13 +116,14 @@ module.exports = {
 					.then((snapshot) => snapshot.val())) || [];
 			db.ref(`Vouch System/${message.guild.id}/${targetId}`);
 
+			let nv = new Discord.MessageEmbed()
+			.setTitle(`User: ${target.user.username}`)
+			.setDescription(`This user does not have any vouches!`)
+			.setColor("RANDOM")
+
 			if (!data.Vouches) {
 				return message.channel.send({
-					embeds: {
-						title: `User: ${target.user.username}`,
-						description: `This user does not have any vouches!`,
-						color: 'RANDOM',
-					},
+					embeds: [nv],
 				});
 			}
 			const role = '863489844557905971';
