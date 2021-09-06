@@ -18,8 +18,8 @@ module.exports = {
 
 		let inGuild = false;
 
-		if (message.guild.members.fetch(member.id)) inGuild = true;
-
+		if (message.guild.members.cache.has(member.id)) inGuild = true;
+		console.log(message.guild.members.cache.has(member.id))
 		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${member.tag}`, member.avatarURL())
 			.setThumbnail(member.avatarURL())
@@ -36,18 +36,15 @@ module.exports = {
 					inline: true,
 				},
 				{
-					name: 'Presence',
-					value: `${member.presence.status}`,
-					inline: true,
-				},
-				{
 					name: 'Bot',
 					value: `${member.bot}`,
 					inline: true,
 				},
 				{ name: 'User ID', value: `${member.id}`, inline: true }
 			)
-			.setColor(`RANDOM`);
+			.setColor(`RANDOM`)
+			.setTimestamp()
+			
 		message.channel.send({embeds: [embed]});
 	},
 };
