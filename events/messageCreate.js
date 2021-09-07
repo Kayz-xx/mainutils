@@ -22,7 +22,7 @@ module.exports.run = async (client, message) => {
 				}
 			}
 		}
-	}*/
+	}
 	const mentionedMember = message.mentions.members.first()
 	if (mentionedMember && !message.author.bot) {
 		const data = afk.get(mentionedMember.id)
@@ -47,7 +47,7 @@ module.exports.run = async (client, message) => {
 		afk.delete(message.author.id)
 		message.reply({content: `Welcome back ${message.member}, your AFK has been removed`})
 		}
-	}
+	}*/
 	const prefix = config.prefix;
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
