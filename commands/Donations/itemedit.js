@@ -26,7 +26,7 @@ module.exports = {
         .ref(`Donations/Info/${message.guild.id}/List`)
         .once("value")
         .then(snapshot => snapshot.val())|| []
-        const found = data.find(item => item.name === name) || data.find(item => item.aliases === name)
+        const found = data.find(item => item.name.toUpperCase() === name.toUpperCase()) || data.find(item => item.aliases.toUpperCase() === name.toUpperCase())
         const place = data.indexOf(found)
         if(found) {
             data[place] = {
