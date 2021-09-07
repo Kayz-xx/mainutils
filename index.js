@@ -16,10 +16,11 @@ const client = new discord.Client({
 	  "GUILDS",
 	  "GUILD_MEMBERS",
 	  "GUILD_BANS",
-	  "GUILD_MESSAGE_REACTIONS",
 	  "GUILD_MESSAGES",
 	  "GUILD_PRESENCES",
-	  "GUILD_MESSAGE_REACTIONS"
+	  "GUILD_MESSAGE_REACTIONS",
+	  "DIRECT_MESSAGE_REACTIONS",
+	  "DIRECT_MESSAGES"	
 	],
   });
 //const category = {};
