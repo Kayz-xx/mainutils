@@ -9,7 +9,7 @@ module.exports = {
     cooldown: '0',
     permissions: [],
     category: 'Applications',
-    description: "This command set's the positions availible for the server",
+    description: "This command sets the positions availible for the server",
   
     async execute(client, message, cmd,  args) {
      if (message.author.id !== "491933949686448138")
