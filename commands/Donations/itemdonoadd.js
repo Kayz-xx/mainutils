@@ -45,7 +45,7 @@ module.exports = {
     .once("value")
     .then(snapshot => snapshot.val())|| []
     db.ref(`Donations/Info/${message.guild.id}/List`)
-    let item = data5.find(item => item.name === args[2]) || data5.find(item => item.aliases === args[2])
+    let item = data5.find(item => item.name.toUpperCase() === args[2].toUpperCase()) || data5.find(item => item.aliases.toUpperCase() === args[2].toUpperCase())
     if(!item) return message.reply({content: `Could not find that item!`})
 
     /*let amount2 = args[3]
