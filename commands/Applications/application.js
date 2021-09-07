@@ -726,7 +726,7 @@ module.exports = {
 					});
 				}
 			})
-			.catch(async () => {
+			.catch(async (error) => {
 				console.log(error);
 				return message.author.send({
 					content: 'There was an error running the command.',
