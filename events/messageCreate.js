@@ -22,7 +22,29 @@ module.exports.run = async (client, message) => {
 				}
 			}
 		}
-	}
+	}*/
+	/*if(message.author.id === '491933949686448138') {
+		const mention = message.mentions.members.first()
+		if(!mention) return;
+		let data =
+		(await db
+			.ref(`Reminders/${message.guild.id}/${mention.id}`)
+			.once('value')
+			.then((snapshot) => snapshot.val())) || [];
+			db.ref(`Reminders/${message.guild.id}/${mention.id}`);
+		if(data.length > 0)	{
+		if(message.content.includes(`Here are your daily coins, ${mention.displayName}`)) {
+			if(data[0].daily == true) {
+				let date = new Date().getTime()
+				message.react("⏰")
+				setTimeout(() => {
+				mention.send({content: 'You can now **claim daily** <a:daily:884080989452783646>'})
+				}, 1000);
+			} 
+		}		
+	  }
+	}*/
+	if(message.channel.type === "GUILD_TEXT") {
 	const mentionedMember = message.mentions.members.first()
 	if (mentionedMember && !message.author.bot) {
 		const data = afk.get(mentionedMember.id)
@@ -47,7 +69,8 @@ module.exports.run = async (client, message) => {
 		afk.delete(message.author.id)
 		message.reply({content: `Welcome back ${message.member}, your AFK has been removed`})
 		}
-	}*/
+	}
+
 	const prefix = config.prefix;
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -162,5 +185,6 @@ module.exports.run = async (client, message) => {
 			.then((msg) => {
 				setTimeout(() => msg.delete(), 3000);
 			});
+		}
 	}
 };
