@@ -36,7 +36,7 @@ module.exports = {
                 "type" : found.type
               }
             db.ref(`Donations/Info/${message.guild.id}/List`).set(data)
-            const item = data.find(item => item.name === name) || data.find(item => item.aliases === name)
+            const item = data.find(item => item.name.toUpperCase() === name.toUpperCase()) || data.find(item => item.aliases.toUpperCase() === name.toUpperCase())
             let embed6 = new MessageEmbed()
             .setAuthor(`Item ${name} price set to: ${amount}`)
             .setDescription(`Alias set to ${aliases}`)
