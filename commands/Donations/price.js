@@ -548,8 +548,8 @@ module.exports = {
 		db.ref(`Donations/Info/${message.guild.id}/List`).set(items);
 		}
 		let item =
-			data.find((item) => item.name === args[0]) ||
-			data.find((item) => item.aliases === args[0]);
+			data.find((item) => item.name.toUpperCase() === args[0].toUpperCase()) ||
+			data.find((item) => item.aliases.toUpperCase() === args[0].toUpperCase());
 		if (!item)
 			return message.reply({ content: `Could not find that item!` });
 		let embed = new MessageEmbed()
