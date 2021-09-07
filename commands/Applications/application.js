@@ -11,6 +11,7 @@ module.exports = {
 	description:
 		'This command lets you apply for the current availible positions in the server!',
 	async execute(client, message, cmd, args) {
+		if (message.channel.id === '764885369933791299') {
 		message.react('<a:EE_blurplecheck:866355607615438888>');
 		const filter = (m) => m.author.id === message.author.id;
 
@@ -160,7 +161,7 @@ module.exports = {
 					await msg.react('859297426799853569');
 					const react = msg.createReactionCollector({
 						filter2,
-
+						max: 1,
 						time: 60000,
 					});
 					react.on('collect', async (reaction, user) => {
@@ -312,10 +313,11 @@ module.exports = {
 					await msg.react('859297426799853569');
 					const react = msg.createReactionCollector({
 						filter2,
-
+						max: 1,
 						time: 60000,
 					});
 					react.on('collect', async (reaction, user) => {
+						console.log(reaction)
 						if (reaction.emoji.id == '859297441466679326') {
 							const questions = data.Positions1.Questions.slice(
 								2,
@@ -465,7 +467,7 @@ module.exports = {
 					await msg.react('859297426799853569');
 					const react = msg.createReactionCollector({
 						filter2,
-
+						max: 1,
 						time: 60000,
 					});
 					react.on('collect', async (reaction, user) => {
@@ -615,7 +617,7 @@ module.exports = {
 					await msg.react('859297426799853569');
 					const react = msg.createReactionCollector({
 						filter2,
-
+						max: 1,
 						time: 60000,
 					});
 					react.on('collect', async (reaction, user) => {
@@ -708,7 +710,7 @@ module.exports = {
 								}
 							});
 						}
-						if (reaction.emoji.id == '859297426799853569') {
+						if (reaction.emoji.id == '85927426799853569') {
 							return message.author.send({
 								content: 'Okay Goodbye!',
 							});
@@ -730,5 +732,6 @@ module.exports = {
 					content: 'There was an error running the command.',
 				});
 			});
+		}
 	},
 };
