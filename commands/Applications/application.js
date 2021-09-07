@@ -140,15 +140,14 @@ module.exports = {
 							]});
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
-					await msg
-						.awaitReactions({filter2, 
-							max: 1,
-							time: 60000,
-							errors: ['time'],
-						})
-						.then(async (collected) => {
+					const react = msg.createReactionCollector({filter2, 
+						max: 1,
+						time: 60000,
+						errors: ['time'],
+					});
+					react.on("collect", async (reaction, user) => {
 							if (
-								collected.first().emoji.id ==
+								reaction.emoji.id ==
 								'859297441466679326'
 							) {
 								let index = 0;
@@ -233,7 +232,7 @@ module.exports = {
 								});
 							}
 							if (
-								collected.first().emoji.id ==
+								reaction.emoji.id ==
 								'859297426799853569'
 							) {
 								return message.author.send({content: 'Okay Goodbye!'});
@@ -243,11 +242,7 @@ module.exports = {
 								});
 							}
 						})
-						.catch(async () => {
-							return message.author.send({content:
-								'You took too long to react!'
-							});
-						});
+				
 				} else if (message.content.toUpperCase() == '2') {
 					if (data.Positions1.Status === 'closed')
 						return message.author.send({embeds: [
@@ -291,15 +286,14 @@ module.exports = {
 					);
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
-					await msg
-						.awaitReactions({filter2, 
-							max: 1,
-							time: 60000,
-							errors: ['time'],
-						})
-						.then(async (collected) => {
+					const react = msg.createReactionCollector({filter2, 
+						max: 1,
+						time: 60000,
+						errors: ['time'],
+					});
+						react.on("collect", async (reaction, user) => {
 							if (
-								collected.first().emoji.id ==
+								reaction.emoji.id ==
 								'859297441466679326'
 							) {
 								const questions = data.Positions1.Questions.slice(2, 8)
@@ -380,7 +374,7 @@ module.exports = {
 								});
 							}
 							if (
-								collected.first().emoji.id ==
+								reaction.emoji.id ==
 								'85927426799853569'
 							) {
 								return message.author.send({content: 'Okay Goodbye!'});
@@ -390,11 +384,7 @@ module.exports = {
 								});
 							}
 						})
-						.catch(async () => {
-							return message.author.send({content:
-								'You took too long to react!'
-							});
-						});
+						
 				} else if (message.content.toUpperCase() == '3') {
 					if (data.Positions2.Status === 'closed')
 						return message.author.send({embeds: [
@@ -439,15 +429,14 @@ module.exports = {
 					);
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
-					await msg
-						.awaitReactions({filter2, 
-							max: 1,
-							time: 60000,
-							errors: ['time'],
-						})
-						.then(async (collected) => {
+					const react = msg.createReactionCollector({filter2, 
+						max: 1,
+						time: 60000,
+						errors: ['time'],
+					});
+						react.on("collect", async (reaction, user) => {
 							if (
-								collected.first().emoji.id ==
+								reaction.emoji.id ==
 								'859297441466679326'
 							) {
 								const questions = data.Positions3.Questions.slice(2, 12)
@@ -526,7 +515,7 @@ module.exports = {
 								});
 							}
 							if (
-								collected.first().emoji.id ==
+								reaction.emoji.id ==
 								'85927426799853569'
 							) {
 								return message.author.send({content: 'Okay Goodbye!'});
@@ -536,11 +525,7 @@ module.exports = {
 								});
 							}
 						})
-						.catch(async () => {
-							return message.author.send({content: 
-								'You took too long to react!'
-							});
-						});
+						
 					} else if(message.content === '4'){
 						if (data.Positions3.Status === 'closed')
 						return message.author.send({embeds: [
@@ -584,15 +569,14 @@ module.exports = {
 					);
 					await msg.react('859297441466679326');
 					await msg.react('859297426799853569');
-					await msg
-						.awaitReactions({filter2, 
-							max: 1,
-							time: 60000,
-							errors: ['time'],
-						})
-						.then(async (collected) => {
+					const react = msg.createReactionCollector({filter2, 
+						max: 1,
+						time: 60000,
+						errors: ['time'],
+					});
+						react.on("collect", async (reaction, user) => {
 							if (
-								collected.first().emoji.id ==
+								reaction.emoji.id ==
 								'859297441466679326'
 							) {
 								let index = 0;
@@ -677,7 +661,7 @@ module.exports = {
 								});
 							}
 							if (
-								collected.first().emoji.id ==
+								reaction.emoji.id ==
 								'859297426799853569'
 							) {
 								return message.author.send({content:'Okay Goodbye!'});
@@ -687,18 +671,13 @@ module.exports = {
 								});
 							}
 						})
-						.catch(async () => {
-							return message.author.send({content:
-								'You took too long to react!'
-							});
-						});
 				} else {
 					message.author.send({content:`Terminated: Invalid Response`});
 				}
 			})
 			.catch(async () => {
 				console.log(error);
-				return message.author.send({content:'No response. Prompt Cancelled'});
+				return message.author.send({content:'There was an error running the command.'});
 			});
 		}
 	},
