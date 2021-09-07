@@ -12,11 +12,27 @@ module.exports = {
 
     async execute(client, message, cmd,  args) {
 
+      const roles = message.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
+      let txt = '<:txtchannel:872428761478463510>'
+      let ch = '<:voice:872428749642170378>'
+      
       const embed = new MessageEmbed()
-      .setTitle('Bot Information')
-      .setDescription('A bot with multiple utitlity features! Currently built for elite empire \u200B \n \n  <:dot:859815130437779467> Bot is developed by Kayz#2241')
       .setColor('#FFFFFF')
-      .setImage(`https://cdn.discordapp.com/attachments/855828767846039582/859816740987600906/tnbIcOg.png`)
-      message.channel.send({embeds: embed})
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .addFields(
+        { name: 'Name', value: `${message.guild.name}`},
+        { name: 'Owner', value: `${message.guild.ownerId}` },
+        { name: '<:djss:884719235681648651> Version', value: `Discord.js \`2.0.2\`` },
+      )
+      .addFields(
+        { name: 'Roles', value: `${roles.length}`},
+    )
+      .addField('Channels', `${txt} Channels : ${message.guild.channels.cache.filter((c) => c.type === "text").size} 
+           ${ch} Voice Channels :  ${message.guild.channels.cache.filter((c) => c.type === "voice").size}`,
+     )
+    .setFooter(`Requested By ${message.author.tag}`, message.author.displayAvatarURL())
+    .setTimestamp();
+
+      message.channel.send({embeds: [embed]})
     }
   }
