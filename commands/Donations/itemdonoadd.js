@@ -39,13 +39,17 @@ module.exports = {
         message.reply({content:'Please mention an amount of items.'})
         return
       }
-
+    let choice = args[2]
+    if (!choice) {
+        message.reply({content:'Please mention an item'})
+        return
+      }
     let data5 = await db
     .ref(`Donations/Info/${message.guild.id}/List`)
     .once("value")
     .then(snapshot => snapshot.val())|| []
     db.ref(`Donations/Info/${message.guild.id}/List`)
-    let item = data5.find(item => item.name.toUpperCase() === args[2].toUpperCase()) || data5.find(item => item.aliases.toUpperCase() === args[2].toUpperCase())
+    let item = data5.find(item => item.name.toUpperCase() === choice.toUpperCase()) || data5.find(item => item.aliases.toUpperCase() === choice.toUpperCase())
     if(!item) return message.reply({content: `Could not find that item!`})
 
     /*let amount2 = args[3]
