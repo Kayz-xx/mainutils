@@ -18,9 +18,10 @@ module.exports = {
             if(typeof result !== 'string') {
                 output = inspect(result)
             }   
+
             message.channel.send({embeds: [new MessageEmbed()
-            .addField('Your code', `\`\`\`${code}\`\`\``)
-            .addField("Result", `\`\`\`${output}\`\`\``)
+            .addField('Your code', `\`\`\`js\n${code}\`\`\``)
+            .addField("Result", `\`\`\`js\n${output}\`\`\``)
             .setColor("RANDOM")]})
         } catch (error) {
             console.log(error)
