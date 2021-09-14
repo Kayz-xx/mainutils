@@ -21,18 +21,14 @@ module.exports = {
   
       const coins = await eventdonations.getCoins(guildId, userId)
   
-      let check = [10000000, 20000000, 50000000, 100000000, 200000000, 500000000, 750000000, 1000000000, 2000000000]
+      let check = [250000000, 500000000, 1000000000, 2000000000, 4000000000]
   
       let val = check[0]
   
-      if(coins >= check[0]) val = check[1]
+    if(coins >= check[0]) val = check[1]
     if(coins >= check[1]) val = check[2]
     if(coins >= check[2]) val = check[3]
     if(coins >= check[3]) val = check[4]
-    if(coins >= check[4]) val = check[5]
-    if(coins >= check[5]) val = check[6]
-    if(coins >= check[6]) val = check[7]
-    if(coins >= check[7]) val = check[8]
     
     let num = val - coins
     if(coins >= val)
@@ -63,12 +59,12 @@ module.exports = {
             if(per >= 100) bar = `<a:pbf1:871999120901029909><a:pbf2:871999177662533763><a:pbf2:871999177662533763><a:pbf2:871999177662533763><a:pbf3:871999189205254154>`
 
             
-        let mesg = `${formatter.format(num)} left for next donation role`
+        let mesg = `${formatter.format(num)} left for next donation perks`
         if(num === 0)
-        mesg = `Congrats, you have all the donation roles`
+        mesg = `Congrats, you have all the donation perks`
 
       let embed = new MessageEmbed()
-      .setAuthor(`${target.tag}'s Donations`)
+      .setAuthor(`${target.tag}'s Event Donations`)
       .setColor("RANDOM")
       .addField(`Amount Donated in ${message.guild.name}:`, `${formatter.format(coins)} / ${formatter.format(val)} \`(${per.toFixed(2)}%)\`\n_${mesg}_`, true)
       .addField(`Progress`, bar)
