@@ -151,7 +151,7 @@ module.exports = {
           db.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
    
             
-          if(!message.member.roles.cache.has(`${data2}`) && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return message.channel.send({content: 'You cant use this command'}) //replace with staff role id
+       	if(!message.member.roles.cache.has(`764885367400693764`) && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return message.channel.send({content: 'You cant use this command'})
          
             if (!mention) {
               message.reply({content:'Please tag a user to add the donation to'})
