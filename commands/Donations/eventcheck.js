@@ -10,7 +10,7 @@ module.exports = {
     permissions: [],
     category: 'Donations',
     usage: '<user>',
-    description: 'Check a users event donation or your own event donation!',
+    description: 'Checks a users event donation or your own event donation!',
     
     async execute(client, message, cmd,  args) {
       const target = message.mentions.users.first() || message.author
