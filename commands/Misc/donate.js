@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 const {db} = require('../../firebase.js')
 module.exports = {
     name: 'donate',
-    aliases: ['donate', 'eventdono', 'heistdono'],
+    aliases: ['donate', 'eventdono', 'heistdono', '1yr'],
     cooldown: '0',
     permissions: [],
     usage: '<prize> <time> <winners> <requirement> <message>, eventdono- <event> <winners> <prize> <req> <message>',
@@ -260,5 +260,26 @@ try {
     }
 
   }
+    if(cmd === '1yr') {
+      setTimeout(() => message.delete(), 100)
+      const prize = args.slice(0).join(' ');
+      if(!prize) return message.channel.send("Please specify an item or amount to donate.")
+      let embed = new MessageEmbed()
+      .setAuthor('1 Year Donations', message.author.avatarURL({ dynamic:true }))
+      .setTitle(`${message.author.tag} wants to donate ${prize} <a:im4:858370157890371595>`)
+      .setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
+      .setColor('5C33F6')
+      .setFooter(`Thanks for your donation ${message.author.tag}`)
+      .setTimestamp()
+    
+  try {
+  
+    message.channel.send({content: '<@&764885367400693764>', embeds: [embed]})
+  
+    } catch (e) {
+      console.log(e)
+    }
+    
+    }
   }
 }
