@@ -63,9 +63,9 @@ module.exports = {
 
 
 let i = 1
-let newarr = data.filter(x => x.coins >= 1)
+let newarr = data.filter(x => x.eventcoins >= 1)
 const newd = newarr.map((d, i) => {
-return `${i+1}) <@!${d.userId}> - **${formatter.format(d.coins)} coins**\n`
+return `${i+1}) <@!${d.userId}> - **${formatter.format(d.eventcoins)} coins**\n`
 });
 let pg = newd.length - 1
 
