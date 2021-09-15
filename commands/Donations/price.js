@@ -539,7 +539,7 @@ module.exports = {
 				.once('value')
 				.then((snapshot) => snapshot.val())) || [];
 	
-		db.ref(`Donations/Info/${message.guild.id}/List`).set(items);
+		db.ref(`Donations/Info/${message.guild.id}/List`)
 		
 		let item =
 			data.find((item) => item.name.toUpperCase() === args[0].toUpperCase()) ||
