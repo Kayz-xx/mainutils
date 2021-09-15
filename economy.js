@@ -133,10 +133,10 @@ module.exports.getDonation = async (guildId, userId) => {
 
 module.exports.getTotal = async (guildId) => {
   return await mongo().then(async (mongoose) => {
-  let arr = await profileSchema.find({guildId: guildId})
-let total = 0
-Promise.all(arr.map(a => total = parseInt(total) + parseInt(a.coins)))
-return total.toLocaleString()
+    let arr = await profileSchema.find({guildId: guildId})
+    let total = 0
+    Promise.all(arr.map(a=> total = parseInt(total.toString()) + parseInt(a.coins.toString())))
+    return total
     })
     }
 
