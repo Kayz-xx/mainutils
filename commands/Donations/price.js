@@ -540,7 +540,7 @@ module.exports = {
 				.then((snapshot) => snapshot.val())) || [];
 	
 		db.ref(`Donations/Info/${message.guild.id}/List`)
-		
+		if(!args[0]) return message.reply("Please mention an item.")
 		let item =
 			data.find((item) => item.name.toUpperCase() === args[0].toUpperCase()) ||
 			data.find((item) => item.aliases.toUpperCase() === args[0].toUpperCase());
