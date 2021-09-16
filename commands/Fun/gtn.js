@@ -188,13 +188,13 @@ module.exports = {
         
                 gameCollector.on('collect', (button) => {
                     if (button.user.id !== message.author.id) {
-                        return button.reply.send(
+                        return button.reply({content: 
                             othersMessage.replace(
                                 /{{author}}/g,
                                 message.author.id,
                             ),
-                            true,
-                        );
+                            ephemeral: true,
+					    });
                     }
                     button.deferUpdate();
                     if (button.customId === id) {
