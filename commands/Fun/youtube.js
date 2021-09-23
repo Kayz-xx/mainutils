@@ -14,7 +14,6 @@ module.exports = {
 try {
   
     let channel = message.member.voice.channel
-    console.log(channel)
     if(!channel) return message.channel.send({content: "You have to be in a vc"})
 
     fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
