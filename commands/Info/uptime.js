@@ -10,7 +10,7 @@ module.exports = {
         const uptime = (new Date() / 1000 - client.uptime / 1000).toFixed();
         message.channel.send({ embeds: [new MessageEmbed()
         .setTitle("Bot Uptime")
-        .setDescription(`Up since: ${uptime}`)
+        .setDescription(`Up since: <t:${uptime}:R>`)
         .setFooter(message.author.tag, message.author.displayAvatarURL())
         .setColor("RANDOM")]})
     }
