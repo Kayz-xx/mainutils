@@ -13,16 +13,24 @@ module.exports.run = async (client, giveaway, winners) => {
 			regex.lastIndex++;
 		}
 
-		  host = await client.users.fetch(m[0]).catch(() => null);
+	     host = await client.users.fetch(m[0]).catch(() => null);
 	}
 	let desc = ''
+	let win = ''
+	let arr = []
 	winners.map((d) => {
 		desc += `${d.toString()} `
 	})
+	winners.forEach((w) => {
+	arr.push(w.id)
+	})
+	win += arr.join(', ')
+	win = win.replace(/,(?=[^,]*$)/, ' and')
 	let embed2 = new MessageEmbed()
 		.setTitle('Your giveaway ended!')
-		.setDescription(`Your winners are ${desc}\nMake sure to do payouts soon <:EE_Dogangry:869338671030104064>\nIf the winners DM you/contact support before the 12 hours are up you can reroll them.`)
+		.setDescription(`Your winners are ${desc}\nMake sure to do payouts soon <:EE_Dogangry:869338671030104064>,\nIf the winners DM you/contact support before the 12 hours are up you can reroll them.`)
 		.addField('Giveaway', `[${giveaway.prize}](${giveaway.messageURL})`)
+		.addField('Winner ID\'s', `\`${win}\``)
 		.setColor('FFA0A0')
 		.setFooter(guild.name, guild.iconURL())
 		.setTimestamp();
