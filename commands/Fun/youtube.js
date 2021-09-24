@@ -12,9 +12,9 @@ module.exports = {
     async execute(client, message, cmd,  args) {
   
 try {
-  
     let channel = message.member.voice.channel
-    if(!channel) return message.channel.send({content: "You have to be in a vc"})
+    console.log(channel)
+    if(!channel) return message.channel.send({content: "You have to be in a voice channel to use this command!"})
 
     fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
         method: "POST",
