@@ -7,10 +7,11 @@ module.exports = {
     usage: "",
     
     async execute(client, message, cmd,  args) {
-        let time = ms(client.uptime, {long: false})
+        const uptime = (new Date() / 1000 - client.uptime / 1000).toFixed();
         message.channel.send({ embeds: [new MessageEmbed()
-        .setTitle("Uptime")
-        .setDescription(`Uptime: ${time}`)
+        .setTitle("Bot Uptime")
+        .setDescription(`Up since: ${uptime}`)
+        .setFooter(message.author.tag, message.author.displayAvatarURL())
         .setColor("RANDOM")]})
     }
 }
