@@ -45,6 +45,46 @@ module.exports.run = async (client, message) => {
 	  }
 	}*/
 	if(message.channel.type === "GUILD_TEXT") {
+try {
+	const conditions = ['/', '*', '+', '-']
+	const conditions2 = ['k', 'm', 'b']
+	function hasNumber(myString) {
+		return /\d/.test(myString);
+	  }
+	let ms;
+	if(conditions2.some(el => message.content.includes(el))) {
+		let object = {
+		k:"e3",
+		m:"e6",
+		b:"e9"
+	 };
+     ms = message.content.replace(/k|m|b/g, function(m){
+		return object[m];
+	  })
+	} else {
+		ms = message.content.replace(/,/g, '');
+	}
+	if(hasNumber(ms) && conditions.some(el => ms.includes(el))) {
+		let num = math.evaluate(ms)
+		if(isNaN(num)) return message.reply('An Error Occured!')
+		message.react('✔')
+		const filter = (reaction, user) => {
+			return user.bot === false
+		};
+		const collector = message.createReactionCollector({ filter, time: 15000 });
+		collector.on('collect', (reaction, user) => {
+			if(reaction.emoji.name === '✔') {
+			let embed = new MessageEmbed()
+			.setTitle(`Calculated ${Math.round(num)}`)
+			.setDescription(`Calculated: \`${num.toLocaleString()}\`\nRaw: \`${num}\``)
+			.setColor("RANDOM")
+			message.channel.send({embeds: [embed]})
+			}
+		});
+	
+		}
+	} catch(error) {
+	}
 	const mentionedMember = message.mentions.members.first()
 	if (mentionedMember && !message.author.bot) {
 		const data = afk.get(mentionedMember.id)
