@@ -3,7 +3,9 @@ const { MessageEmbed } = require('discord.js');
 const cooldowns = new Map();
 const Discord = require('discord.js');
 const {afk} = require('../collection')
+const { db } = require('../firebase');
 const moment = require('moment')
+const math = require('mathjs')
 module.exports.run = async (client, message) => {    
 	/*if(message.guild.id === "855455031385391104") {
 		if(message.author.id === "491933949686448138") {
