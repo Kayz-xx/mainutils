@@ -1,7 +1,7 @@
 const {Permissions, MessageEmbed} = require("discord.js")
 module.exports = {
     name: 'giveaway',
-    aliases: ['eping', 'fping', 'mping', 'mm'],
+    aliases: ['eping', 'fping', 'mping', 'mm', 'friendly', 'partnership', 'karuta'],
     cooldown: 0,
     category: 'Misc',
 
@@ -44,6 +44,30 @@ module.exports = {
       setTimeout(() => message.delete(), 100)
       const msg = args.slice(0).join(' ');
       message.channel.send({content:`<@&804024293175590942> ${msg} **- ${message.author.tag}**`})
+      }
+    }
+     if(cmd === 'friendly'){
+      if(message.guild.id === "764885367160700958") {
+       if(!message.member.roles.cache.some(x => x.id === '770365283147317248') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return 
+      setTimeout(() => message.delete(), 100)
+      const msg = args.slice(0).join(' ');
+      message.channel.send({content:`<@&827280787228590170>\n${msg}`})
+      }
+    }
+     if(cmd === 'partnership'){
+      if(message.guild.id === "764885367160700958") {
+      if(!message.member.roles.cache.some(x => x.id === '764885367316021317') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return ;
+      setTimeout(() => message.delete(), 100)
+      const msg = args.slice(0).join(' ');
+      message.channel.send({content:`<@&764885367223484484>\n${msg}`})
+      }
+    }
+     if(cmd === 'karuta'){
+      if(message.guild.id === "764885367160700958") {
+      if(!message.member.roles.cache.some(x => x.id === '862094191520907275') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return 
+      setTimeout(() => message.delete(), 100)
+      const msg = args.slice(0).join(' ');
+      message.channel.send({content:`<@&855638128215195649> ${msg} **- ${message.author.tag}**`})
       }
     }
   }
