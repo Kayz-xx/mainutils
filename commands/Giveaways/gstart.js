@@ -28,7 +28,7 @@ module.exports = {
 				content: `\`\`\`\yml\nSyntax: e!gstart <time> <winners> <requirement> <prize>\n                         ^^^^^^^\n\nwinners is a required argument that is missing. \`\`\``,
 			});
 		}
-
+		if(parseInt(winners) > 20) return message.reply("The max amount of winners is 20") 
 		const host = message.author;
 		const add = ms(time);
 
