@@ -20,7 +20,7 @@ module.exports = {
         }
 
         let winner = 1
-        if(args[1) winner = parseInt(args[1])
+        if(args[1]) winner = parseInt(args[1])
     
     
 
