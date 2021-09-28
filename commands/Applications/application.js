@@ -19,7 +19,7 @@ module.exports = {
 			return (
 				['859297441466679326', '859297426799853569'].includes(
 					reaction.emoji.id
-				)
+				) && user.id !== "855453627341471754"
 			);
 		};
 		let data =
