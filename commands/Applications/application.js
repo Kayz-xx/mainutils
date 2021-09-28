@@ -1,6 +1,6 @@
 	const Discord = require('discord.js');
 	const { db } = require('../../firebase');
-	const { MessageEmbed } = require('discord.js');
+	const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 	module.exports = {
 		name: 'apply',
@@ -9,7 +9,7 @@
 		category: 'Applications',
 		permissions: [],
 		description:
-			'This command lets you apply for the current availible positions in the server.',
+			'This command lets you apply for the current availible positions in the server!',
 		async execute(client, message, cmd, args) {
 			if (message.channel.id === '764885369933791299') {
 			message.react('<a:EE_blurplecheck:866355607615438888>');
@@ -134,13 +134,24 @@
 									.setDescription(data.Positions0.Questions[0]),
 							],
 						});
+						const btn1 = new MessageButton()
+						.setLabel('Begin')
+						.setCustomId('1')
+						.setStyle('SUCCESS');
+					const btn2 = new MessageButton()
+						.setLabel('Cancel')
+						.setCustomId('2')
+						.setStyle('DANGER');
+			
+					const row3 = new MessageActionRow()
+						.addComponents(btn1, btn2)
 						const msg = await message.author.send({
 							embeds: [
 								new Discord.MessageEmbed()
 									.setTitle(`Ready?`)
 									.setColor('#0099ff')
 									.setAuthor(
-										'Ready to apply? (Use reactions to continue)'
+										'Ready to apply? (Use buttons to continue)'
 									)
 									.addFields(
 										{
@@ -156,16 +167,23 @@
 										`You can type "cancel" at any time to exit.`
 									),
 							],
-						});
-						await msg.react('859297441466679326');
-						await msg.react('859297426799853569');
-						const react = msg.createReactionCollector({
-							filter: filter2,
-							max: 1,
-							time: 60000,
-						});
-						react.on('collect', async (reaction, user) => {
-							if (reaction.emoji.id == '859297441466679326') {
+						 components: [row3]});
+						 const filter3 = (btn) => btn.user.bot == false
+						 const collector3 = msg.createMessageComponentCollector({
+							 filter: filter3,
+							 time: 60000,
+						   });
+						 collector3.on('collect', async (btn) => {
+							msg.components[0].components.forEach((com) => {
+								com.setDisabled(true);
+								com.setStyle('SECONDARY');
+							});
+							let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
+							msg.edit({components: [rows2]});
+							 if (btn.customId == '1') {
+								 btn.deferUpdate();
+								 
+							
 								let index = 0;
 								const questions = data.Positions0.Questions.slice(
 									2,
@@ -189,8 +207,8 @@
 								const collector = channel.createMessageCollector({
 									filter,
 								});
-
-								collector.on('collect', (m) => {
+								let ele = true
+								collector.on('collect', async (m) => {
 									if (m.content.toLowerCase() == 'cancel')
 										return collector.stop('CANCEL');
 									if (collectCounter < questions.length) {
@@ -203,17 +221,59 @@
 												},
 											],
 										});
-									} else {
-										channel.send({
-											embeds: [
-												{
-													description:
-														'Application has been sent!',
-													color: '#77ACF1',
-												},
-											],
+										
+									} 
+									else if (ele === true) {
+										ele = false
+										const btn1 = new MessageButton()
+										.setLabel('Confirm')
+										.setCustomId('1')
+										.setStyle('SUCCESS');
+									const btn2 = new MessageButton()
+										.setLabel('Cancel')
+										.setCustomId('2')
+										.setStyle('DANGER');
+							
+									const row = new MessageActionRow()
+										.addComponents(btn1, btn2)
+
+										let msg2 = await channel.send({embeds: [
+											{
+												description:
+													'Do you want to send you application?',
+												color: '#77ACF1',
+											},
+										], components: [row]})
+										const filter = (fn) => fn
+										const collector3 = msg2.createMessageComponentCollector({
+											filter: filter,
+											time: 15000,
+										  });
+										collector3.on('collect', (btn) => {
+										
+						
+									
+											if (btn.customId == '1') {
+												btn.deferUpdate();
+												collector.stop('fulfilled');
+												collector3.stop();
+											} else if (btn.customId == '2') {
+												btn.deferUpdate();
+												collector.stop('CANCEL');
+												collector3.stop();
+											
+											}
 										});
-										collector.stop('fulfilled');
+										collector3.on('end', (collected, reason) => {
+												collector.stop('TIME');
+												msg2.components[0].components.forEach((com) => {
+													com.setDisabled(true);
+													com.setStyle('SECONDARY');
+												});
+												let rows2 = new MessageActionRow().addComponents(msg2.components[0].components)
+												msg2.edit({components: [rows2]});
+											
+										});
 									}
 								});
 
@@ -252,18 +312,23 @@
 
 										appsChannel.send({ embeds: [embed] });
 									}
+									collector3.stop();
 								});
-							}
-							if (reaction.emoji.id == '859297426799853569') {
-								return message.author.send({
-									content: 'Okay Goodbye!',
-								});
-							} else {
-								return message.author.send({
-									content: 'No reactions added',
-								});
-							}
-						});
+						} else if (btn.customId == '2') {
+							btn.deferUpdate();
+							btn.channel.send({
+								embeds: [
+									{
+										description:
+											'Application cancelled!',
+										color: 'RED',
+									},
+								],
+							});
+							collector3.stop();
+						
+						}
+					});
 					} else if (message.content.toUpperCase() == '2') {
 						if (data.Positions1.Status === 'closed')
 							return message.author.send({
@@ -286,13 +351,24 @@
 									.setDescription(data.Positions1.Questions[0]),
 							],
 						});
+						const btn1 = new MessageButton()
+						.setLabel('Begin')
+						.setCustomId('1')
+						.setStyle('SUCCESS');
+					const btn2 = new MessageButton()
+						.setLabel('Cancel')
+						.setCustomId('2')
+						.setStyle('DANGER');
+			
+					const row3 = new MessageActionRow()
+						.addComponents(btn1, btn2)
 						const msg = await message.author.send({
 							embeds: [
 								new Discord.MessageEmbed()
 									.setTitle(`Ready?`)
 									.setColor('#0099ff')
 									.setAuthor(
-										'Ready to apply? (Use reactions to continue)'
+										'Ready to apply? (Use buttons to continue)'
 									)
 									.addFields(
 										{
@@ -308,17 +384,24 @@
 										`You can type "cancel" at any time to exit.`
 									),
 							],
-						});
-						await msg.react('859297441466679326');
-						await msg.react('859297426799853569');
-						const react = msg.createReactionCollector({
-							filter: filter2,
-							max: 1,
-							time: 60000,
-						});
-						react.on('collect', async (reaction, user) => {
-							console.log(reaction)
-							if (reaction.emoji.id == '859297441466679326') {
+						 components: [row3]});
+						 const filter3 = (btn) => btn.user.bot == false
+						 const collector3 = msg.createMessageComponentCollector({
+							 filter: filter3,
+							 time: 60000,
+						   });
+						 collector3.on('collect', async (btn) => {
+							msg.components[0].components.forEach((com) => {
+								com.setDisabled(true);
+								com.setStyle('SECONDARY');
+							});
+							let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
+							msg.edit({components: [rows2]});
+							 if (btn.customId == '1') {
+								 btn.deferUpdate();
+								 
+							
+								let index = 0;
 								const questions = data.Positions1.Questions.slice(
 									2,
 									8
@@ -341,8 +424,8 @@
 								const collector = channel.createMessageCollector({
 									filter,
 								});
-
-								collector.on('collect', (m) => {
+								let ele = true
+								collector.on('collect', async (m) => {
 									if (m.content.toLowerCase() == 'cancel')
 										return collector.stop('CANCEL');
 									if (collectCounter < questions.length) {
@@ -355,17 +438,59 @@
 												},
 											],
 										});
-									} else {
-										channel.send({
-											embeds: [
-												{
-													description:
-														'Application has been sent!',
-													color: '#77ACF1',
-												},
-											],
+										
+									} 
+									else if (ele === true) {
+										ele = false
+										const btn1 = new MessageButton()
+										.setLabel('Confirm')
+										.setCustomId('1')
+										.setStyle('SUCCESS');
+									const btn2 = new MessageButton()
+										.setLabel('Cancel')
+										.setCustomId('2')
+										.setStyle('DANGER');
+							
+									const row = new MessageActionRow()
+										.addComponents(btn1, btn2)
+
+										let msg2 = await channel.send({embeds: [
+											{
+												description:
+													'Do you want to send you application?',
+												color: '#77ACF1',
+											},
+										], components: [row]})
+										const filter = (fn) => fn
+										const collector3 = msg2.createMessageComponentCollector({
+											filter: filter,
+											time: 15000,
+										  });
+										collector3.on('collect', (btn) => {
+										
+						
+									
+											if (btn.customId == '1') {
+												btn.deferUpdate();
+												collector.stop('fulfilled');
+												collector3.stop();
+											} else if (btn.customId == '2') {
+												btn.deferUpdate();
+												collector.stop('CANCEL');
+												collector3.stop();
+											
+											}
 										});
-										collector.stop('fulfilled');
+										collector3.on('end', (collected, reason) => {
+												collector.stop('TIME');
+												msg2.components[0].components.forEach((com) => {
+													com.setDisabled(true);
+													com.setStyle('SECONDARY');
+												});
+												let rows2 = new MessageActionRow().addComponents(msg2.components[0].components)
+												msg2.edit({components: [rows2]});
+											
+										});
 									}
 								});
 
@@ -384,6 +509,7 @@
 											],
 										});
 									}
+
 									if (reason === 'fulfilled') {
 										let index = 1;
 										const mappedResponses = collected
@@ -395,9 +521,7 @@
 											.join('\n\n');
 
 										const embed = new MessageEmbed()
-											.setTitle(
-												'Giveaway Manager Application'
-											)
+											.setTitle('Giveaway Manager Application')
 											.setAuthor(message.author.tag)
 											.setDescription(mappedResponses)
 											.addField('Status', '**(Pending)**')
@@ -405,18 +529,24 @@
 
 										appsChannel.send({ embeds: [embed] });
 									}
+									collector3.stop();
 								});
-							}
-							if (reaction.emoji.id == '85927426799853569') {
-								return message.author.send({
-									content: 'Okay Goodbye!',
-								});
-							} else {
-								return message.author.send({
-									content: 'No reactions added',
-								});
-							}
-						});
+						} else if (btn.customId == '2') {
+							btn.deferUpdate();
+							btn.channel.send({
+								embeds: [
+									{
+										description:
+											'Application cancelled!',
+										color: 'RED',
+									},
+								],
+							});
+							collector3.stop();
+						
+						}
+					});
+						
 					} else if (message.content.toUpperCase() == '3') {
 						if (data.Positions2.Status === 'closed')
 							return message.author.send({
@@ -440,13 +570,24 @@
 									.setDescription(data.Positions2.Questions[0]),
 							],
 						});
+						const btn1 = new MessageButton()
+						.setLabel('Begin')
+						.setCustomId('1')
+						.setStyle('SUCCESS');
+					const btn2 = new MessageButton()
+						.setLabel('Cancel')
+						.setCustomId('2')
+						.setStyle('DANGER');
+			
+					const row3 = new MessageActionRow()
+						.addComponents(btn1, btn2)
 						const msg = await message.author.send({
 							embeds: [
 								new Discord.MessageEmbed()
 									.setTitle(`Ready?`)
 									.setColor('#0099ff')
 									.setAuthor(
-										'Ready to apply? (Use reactions to continue)'
+										'Ready to apply? (Use buttons to continue)'
 									)
 									.addFields(
 										{
@@ -462,16 +603,24 @@
 										`You can type "cancel" at any time to exit.`
 									),
 							],
-						});
-						await msg.react('859297441466679326');
-						await msg.react('859297426799853569');
-						const react = msg.createReactionCollector({
-							filter: filter2,
-							max: 1,
-							time: 60000,
-						});
-						react.on('collect', async (reaction, user) => {
-							if (reaction.emoji.id == '859297441466679326') {
+						 components: [row3]});
+						 const filter3 = (btn) => btn.user.bot == false
+						 const collector3 = msg.createMessageComponentCollector({
+							 filter: filter3,
+							 time: 60000,
+						   });
+						 collector3.on('collect', async (btn) => {
+							msg.components[0].components.forEach((com) => {
+								com.setDisabled(true);
+								com.setStyle('SECONDARY');
+							});
+							let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
+							msg.edit({components: [rows2]});
+							 if (btn.customId == '1') {
+								 btn.deferUpdate();
+								 
+							
+								let index = 0;
 								const questions = data.Positions3.Questions.slice(
 									2,
 									12
@@ -494,8 +643,8 @@
 								const collector = channel.createMessageCollector({
 									filter,
 								});
-
-								collector.on('collect', (m) => {
+								let ele = true
+								collector.on('collect', async (m) => {
 									if (m.content.toLowerCase() == 'cancel')
 										return collector.stop('CANCEL');
 									if (collectCounter < questions.length) {
@@ -508,17 +657,59 @@
 												},
 											],
 										});
-									} else {
-										channel.send({
-											embeds: [
-												{
-													description:
-														'Application has been sent!',
-													color: '#77ACF1',
-												},
-											],
+										
+									} 
+									else if (ele === true) {
+										ele = false
+										const btn1 = new MessageButton()
+										.setLabel('Confirm')
+										.setCustomId('1')
+										.setStyle('SUCCESS');
+									const btn2 = new MessageButton()
+										.setLabel('Cancel')
+										.setCustomId('2')
+										.setStyle('DANGER');
+							
+									const row = new MessageActionRow()
+										.addComponents(btn1, btn2)
+
+										let msg2 = await channel.send({embeds: [
+											{
+												description:
+													'Do you want to send you application?',
+												color: '#77ACF1',
+											},
+										], components: [row]})
+										const filter = (fn) => fn
+										const collector3 = msg2.createMessageComponentCollector({
+											filter: filter,
+											time: 15000,
+										  });
+										collector3.on('collect', (btn) => {
+										
+						
+									
+											if (btn.customId == '1') {
+												btn.deferUpdate();
+												collector.stop('fulfilled');
+												collector3.stop();
+											} else if (btn.customId == '2') {
+												btn.deferUpdate();
+												collector.stop('CANCEL');
+												collector3.stop();
+											
+											}
 										});
-										collector.stop('fulfilled');
+										collector3.on('end', (collected, reason) => {
+												collector.stop('TIME');
+												msg2.components[0].components.forEach((com) => {
+													com.setDisabled(true);
+													com.setStyle('SECONDARY');
+												});
+												let rows2 = new MessageActionRow().addComponents(msg2.components[0].components)
+												msg2.edit({components: [rows2]});
+											
+										});
 									}
 								});
 
@@ -537,6 +728,7 @@
 											],
 										});
 									}
+
 									if (reason === 'fulfilled') {
 										let index = 1;
 										const mappedResponses = collected
@@ -556,18 +748,23 @@
 
 										appsChannel.send({ embeds: [embed] });
 									}
+									collector3.stop();
 								});
-							}
-							if (reaction.emoji.id == '85927426799853569') {
-								return message.author.send({
-									content: 'Okay Goodbye!',
-								});
-							} else {
-								return message.author.send({
-									content: 'No reactions added',
-								});
-							}
-						});
+						} else if (btn.customId == '2') {
+							btn.deferUpdate();
+							btn.channel.send({
+								embeds: [
+									{
+										description:
+											'Application cancelled!',
+										color: 'RED',
+									},
+								],
+							});
+							collector3.stop();
+						
+						}
+					});
 					} else if (message.content === '4') {
 						if (data.Positions3.Status === 'closed')
 							return message.author.send({
@@ -590,13 +787,24 @@
 									.setDescription(data.Positions3.Questions[0]),
 							],
 						});
+						const btn1 = new MessageButton()
+						.setLabel('Begin')
+						.setCustomId('1')
+						.setStyle('SUCCESS');
+					const btn2 = new MessageButton()
+						.setLabel('Cancel')
+						.setCustomId('2')
+						.setStyle('DANGER');
+			
+					const row3 = new MessageActionRow()
+						.addComponents(btn1, btn2)
 						const msg = await message.author.send({
 							embeds: [
 								new Discord.MessageEmbed()
 									.setTitle(`Ready?`)
 									.setColor('#0099ff')
 									.setAuthor(
-										'Ready to apply? (Use reactions to continue)'
+										'Ready to apply? (Use buttons to continue)'
 									)
 									.addFields(
 										{
@@ -612,20 +820,27 @@
 										`You can type "cancel" at any time to exit.`
 									),
 							],
-						});
-						await msg.react('859297441466679326');
-						await msg.react('859297426799853569');
-						const react = msg.createReactionCollector({
-							filter: filter2,
-							max: 1,
-							time: 60000,
-						});
-						react.on('collect', async (reaction, user) => {
-							if (reaction.emoji.id == '859297441466679326') {
+						 components: [row3]});
+						 const filter3 = (btn) => btn.user.bot == false
+						 const collector3 = msg.createMessageComponentCollector({
+							 filter: filter3,
+							 time: 60000,
+						   });
+						 collector3.on('collect', async (btn) => {
+							msg.components[0].components.forEach((com) => {
+								com.setDisabled(true);
+								com.setStyle('SECONDARY');
+							});
+							let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
+							msg.edit({components: [rows2]});
+							 if (btn.customId == '1') {
+								 btn.deferUpdate();
+								 
+							
 								let index = 0;
 								const questions = data.Positions3.Questions.slice(
 									2,
-									9
+									12
 								);
 
 								let collectCounter = 0;
@@ -645,8 +860,8 @@
 								const collector = channel.createMessageCollector({
 									filter,
 								});
-
-								collector.on('collect', (m) => {
+								let ele = true
+								collector.on('collect', async (m) => {
 									if (m.content.toLowerCase() == 'cancel')
 										return collector.stop('CANCEL');
 									if (collectCounter < questions.length) {
@@ -659,17 +874,59 @@
 												},
 											],
 										});
-									} else {
-										channel.send({
-											embeds: [
-												{
-													description:
-														'Application has been sent!',
-													color: '#77ACF1',
-												},
-											],
+										
+									} 
+									else if (ele === true) {
+										ele = false
+										const btn1 = new MessageButton()
+										.setLabel('Confirm')
+										.setCustomId('1')
+										.setStyle('SUCCESS');
+									const btn2 = new MessageButton()
+										.setLabel('Cancel')
+										.setCustomId('2')
+										.setStyle('DANGER');
+							
+									const row = new MessageActionRow()
+										.addComponents(btn1, btn2)
+
+										let msg2 = await channel.send({embeds: [
+											{
+												description:
+													'Do you want to send you application?',
+												color: '#77ACF1',
+											},
+										], components: [row]})
+										const filter = (fn) => fn
+										const collector3 = msg2.createMessageComponentCollector({
+											filter: filter,
+											time: 15000,
+										  });
+										collector3.on('collect', (btn) => {
+										
+						
+									
+											if (btn.customId == '1') {
+												btn.deferUpdate();
+												collector.stop('fulfilled');
+												collector3.stop();
+											} else if (btn.customId == '2') {
+												btn.deferUpdate();
+												collector.stop('CANCEL');
+												collector3.stop();
+											
+											}
 										});
-										collector.stop('fulfilled');
+										collector3.on('end', (collected, reason) => {
+												collector.stop('TIME');
+												msg2.components[0].components.forEach((com) => {
+													com.setDisabled(true);
+													com.setStyle('SECONDARY');
+												});
+												let rows2 = new MessageActionRow().addComponents(msg2.components[0].components)
+												msg2.edit({components: [rows2]});
+											
+										});
 									}
 								});
 
@@ -708,21 +965,26 @@
 
 										appsChannel.send({ embeds: [embed] });
 									}
+									collector3.stop();
 								});
-							}
-							if (reaction.emoji.id == '85927426799853569') {
-								return message.author.send({
-									content: 'Okay Goodbye!',
-								});
-							} else {
-								return message.author.send({
-									content: 'No reactions added',
-								});
-							}
-						});
+						} else if (btn.customId == '2') {
+							btn.deferUpdate();
+							btn.channel.send({
+								embeds: [
+									{
+										description:
+											'Application cancelled!',
+										color: 'RED',
+									},
+								],
+							});
+							collector3.stop();
+						
+						}
+					});
 					} else {
 						message.author.send({
-							content: `Terminated: Invalid Response`,
+							content: `The response you gave was invalid, ended application process.`,
 						});
 					}
 				})
