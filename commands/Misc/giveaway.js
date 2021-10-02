@@ -56,7 +56,7 @@ module.exports = {
     }
      if(cmd === 'partnership'){
       if(message.guild.id === "764885367160700958") {
-      if(!message.member.roles.cache.some(x => x.id === '764885367316021317' && !message.member.roles.cache.some(x => x.id === '764885367400693764') && !message.member.roles.cache.some(x => x.id === '830141764479877151') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return ;
+      if(!message.member.roles.cache.some(x => x.id === '764885367316021317') && !message.member.roles.cache.some(x => x.id === '764885367400693764') && !message.member.roles.cache.some(x => x.id === '830141764479877151') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return ;
       setTimeout(() => message.delete(), 100)
       const msg = args.slice(0).join(' ');
       message.channel.send({content:`<@&764885367223484484>\n${msg}`})
