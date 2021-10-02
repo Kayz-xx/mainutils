@@ -9,7 +9,7 @@ module.exports = {
     if(cmd === 'giveaway'){
         if(message.guild.id === "764885367160700958") {
       if(!message.member.roles.cache.some(x => x.id === '768129052623372348') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return 
-    setTimeout(() => message.delete(), 100)
+    setTimeout(() => message.delete(), 101)
       const msg = args.slice(0).join(' ');
       message.channel.send({content:`<@&764885367241048064> ${msg} **- ${message.author.tag}**`})
         }
