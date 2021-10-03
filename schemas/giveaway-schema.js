@@ -36,12 +36,12 @@ const giveawaySchema = new mongoose.Schema({
     },
     thumbnail: String,
     hostedBy: String,
-    winnerIds: [String],
+    winnerIds: { type: [String], default: undefined },
     reaction: mongoose.Mixed,
     botsCanWin: Boolean,
     embedColor: mongoose.Mixed,
     embedColorEnd: mongoose.Mixed,
-    exemptPermissions: [],
+    exemptPermissions: { type: [], default: undefined },
     exemptMembers: String,
     bonusEntries: String,
     extraData: mongoose.Mixed,
@@ -60,11 +60,10 @@ const giveawaySchema = new mongoose.Schema({
     },
     isDrop: Boolean,
     allowedMentions: {
-        parse: [String],
-        users: [String],
-        roles: [String]
+        parse: { type: [String], default: undefined },
+        users: { type: [String], default: undefined },
+        roles: { type: [String], default: undefined }
     }
-});
-
+}, { id: false });
 
 module.exports = mongoose.model('giveaways', giveawaySchema);
