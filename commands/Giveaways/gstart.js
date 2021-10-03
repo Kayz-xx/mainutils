@@ -12,7 +12,7 @@ module.exports = {
 	async execute(client, message, cmd, args) {
 		if(message.member.roles.cache.some(x => x.id === '774008242127765535')) {
 		let roles = []
-message.guild.roles.cache.forEach(role => roles.push({name: role.name, id: role.id}))
+		message.guild.roles.cache.forEach(role => roles.push({name: role.name, id: role.id}))
 function similarityBetween(s1, s2) {
 	let longer = s1;
 	let shorter = s2;
@@ -170,7 +170,7 @@ function search(query) {
 		const flags = new Map();
 		const remainder = ` ${args.join(' ')}`;
 		const params = remainder.split(/ --| —/).filter((el) => !!el);
-
+		setTimeout(() => message.delete(), 1000)
 		params.forEach((content) => {
 			if (!content.startsWith(' ')) {
 				flags.set(
