@@ -48,7 +48,7 @@ try {
   let msg = await message.channel.send({content: '<@&768129052623372348>', embeds: [embed], components: [row]})
                
     
-    const filter = (btn) => message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '768129052623372348') && message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '764885367400693764') &&message.guild.members.cache.find((member) => member.id === btn.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+    const filter = (btn) => message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '768129052623372348') || message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '764885367400693764') || message.guild.members.cache.find((member) => member.id === btn.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
 
     const collector = msg.createMessageComponentCollector({
       filter,
@@ -133,7 +133,7 @@ try {
         let msg = await message.channel.send({content: '<@&792799102140022785>', embeds: [embed], components: [row]})
                      
           
-          const filter = (btn) => message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '792799102140022785') && message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '764885367400693764') && message.guild.members.cache.find((member) => member.id === btn.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
+          const filter = (btn) => message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '792799102140022785') || message.guild.members.cache.find((member) => member.id === btn.user.id).roles.cache.some(x => x.id === '764885367400693764') || message.guild.members.cache.find((member) => member.id === btn.user.id).permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)
       
           const collector = msg.createMessageComponentCollector({
             filter,
