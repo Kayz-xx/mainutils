@@ -11,6 +11,107 @@ module.exports = {
 
 	async execute(client, message, cmd, args) {
 		if(message.member.roles.cache.some(x => x.id === '774008242127765535')) {
+		let roles = []
+message.guild.roles.cache.forEach(role => roles.push({name: role.name, id: role.id}))
+function similarityBetween(s1, s2) {
+	let longer = s1;
+	let shorter = s2;
+	if (s1.length < s2.length) {
+		longer = s2;
+		shorter = s1;
+	}
+	const longerLength = longer.length;
+	if (longerLength === 0) {
+		return 1.0;
+	}
+	return (
+		(longerLength - editDistance(longer, shorter)) /
+		parseFloat(longerLength)
+	);
+}
+
+function editDistance(s1, s2) {
+	s1 = s1.toLowerCase();
+	s2 = s2.toLowerCase();
+
+	const costs = [];
+	for (let i = 0; i <= s1.length; i++) {
+		let lastValue = i;
+		for (let j = 0; j <= s2.length; j++) {
+			if (i === 0) {
+				costs[j] = j;
+			} else {
+				if (j > 0) {
+					let newValue = costs[j - 1];
+					if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+						newValue =
+							Math.min(
+								Math.min(newValue, lastValue),
+								costs[j]
+							) + 1;
+					}
+					costs[j - 1] = lastValue;
+					lastValue = newValue;
+				}
+			}
+		}
+		if (i > 0) {
+			costs[s2.length] = lastValue;
+		}
+	}
+	return costs[s2.length];
+}
+
+function search(query) {
+	query = query.toLowerCase();
+
+	const target = roles;
+	const candidates = [];
+
+	for (const item in target) {
+		const candidate = {
+			item: target[item],
+			similarity: 0,
+		};
+
+		if (candidate.item.id.toLowerCase() === query) {
+			candidate.similarity = 1;
+		} else if (candidate.item.name.toLowerCase() === query) {
+			candidate.similarity = 0.999;
+		} else if (
+			candidate.item.name.toLowerCase().includes(" " + query + " ") ||
+			candidate.item.id.includes(" " + query + " ")
+		) {
+			candidate.similarity = 0.998;
+		} else if (
+			candidate.item.name.toLowerCase().includes(query + " ") ||
+			candidate.item.id.includes(query + " ")
+		) {
+			candidate.similarity = 0.997;
+		} else if (
+			candidate.item.name.toLowerCase().includes(" " + query) ||
+			candidate.item.id.includes(" " + query)
+		) {
+			candidate.similarity = 0.997;
+		} else if (
+			candidate.item.name.toLowerCase().includes(query) ||
+			candidate.item.id.includes(query)
+		) {
+			candidate.similarity = 0.996;
+		} else {
+			const similarity = similarityBetween(
+				query,
+				candidate.item.name
+			);
+			candidate.similarity = similarity;
+		}
+
+		candidates.push(candidate);
+	}
+	return candidates.sort((a, b) => b.similarity - a.similarity)[0]
+
+}
+
 		const time = args[0];
 		if (!time) {
 			return message.reply({
@@ -28,7 +129,14 @@ module.exports = {
 				content: `\`\`\`\yml\nSyntax: e!gstart <time> <winners> <requirement> <prize>\n                         ^^^^^^^\n\nwinners is a required argument that is missing. \`\`\``,
 			});
 		}
+
+		if (parseInt(winners) <= 0) {
+			return message.reply({
+				content: `\`\`\`Winners can only be a positive integer\`\`\``,
+			});
+		}
 		if(parseInt(winners) > 20) return message.reply("The max amount of winners is 20") 
+
 		const host = message.author;
 		const add = ms(time);
 
@@ -41,9 +149,9 @@ module.exports = {
 		let requirement = false;
 		let bypass = false;
 		let blacklisted = false;
+		const regex = /(?<RoleID>\w+)\[?(?<Type>role|blrole|bypass)?\]?/gm;
+		const string = args[2]
 
-		const regex = /(?<RoleID>\d{18})\[?(?<Type>role|blrole|bypass)?\]?/gm;
-		const string = args[2];
 		if (!string) {
 			return message.reply({
 				content: `\`\`\`\yml\nSyntax: e!gstart <time> <winners> <requirement> <prize>\n                                   ^^^^^^^^^^^\n\nprize is a required argument that is missing. \`\`\``,
@@ -77,7 +185,7 @@ module.exports = {
 				);
 			}
 		});
-		setTimeout(() => message.delete(), 1000)
+
 		let msg;
 		let donor;
 		let v;
@@ -92,39 +200,49 @@ module.exports = {
 			donor = 'No Donor';
 		}
 
+	
+
+		
 		while ((m = regex.exec(string)) !== null) {
-			if (m.index === regex.lastIndex) {
-				regex.lastIndex++;
-			}
-
-			//if(m.groups?.RoleID == m.groups?.RoleID) return message.reply(`${m.groups?.RoleID} is already used a requirement.`)
-
-			if (m.groups?.Type === 'role') {
-				r = message.guild.roles.cache.find(
-					(r) => r.id == m.groups?.RoleID
-				);
-				if(!r) return message.reply({content: 'This role could not be found in the server.'})
-				blank.push({ name: 'Required Roles', id: r.id, idn: r.name });
-			}
-			if (m.groups?.Type === 'bypass') {
-				b = message.guild.roles.cache.find(
-					(r) => r.id == m.groups?.RoleID
-				);
-				if(!b) return message.reply({content: 'This role could not be found in the server.'})
-				blank.push({ name: 'Bypass Roles', id: b.id, idn: b.name });
-			}
-			if (m.groups?.Type === 'blrole') {
-				d = message.guild.roles.cache.find(
-					(r) => r.id == m.groups?.RoleID
-				);
-				if(!d) return message.reply({content: 'This role could not be found in the server.'})
-				blank.push({
-					name: 'Blacklisted Roles',
-					id: d.id,
-					idn: d.name,
-				});
-			}
+		if (m.index === regex.lastIndex) {
+			regex.lastIndex++;
+		}
+		
+		if (m.groups?.Type === 'role') {
+			let tem = search(m.groups?.RoleID)
 			
+			if(tem.similarity <= 0.6) return message.reply("No role found with the name or id provided")
+		
+			r = message.guild.roles.cache.find(
+				(r) => r.id == tem.item.id
+			) 
+			if(!r) return message.reply({content: 'This role could not be found in the server.'})
+			blank.push({ name: 'Required Roles', id: r.id, idn: r.name });
+		}
+		if (m.groups?.Type === 'bypass') {
+			let tem = search(m.groups?.RoleID)
+			if(tem.similarity <= 0.6) return message.reply("No role found with the name or id provided")
+		
+			b = message.guild.roles.cache.find(
+				(r) => r.id == tem.item.id
+			) 
+			if(!b) return message.reply({content: 'This role could not be found in the server.'})
+			blank.push({ name: 'Bypass Roles', id: b.id, idn: b.name });
+		}
+		if (m.groups?.Type === 'blrole') {
+			let tem = search(m.groups?.RoleID)
+			if(tem.similarity <= 0.6) return message.reply("No role found with the name or id provided")
+			
+			b = message.guild.roles.cache.find(
+				(r) => r.id == tem.item.id
+			) 
+			if(!d) return message.reply({content: 'This role could not be found in the server.'})
+			blank.push({
+				name: 'Blacklisted Roles',
+				id: d.id,
+				idn: d.name,
+			});
+		}
 		}
 		let r1 = blank.filter((item) => item.name === 'Required Roles');
 		if (r1.length > 0) requirement = true;
@@ -208,7 +326,7 @@ module.exports = {
 				winners: 'Winners: ',
 				endedAt: 'Ended at',
 				embedFooter: {
-					text: `Winners(${winners}) | Ends At`,
+					text: `Winners(${winners.replace('w', '')}) | Ends At`,
 					iconURL: message.guild.iconURL()
 				},
 			},
@@ -225,6 +343,112 @@ module.exports = {
 		} else if (!flags.get(` msg`)) {
 			msg = 'No Message';
 		}
-	}
+		}
 	},
 };
+/* let rolesRegex = new RegExp(/(?<Roles>(\d{18}(\[(role|bypassrole|blrole)\])?( +)?)+)/, 'igm');
+        let inputRoleMatch = new RegExp(/(?<RoleID>\d{18})(\[(?<Type>(role|bypassrole|blrole))\])?/, 'igm')
+
+        const { Roles } = rolesRegex.exec(message.content).groups;
+
+        let roles = [...Roles.matchAll(inputRoleMatch)]
+
+        let roled = ''
+        let bl = ''
+        let bypass = ''
+
+        for(const { RoleID, Type } of roles){
+        if(Type === "role") {
+         roled = message.guild.roles.cache.find(r => r.id == RoleID)
+        if(Type === "blrole") {
+          bl = message.guild.roles.cache.find(r => r.id == RoleID)
+           }
+        if(Type === "bypassrole") {
+         bypass = message.guild.roles.cache.find(r => r.id == RoleID)
+        }
+}
+*/
+
+/*
+        let data = await db
+        .ref(`Giveaways/Role`)
+        .once("value")
+        .then(snapshot => snapshot.val())|| []
+    
+        db.ref(`Giveaways/Role`).set(req.id)
+        
+*/
+
+/*	let rolearray = args[2].split(',');
+let req = [];
+let role = [];
+rolearray.forEach((e) => {
+	req.push(
+		message.guild.roles.cache.find((r) => r.id === e) ||
+		message.guild.roles.cache.find((r) => r.name === e)
+	);
+});
+
+const flags = new Map();
+const remainder = ` ${args.join(' ')}`;
+const params = remainder.split(/ --| —/).filter((el) => !!el);
+
+params.forEach((content) => {
+	if (!content.startsWith(' ')) {
+		flags.set(
+			` ${content
+				.split(' ')
+				.slice(0, 1)
+				.join(' ')}`,
+			`${content
+				.split(' ')
+				.slice(1)
+				.join(' ')}`
+		);
+	}
+});
+
+if (flags.get(` bypass`)) {
+	roles = flags.get(` bypass`);
+	if (roles.length >= 1024) {
+		return message.reply(
+			`Roles cannot contain more than 1024 character`
+		);
+	}
+} else {
+}
+let rolesinfo = roles.split(',')
+rolesinfo.forEach((rolesinfo) => {
+	role.push(
+		message.guild.roles.cache.find((r) => r.id === rolesinfo)
+	);
+});
+if (rolearray == 'none') req = null;
+let prize = args.slice(3).join(' ').split('--')[0]
+const host = message.author;
+const add = ms(time);
+const date = parseInt(new Date().getTime()) + parseInt(add);
+const rdate = Math.ceil(date / 1000);
+let str = '';
+let rolec = '';
+if (req) {
+	id = req.id;
+	name = req.name;
+
+	if (typeof rolearray === 'string') {
+
+		rolec = `<@&${req[0].id}>`;
+		str = `\n\n**Requirement:**\n Roles: ${rolec}`;
+	} else {
+		for (let i = 0; i < Math.min(10, req.length); i ++) {
+			let r = req [i];
+			rolec += `<@&${r.id}>,`
+		  };
+		str = `\n\n**Requirement:**\n Roles: ${rolec}`;
+	}
+		str += `\nBypass Roles: `
+	for (let i = 0; i < Math.min(10, role.length); i ++) {
+		let r = role [i];
+		str += `<@&${r.id}>,`
+	  };
+}*/
