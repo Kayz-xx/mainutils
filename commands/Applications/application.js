@@ -621,7 +621,7 @@
 								 
 							
 								let index = 0;
-								const questions = data.Positions3.Questions.slice(
+								const questions = data.Positions2.Questions.slice(
 									2,
 									12
 								);
