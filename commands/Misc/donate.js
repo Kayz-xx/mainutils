@@ -13,6 +13,7 @@
     
       async execute(client, message, cmd,  args) {
           if(cmd === 'donate') {
+      if(message.channel.id !== "764885369384599566") return;
       setTimeout(() => message.delete(), 100)
       const prize = args[0]
       if(!prize) return message.channel.send("Please specify a prize")
@@ -112,6 +113,7 @@
   
   }
       if(cmd === 'eventdono') {
+         if(message.channel.id !== "794615730569347072") return;
           setTimeout(() => message.delete(), 100)
           const event = args[0]
           if(!event) return message.channel.send("Please specify an event")
@@ -209,6 +211,7 @@
           }
       }
       if(cmd === 'heistdono') {
+        if(message.channel.id !== "795012690292244481") return;
         setTimeout(() => message.delete(), 100)
         const prize = args[0]
         if(!prize) return message.channel.send("Please specify an amount")
