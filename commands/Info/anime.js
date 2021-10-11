@@ -84,10 +84,11 @@ module.exports = {
           else embed.addField("Total Episodes",json.episodes, true)
         return msg.edit({embeds: [embed]});
       })
-      .catch(err => { //Simply send error message if someting went wrong
-        embed.setAuthor("Something went wrong or unable to find this anime")
-        .setColor("RED")
-        return msg.edit({embeds: [embed]})
+      .catch(err => {
+        let embed2 = new discord.MessageEmbed()
+        embed2.setAuthor("Something went wrong or unable to find this anime")
+        embed2.setColor("RED")
+        return msg.edit({embeds: [embed2]})
       });
   }
 
