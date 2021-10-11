@@ -68,7 +68,7 @@ try {
 	}
 	if(hasNumber(ms) && conditions.some(el => ms.includes(el))) {
 		let num = math.evaluate(ms)
-		if(isNaN(num)) return message.reply('An Error Occured!')
+		if(isNaN(num)) return;
 		message.react('✔')
 		const filter = (reaction, user) => {
 			return user.bot === false
