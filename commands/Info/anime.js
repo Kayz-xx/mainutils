@@ -82,12 +82,12 @@ module.exports = {
             embed.addField("Next Airing", `${time.days}d ${time.hours}h ${time.minutes}m`, true)
           }
           else embed.addField("Total Episodes",json.episodes, true)
-        return msg.edit(embed);
+        return msg.edit({embeds: [embed]});
       })
       .catch(err => { //Simply send error message if someting went wrong
         embed.setAuthor("Something went wrong or unable to find this anime")
         .setColor("RED")
-        return msg.edit(embed)
+        return msg.edit({embeds: [embed]})
       });
   }
 
