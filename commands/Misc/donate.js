@@ -308,6 +308,7 @@
 
     }
       if(cmd === '1yr') {
+        if(message.channel.id !== "800803993290145793") return;
         setTimeout(() => message.delete(), 100)
         const prize = args.slice(0).join(' ');
         if(!prize) return message.channel.send("Please specify an item or amount to donate.")
