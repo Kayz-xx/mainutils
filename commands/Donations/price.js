@@ -12,540 +12,644 @@ module.exports = {
 	category: 'Donations',
 
 	async execute(client, message, cmd, args) {
-		const items = [
+
+		/*const items = [
 			{
 				name: 'Alcohol',
 				amount: 7500,
-				aliases: 'alc',
+				id: 'alc',
 				type: 'shop',
 			},
 			{
 				name: 'Apple',
 				amount: 5000,
-				aliases: 'app',
+				id: 'app',
 				type: 'shop',
 			},
 			{
 				name: 'Cheese',
 				amount: 35000,
-				aliases: 'chee',
+				id: 'chee',
 				type: 'shop',
 			},
 			{
-				name: 'Coinbomb',
+				name: 'Coin bomb',
 				amount: 16000,
-				aliases: 'coin',
+				id: 'coin',
 				type: 'shop',
 			},
 			{
-				name: 'PepeCrown',
+				name: 'Pepe Crown',
 				amount: 240000000,
-				aliases: 'crown',
+				id: 'crown',
 				type: 'shop',
 			},
 			{
-				name: 'PepeTrophy',
-				amount: 35000000,
-				aliases: 'trophy',
+				name: 'Pepe Trophy',
+				amount: 40000000,
+				id: 'trophy',
 				type: 'shop',
 			},
 			{
-				name: 'RarePepe',
+				name: 'Rare Pepe',
 				amount: 50000,
-				aliases: 'pepe',
+				id: 'pepe',
 				type: 'shop',
 			},
 			{
-				name: 'Fakeid',
+				name: 'Fake id',
 				amount: 800,
-				aliases: 'fake',
+				id: 'fake',
 				type: 'shop',
 			},
 			{
-				name: 'FishingPole',
+				name: 'Fishing Pole',
 				amount: 14000,
-				aliases: 'pole',
+				id: 'pole',
 				type: 'shop',
 			},
 			{
 				name: 'Horseshoe',
 				amount: 9000,
-				aliases: 'shoe',
+				id: 'shoe',
 				type: 'shop',
 			},
 			{
-				name: 'HuntingRifle',
+				name: 'Hunting Rifle',
 				amount: 14000,
-				aliases: 'rifle',
+				id: 'rifle',
 				type: 'shop',
 			},
 			{
 				name: 'Landmine',
 				amount: 6000,
-				aliases: 'mine',
+				id: 'mine',
 				type: 'shop',
 			},
 			{
 				name: 'Laptop',
 				amount: 2000,
-				aliases: 'lap',
+				id: 'lap',
 				type: 'shop',
 			},
 			{
 				name: 'Lifesaver',
 				amount: 10000,
-				aliases: 'life',
+				id: 'life',
 				type: 'shop',
 			},
 			{
 				name: 'Padlock',
 				amount: 2000,
-				aliases: 'pad',
+				id: 'pad',
 				type: 'shop',
 			},
 			{
-				name: 'PepeCoin',
-				amount: 500000,
-				aliases: 'pepec',
+				name: 'Pepe Coin',
+				amount: 300000,
+				id: 'pepec',
 				type: 'shop',
 			},
 			{
-				name: 'PepeMedal',
-				amount: 7000000,
-				aliases: 'crown',
+				name: 'Pepe Medal',
+				amount: 5000000,
+				id: 'crown',
 				type: 'shop',
 			},
 			{
-				name: 'CellPhone',
+				name: 'Cell Phone',
 				amount: 800,
-				aliases: 'cell',
+				id: 'cell',
 				type: 'shop',
 			},
 			{
-				name: 'PinkPhallic',
+				name: 'Pink Phallic Object',
 				amount: 5,
-				aliases: 'pink',
+				id: 'pink',
 				type: 'shop',
 			},
 			{
-				name: 'PizzaSlice',
+				name: 'Pizza Slice',
 				amount: 175000,
-				aliases: 'pizza',
+				id: 'pizza',
 				type: 'shop',
 			},
 			{
-				name: 'BoxOfSand',
+				name: 'Box Of Sand',
 				amount: 2000,
-				aliases: 'sand',
+				id: 'sand',
 				type: 'shop',
 			},
 			{
 				name: 'Shovel',
 				amount: 12000,
-				aliases: 'shovel',
+				id: 'shovel',
 				type: 'shop',
 			},
 			{
-				name: 'FidgetSpinner',
+				name: 'Fidget Spinner',
 				amount: 5000,
-				aliases: 'spin',
+				id: 'spin',
 				type: 'shop',
 			},
 			{
-				name: 'RobbersWishlist',
+				name: 'Robbers Wishlist',
 				amount: 20000,
-				aliases: 'wishlist',
+				id: 'wishlist',
 				type: 'shop',
 			},
 			{
 				name: 'Tidepod',
 				amount: 10000,
-				aliases: 'tide',
+				id: 'tide',
 				type: 'shop',
 			},
 			{
-				name: 'BanHammer',
+				name: 'Ban Hammer',
 				amount: 1000000,
-				aliases: 'hammer',
+				id: 'hammer',
 				type: 'work',
 			},
 			{
 				name: 'Baby',
 				amount: 5000000,
-				aliases: 'baby',
+				id: 'baby',
 				type: 'work',
 			},
 			{
-				name: 'CrunchyTaco',
+				name: 'Crunchy Taco',
 				amount: 5000000,
-				aliases: 'taco',
+				id: 'taco',
 				type: 'work',
 			},
 			{
-				name: 'UsedDiaper',
+				name: 'Used Diaper',
 				amount: 3000000,
-				aliases: 'diaper',
+				id: 'diaper',
 				type: 'work',
 			},
 			{
-				name: 'TipJar',
+				name: 'Tip Jar',
 				amount: 7000000,
-				aliases: 'tip',
+				id: 'tip',
 				type: 'work',
 			},
 			{
-				name: 'LikeButton',
+				name: 'Like Button',
 				amount: 2000000,
-				aliases: 'like',
+				id: 'like',
 				type: 'work',
 			},
 			{
 				name: 'Ammo',
 				amount: 4000000,
-				aliases: 'ammo',
+				id: 'ammo',
 				type: 'work',
 			},
 			{
-				name: 'FishingBait',
+				name: 'Fishing Bait',
 				amount: 4000000,
-				aliases: 'bait',
+				id: 'bait',
 				type: 'work',
 			},
 			{
-				name: 'BottleOfWhiskey',
+				name: 'Bottle Of Whiskey',
 				amount: 4000000,
-				aliases: 'whisk',
+				id: 'whisk',
 				type: 'work',
 			},
 			{
-				name: 'RobbersMask',
+				name: 'Robbers Mask',
 				amount: 4000000,
-				aliases: 'mask',
+				id: 'mask',
 				type: 'work',
 			},
 			{
-				name: 'PoliceBadge',
+				name: 'Police Badge',
 				amount: 7000000,
-				aliases: 'badge',
+				id: 'badge',
 				type: 'work',
 			},
 			
 			{
-				name: 'Aplus',
+				name: 'A Plus',
 				amount: 5000000,
-				aliases: 'plus',
+				id: 'plus',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'MusicalNote',
+				name: 'Musical Note',
 				amount: 10000000,
-				aliases: 'note',
+				id: 'musical',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'ShopCoupon',
+				name: 'Shop Coupon',
 				amount: 10000000,
-				aliases: 'coupon',
+				id: 'coupon',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'EnergyDrink',
+				name: 'Energy Drink',
 				amount: 5000000,
-				aliases: 'drink',
+				id: 'drink',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'MotivationalPoster',
+				name: 'Motivational Poster',
 				amount: 4000000,
-				aliases: 'poster',
+				id: 'poster',
 				type: 'work',
 			},
-
+		
 			{
 				name: 'Binary',
 				amount: 10000000,
-				aliases: 'binary',
+				id: 'binary',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'StonkMachine',
+				name: 'Stonk Machine',
 				amount: 20000000,
-				aliases: 'stonk',
+				id: 'stonk',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'SantasBag',
+				name: 'Santas Bag',
 				amount: 50000000,
-				aliases: 'sbag',
+				id: 'sbag',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'StackOfCash',
+				name: 'Stack Of Cash',
 				amount: 10000000,
-				aliases: 'stack',
+				id: 'stack',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'PetCollar',
+				name: 'Pet Collar',
 				amount: 10000000,
-				aliases: 'collar',
+				id: 'collar',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'MemePills',
+				name: 'Meme Pills',
 				amount: 10000000,
-				aliases: 'memepill',
+				id: 'memepill',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'LawDegree',
+				name: 'Law Degree',
 				amount: 8000000,
-				aliases: 'law',
+				id: 'law',
 				type: 'work',
 			},
-
+		
 			{
-				name: 'BeakerOfSusFluid',
+				name: 'Beaker Of Sus Fluid',
 				amount: 12000000,
-				aliases: 'beaker',
+				id: 'beaker',
 				type: 'work',
 			},
-
+		
 			{
 				name: 'Vaccine',
 				amount: 12000000,
-				aliases: 'vaccine',
+				id: 'vaccine',
 				type: 'work',
 			},
-
+		
 			{
 				name: 'Ectoplasm',
 				amount: 5000000,
-				aliases: 'ecto',
+				id: 'ecto',
 				type: 'work',
 			},
 			
-{
-	name: 'AetheryxFlower',
-	amount: 15000000,
-	aliases: 'flow',
-	type: 'nonpurchasable',
-},
-{
-	name: 'Banknote',
-	amount: 100000,
-	aliases: 'note',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'BluePhallicObject',
-	amount: 15000,
-	aliases: 'bluephal',
-	type: 'nonpurchasable',
-},
-{
-	name: 'Blob',
-	amount: 2000000000,
-	aliases: 'blob',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'BoltCutters',
-	amount: 175000000,
-	aliases: 'bolt',
-	type: 'nonpurchasable',
-},
-{
-	name: 'Bread',
-	amount: 10000,
-	aliases: 'bread',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'BadoszCard',
-	amount: 15000000,
-	aliases: 'card',
-	type: 'nonpurchasable',
-},
-{
-	name: 'Candy',
-	amount: 20000,
-	aliases: 'candy',
-	type: 'nonpurchasable',
-},
-{
-	name: 'ChillPill',
-	amount: 10000,
-	aliases: 'chill',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'Cookie',
-	amount: 2000,
-	aliases: 'cook',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'CupidToe',
-	amount: 30000,
-	aliases: 'toe',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'FoolsNotif',
-	amount: 30000,
-	aliases: 'fools',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'JackoLanty',
-	amount: 4500000,
-	aliases: 'jacky',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'MemlsiesBeard',
-	amount: 45000000,
-	aliases: 'beard',
-	type: 'nonpurchasable',
-},
-{
-	name: 'WinningLotteryTicket',
-	amount: 35000000,
-	aliases: 'lot',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'PepeStatue',
-	amount: 750000,
-	aliases: 'stat',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'Potato',
-	amount: 275000,
-	aliases: 'pot',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'SantasHat',
-	amount: 50000,
-	aliases: 'hat',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'Snowball',
-	amount: 25000,
-	aliases: 'snow',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'GoldenPhallicObject',
-	amount: 100000,
-	aliases: 'gold',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'Reversal',
-	amount: 3000000,
-	aliases: 'rev',
-	type: 'nonpurchasable',
-},
-
-
-{
-	name: 'MulticoloredPhallicObject',
-	amount: 7000000,
-	aliases: 'multi',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'OrangePhallicObject',
-	amount: 50000,
-	aliases: 'orange',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'PurplePhallicObject',
-	amount: 50000,
-	aliases: 'purple',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'DailyBox',
-	amount: 100000,
-	aliases: 'daily',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'NormieBox',
-	amount: 75000,
-	aliases: 'norm',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'MemeBox',
-	amount: 120000,
-	aliases: 'meme',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'DankBox',
-	amount: 300000,
-	aliases: 'dank',
-	type: 'nonpurchasable',
-},
-
-{
-	name: 'GodBox',
-	amount: 5000000,
-	aliases: 'god',
-	type: 'nonpurchasable',
-},
-		];
-		let data =
-			(await db
-				.ref(`Donations/Info/${message.guild.id}/List`)
-				.once('value')
-				.then((snapshot) => snapshot.val())) || [];
+		{
+		name: 'Aetheryx Flower',
+		amount: 15000000,
+		id: 'flower',
+		type: 'nonpurchasable',
+		},
+		{
+		name: 'Banknote',
+		amount: 100000,
+		id: 'bank',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Blue Phallic Object',
+		amount: 15000,
+		id: 'bluephal',
+		type: 'nonpurchasable',
+		},
+		{
+		name: 'Blob',
+		amount: 2000000000,
+		id: 'blob',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Bolt Cutters',
+		amount: 175000000,
+		id: 'bolt',
+		type: 'nonpurchasable',
+		},
+		{
+		name: 'Bread',
+		amount: 10000,
+		id: 'bread',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Badosz Card',
+		amount: 15000000,
+		id: 'card',
+		type: 'nonpurchasable',
+		},
+		{
+		name: 'Candy',
+		amount: 20000,
+		id: 'candy',
+		type: 'nonpurchasable',
+		},
+		{
+		name: 'Chill Pill',
+		amount: 10000,
+		id: 'chill',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Cookie',
+		amount: 2000,
+		id: 'cook',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Cupid Toe',
+		amount: 30000,
+		id: 'toe',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Fools Notif',
+		amount: 30000,
+		id: 'fools',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Jack o Lanty',
+		amount: 4500000,
+		id: 'jacky',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Memlsies Beard',
+		amount: 45000000,
+		id: 'beard',
+		type: 'nonpurchasable',
+		},
+		{
+		name: 'Winning Lottery Ticket',
+		amount: 35000000,
+		id: 'lot',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Pepe Statue',
+		amount: 750000,
+		id: 'stat',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Potato',
+		amount: 275000,
+		id: 'potato',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Santas Hat',
+		amount: 50000,
+		id: 'hat',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Snowball',
+		amount: 25000,
+		id: 'snow',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Golden Phallic Object',
+		amount: 100000,
+		id: 'gold',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Reversal',
+		amount: 3000000,
+		id: 'rev',
+		type: 'nonpurchasable',
+		},
+		
+		
+		{
+		name: 'Multicolored Phallic Object',
+		amount: 7000000,
+		id: 'multi',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Orange Phallic Object',
+		amount: 50000,
+		id: 'orange',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Purple Phallic Object',
+		amount: 50000,
+		id: 'purple',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Daily Box',
+		amount: 100000,
+		id: 'daily',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Normie Box',
+		amount: 75000,
+		id: 'norm',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Meme Box',
+		amount: 120000,
+		id: 'meme',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'Dank Box',
+		amount: 300000,
+		id: 'dank',
+		type: 'nonpurchasable',
+		},
+		
+		{
+		name: 'God Box',
+		amount: 5000000,
+		id: 'god',
+		type: 'nonpurchasable',
+		},
+	];*/
+	let items =
+	(await db
+		.ref(`Donations/Info/${message.guild.id}/List`)
+		.once('value')
+		.then((snapshot) => snapshot.val())) || [];
+		function similarityBetween(s1, s2) {
+			let longer = s1;
+			let shorter = s2;
+			if (s1.length < s2.length) {
+				longer = s2;
+				shorter = s1;
+			}
+			const longerLength = longer.length;
+			if (longerLength === 0) {
+				return 1.0;
+			}
+			return (
+				(longerLength - editDistance(longer, shorter)) /
+				parseFloat(longerLength)
+			);
+		}
 	
-		db.ref(`Donations/Info/${message.guild.id}/List`)
-		if(!args[0]) return message.reply("Please mention an item.")
-		let item =
-			data.find((item) => item.name.toUpperCase() === args[0].toUpperCase()) ||
-			data.find((item) => item.aliases.toUpperCase() === args[0].toUpperCase());
-		if (!item)
+		function editDistance(s1, s2) {
+			s1 = s1.toLowerCase();
+			s2 = s2.toLowerCase();
+	
+			const costs = [];
+			for (let i = 0; i <= s1.length; i++) {
+				let lastValue = i;
+				for (let j = 0; j <= s2.length; j++) {
+					if (i === 0) {
+						costs[j] = j;
+					} else {
+						if (j > 0) {
+							let newValue = costs[j - 1];
+							if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+								newValue =
+									Math.min(
+										Math.min(newValue, lastValue),
+										costs[j]
+									) + 1;
+							}
+							costs[j - 1] = lastValue;
+							lastValue = newValue;
+						}
+					}
+				}
+				if (i > 0) {
+					costs[s2.length] = lastValue;
+				}
+			}
+			return costs[s2.length];
+		}
+	
+		function search(query) {
+			query = query.toLowerCase();
+	
+			const target = items;
+			const candidates = [];
+	
+			for (const item in target) {
+				const candidate = {
+					item: target[item],
+					similarity: 0,
+				};
+	
+				if (candidate.item.id.toLowerCase() === query) {
+					candidate.similarity = 1;
+				} else if (candidate.item.name.toLowerCase() === query) {
+					candidate.similarity = 0.999;
+				} else if (
+					candidate.item.name.toLowerCase().includes(" " + query + " ") ||
+					candidate.item.id.includes(" " + query + " ")
+				) {
+					candidate.similarity = 0.998;
+				} else if (
+					candidate.item.name.toLowerCase().includes(query + " ") ||
+					candidate.item.id.includes(query + " ")
+				) {
+					candidate.similarity = 0.997;
+				} else if (
+					candidate.item.name.toLowerCase().includes(" " + query) ||
+					candidate.item.id.includes(" " + query)
+				) {
+					candidate.similarity = 0.997;
+				} else if (
+					candidate.item.name.toLowerCase().includes(query) ||
+					candidate.item.id.includes(query)
+				) {
+					candidate.similarity = 0.996;
+				} else {
+					const similarity = similarityBetween(
+						query,
+						candidate.item.name
+					);
+					candidate.similarity = similarity;
+				}
+	
+				candidates.push(candidate);
+			}
+			return candidates.sort((a, b) => b.similarity - a.similarity)[0]
+		
+		}
+	
+	
+		
+	
+		//db.ref(`Donations/Info/${message.guild.id}/List`).set(items);
+		
+		let tem =
+			search(args.slice(0).join(" "))
+		
+		if (tem.similarity <= 0.6)
 			return message.reply({ content: `Could not find that item!` });
+		
+		const item = tem.item
 		let str = ``
 		if(!isNaN(item.amount)) str = `⏣ ${formatter.format(
 			item.amount
@@ -556,7 +660,7 @@ module.exports = {
 			.setAuthor(`${item.name}`)
 			.setDescription(
 				`**<:dott:878752973587615776>Amount**<a:im5:859288337280925746> \`${str}\`\n**<:dott:878752973587615776>Aliases**<a:im5:859288337280925746> \`${
-					item.aliases
+					item.id
 				}\`\n**<:dott:878752973587615776>Item Type**<a:im5:859288337280925746> \`${
 					item.type
 				}\``
@@ -569,3 +673,4 @@ module.exports = {
 		message.channel.send({ embeds: [embed] });
 	},
 };
+	
