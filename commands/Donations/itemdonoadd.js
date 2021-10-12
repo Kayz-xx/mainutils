@@ -17,6 +17,106 @@ module.exports = {
 
   
     async execute(client, message, cmd,  args) {
+      function similarityBetween(s1, s2) {
+        let longer = s1;
+        let shorter = s2;
+        if (s1.length < s2.length) {
+          longer = s2;
+          shorter = s1;
+        }
+        const longerLength = longer.length;
+        if (longerLength === 0) {
+          return 1.0;
+        }
+        return (
+          (longerLength - editDistance(longer, shorter)) /
+          parseFloat(longerLength)
+        );
+      }
+    
+      function editDistance(s1, s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+    
+        const costs = [];
+        for (let i = 0; i <= s1.length; i++) {
+          let lastValue = i;
+          for (let j = 0; j <= s2.length; j++) {
+            if (i === 0) {
+              costs[j] = j;
+            } else {
+              if (j > 0) {
+                let newValue = costs[j - 1];
+                if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+                  newValue =
+                    Math.min(
+                      Math.min(newValue, lastValue),
+                      costs[j]
+                    ) + 1;
+                }
+                costs[j - 1] = lastValue;
+                lastValue = newValue;
+              }
+            }
+          }
+          if (i > 0) {
+            costs[s2.length] = lastValue;
+          }
+        }
+        return costs[s2.length];
+      }
+    
+      function search(query) {
+        query = query.toLowerCase();
+    
+        const target = items;
+        const candidates = [];
+    
+        for (const item in target) {
+          const candidate = {
+            item: target[item],
+            similarity: 0,
+          };
+    
+          if (candidate.item.id.toLowerCase() === query) {
+            candidate.similarity = 1;
+          } else if (candidate.item.name.toLowerCase() === query) {
+            candidate.similarity = 0.999;
+          } else if (
+            candidate.item.name.toLowerCase().includes(" " + query + " ") ||
+            candidate.item.id.includes(" " + query + " ")
+          ) {
+            candidate.similarity = 0.998;
+          } else if (
+            candidate.item.name.toLowerCase().includes(query + " ") ||
+            candidate.item.id.includes(query + " ")
+          ) {
+            candidate.similarity = 0.997;
+          } else if (
+            candidate.item.name.toLowerCase().includes(" " + query) ||
+            candidate.item.id.includes(" " + query)
+          ) {
+            candidate.similarity = 0.997;
+          } else if (
+            candidate.item.name.toLowerCase().includes(query) ||
+            candidate.item.id.includes(query)
+          ) {
+            candidate.similarity = 0.996;
+          } else {
+            const similarity = similarityBetween(
+              query,
+              candidate.item.name
+            );
+            candidate.similarity = similarity;
+          }
+    
+          candidates.push(candidate);
+        }
+        return candidates.sort((a, b) => b.similarity - a.similarity)[0]
+      
+      }
+    
+    
 
     const mention = message.mentions.users.first()
     
@@ -39,32 +139,21 @@ module.exports = {
         message.reply({content:'Please mention an amount of items.'})
         return
       }
-    let choice = args[2]
-    if (!choice) {
-        message.reply({content:'Please mention an item'})
-        return
-      }
-    let data5 = await db
-    .ref(`Donations/Info/${message.guild.id}/List`)
-    .once("value")
-    .then(snapshot => snapshot.val())|| []
-    db.ref(`Donations/Info/${message.guild.id}/List`)
-    let item = data5.find(item => item.name.toUpperCase() === choice.toUpperCase()) || data5.find(item => item.aliases.toUpperCase() === choice.toUpperCase())
-    if(!item) return message.reply({content: `Could not find that item!`})
 
-    /*let amount2 = args[3]
-    let item2 = args[4]
-    if(item2) {
-    item2 = data5.find(item => item.name === args[4]) || data5.find(item => item.aliases === args[4])
-    if(!item2) return message.reply({content: `Could not find that item!`})
-    }
+    let items =
+      (await db
+        .ref(`Donations/Info/${message.guild.id}/List`)
+        .once('value')
+        .then((snapshot) => snapshot.val())) || [];
+        let tem =
+        search(args.slice(2).join(" "))
+      
+        if (tem.similarity <= 0.6)
+        return message.reply({ content: `Could not find that item!` });
+      
+      const item = tem.item
 
-    let amount3 = args[5]
-    if(item3) {
-        item3 = data5.find(item => item.name === args[4]) || data5.find(item => item.aliases === args[4])
-        if(!item3) return message.reply({content: `Could not find that item!`})
-        }
-*/
+
     const coins = item.amount * Number(amount)
     if (isNaN(coins)) {
       message.reply({content:'Please provide a valid number of coins.'})
@@ -134,7 +223,7 @@ module.exports = {
       let hasRole6 = auser.roles.cache.some(role => role.id === data4.Donorole6)
       let hasRole7 = auser.roles.cache.some(role => role.id === data4.Donorole7)
       let hasRole8 = auser.roles.cache.some(role => role.id === data4.Donorole8)
-      let hasRole9 = auser.roles.cache.some(role => role.id === data4.Donorole9)
+      let hasRole9 = auser.roles.cache.some(role => role.id === data4.Donorole8)
 
       function sleep(ms){
         return new Promise(resolve => setTimeout(resolve, ms))
