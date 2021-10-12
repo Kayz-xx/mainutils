@@ -840,7 +840,7 @@
 								let index = 0;
 								const questions = data.Positions3.Questions.slice(
 									2,
-									12
+									13
 								);
 
 								let collectCounter = 0;
