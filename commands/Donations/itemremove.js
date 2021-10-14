@@ -18,7 +18,7 @@ module.exports = {
         .once("value")
         .then(snapshot => snapshot.val())|| []
      
-        const found = data.find(item => item.name.toUpperCase() === args[0].toUpperCase()) || data.find(item => item.aliases.toUpperCase() === args[0].toUpperCase())
+        const found = data.find(item => item.name.toUpperCase() === args[0].toUpperCase()) || data.find(item => item.id.toUpperCase() === args[0].toUpperCase())
         if(!found) {
             let embed = new MessageEmbed()
             .setTitle(`Item Does Not Exist`)
