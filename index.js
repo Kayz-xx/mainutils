@@ -82,7 +82,7 @@ array.forEach((handler) => {
 });
 
 
-/*client.commands.forEach((obj) => {
+	/*client.commands.forEach((obj) => {
 	let cmdObject = {
 		name: obj.name,
 		permissions: obj.authorPermission,
