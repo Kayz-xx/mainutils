@@ -26,17 +26,17 @@ module.exports = {
         .ref(`Donations/Info/${message.guild.id}/List`)
         .once("value")
         .then(snapshot => snapshot.val())|| []
-        const found = data.find(item => item.name.toUpperCase() === name.toUpperCase()) || data.find(item => item.aliases.toUpperCase() === name.toUpperCase())
+        const found = data.find(item => item.name.toUpperCase() === name.toUpperCase()) || data.find(item => item.id.toUpperCase() === name.toUpperCase())
         const place = data.indexOf(found)
         if(found) {
             data[place] = {
                 "name" : found.name,
                 "amount" : parseInt(amount),
-                "aliases": aliases,
+                "id": aliases,
                 "type" : found.type
               }
             db.ref(`Donations/Info/${message.guild.id}/List`).set(data)
-            const item = data.find(item => item.name.toUpperCase() === name.toUpperCase()) || data.find(item => item.aliases.toUpperCase() === name.toUpperCase())
+            const item = data.find(item => item.name.toUpperCase() === name.toUpperCase()) || data.find(item => item.id.toUpperCase() === name.toUpperCase())
             let embed6 = new MessageEmbed()
             .setAuthor(`Item ${name} price set to: ${amount}`)
             .setDescription(`Alias set to ${aliases}`)
