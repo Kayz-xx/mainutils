@@ -33,6 +33,6 @@ module.exports = {
         .setTitle(`**Deleted Item ${found.name}**`)
         .setColor('RANDOM')
         .setFooter(`Elite Empire`, `https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024`)
-        message.channel.send({embeds: [embed6]})
+            message.channel.send({embeds: [embed6]})
     }
 }
