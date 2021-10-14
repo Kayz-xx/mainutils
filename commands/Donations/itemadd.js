@@ -54,7 +54,7 @@ module.exports = {
         .ref(`Donations/Info/${message.guild.id}/List`)
         .once("value")
         .then(snapshot => snapshot.val())|| []
-        const found = data.find(item => item.name === name) || data.find(item => item.aliases === aliases)
+        const found = data.find(item => item.name === name) || data.find(item => item.id === aliases)
         if(found) {
             let embed = new MessageEmbed()
             .setTitle(`Item Already Exists`)
@@ -65,11 +65,11 @@ module.exports = {
         data.push({
             "name" : name,
         "amount" : parseInt(amount),
-        "aliases": aliases,
+        "id": aliases,
         "type" : type
           })
         db.ref(`Donations/Info/${message.guild.id}/List`).set(data)
-        const item = data.find(item => item.name === name) || data.find(item => item.aliases === aliases)
+        const item = data.find(item => item.name === name) || data.find(item => item.id === aliases)
         let embed6 = new MessageEmbed()
         .setTitle(`**Elite's Item List**`)
         .setAuthor(`${item.name}(New Item)`)
