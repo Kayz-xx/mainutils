@@ -76,7 +76,7 @@ client.giveaways = Creator
 
 require('@weky/inlinereply');
 
-let array = ['command', 'events', 'giveaways'];
+let array = ['command', 'events', 'giveaways', 'antiCrash'];
 array.forEach((handler) => {
 	require(`./handlers/${handler}`)(client);
 });
