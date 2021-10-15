@@ -119,6 +119,7 @@ module.exports = {
                      filter,
                      time: time },
                 );
+		console.log(number)
                 const gameCollector = msg.createMessageComponentCollector((fn) => fn);
                 currentGames[message.guild.id] = true;
                 currentGames[`${message.guild.id}_channel`] =
