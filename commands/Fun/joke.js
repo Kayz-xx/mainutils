@@ -8,7 +8,7 @@ module.exports = {
   async execute(client, message, cmd,  args) {
 
     let data = await Random.getJoke()
-      message.channel.send({embeds: [data.embed]})
+     message.channel.send({embeds: [data.embed]})
     
   }
 }
