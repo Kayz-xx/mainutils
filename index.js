@@ -2,57 +2,61 @@ const { token } = require('./config.json');
 
 const discord = require('discord.js');
 
-const { GiveawaysManager } = require('discord-giveaways')
-const giveawayModel = require('./schemas/giveaway-schema')
+const { GiveawaysManager } = require('discord-giveaways');
+const giveawayModel = require('./schemas/giveaway-schema');
 
-
+const mongo = require('./mongo')
 const client = new discord.Client({
 	allowedMentions: {
-	  parse: ["roles", "users", "everyone"],
-	  repliedUser: true,
+		parse: ['roles', 'users', 'everyone'],
+		repliedUser: true,
 	},
-	partials: ["MESSAGE", "CHANNEL", "REACTION"],
+	partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 	intents: [
-	  "GUILDS",
-	  "GUILD_MEMBERS",
-	  "GUILD_BANS",
-	  "GUILD_MESSAGES",
-	  "GUILD_VOICE_STATES",
-	  "GUILD_PRESENCES",
-	  "GUILD_MESSAGE_REACTIONS",
-	  "DIRECT_MESSAGE_REACTIONS",
-	  "DIRECT_MESSAGES"	
+		'GUILDS',
+		'GUILD_MEMBERS',
+		'GUILD_BANS',
+		'GUILD_VOICE_STATES',
+		'GUILD_MESSAGES',
+		'GUILD_PRESENCES',
+		'GUILD_MESSAGE_REACTIONS',
+		'DIRECT_MESSAGE_REACTIONS',
+		'DIRECT_MESSAGES',
 	],
-  });
+});
 //const category = {};
 const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
 
     async getAllGiveaways() {
-      
+		return await mongo().then(async (mongoose) => {
         return await giveawayModel.find({});
+		})
     }
 
     async saveGiveaway(messageId, giveawayData) {
- 
+		return await mongo().then(async (mongoose) => {
         await giveawayModel.create(giveawayData);
     
         return true;
+		})
     }
 
  
     async editGiveaway(messageId, giveawayData) {
-   
+		return await mongo().then(async (mongoose) => {
         await giveawayModel.findOneAndUpdate({ messageId }, giveawayData, { omitUndefined: true }).exec();
 
         return true;
+		})
     }
 
    
     async deleteGiveaway(messageId) {
-    
+		return await mongo().then(async (mongoose) => {
         await giveawayModel.findOneAndDelete({ messageId }).exec();
     
         return true;
+		})
     }
 };
 
@@ -81,8 +85,7 @@ array.forEach((handler) => {
 	require(`./handlers/${handler}`)(client);
 });
 
-
-	/*client.commands.forEach((obj) => {
+/*client.commands.forEach((obj) => {
 	let cmdObject = {
 		name: obj.name,
 		permissions: obj.authorPermission,
@@ -100,6 +103,3 @@ array.forEach((handler) => {
 });*/
 
 client.login(token);
-
-
-
