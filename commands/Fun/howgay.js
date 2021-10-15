@@ -18,6 +18,7 @@ module.exports = {
         if (member.bot || member.id === message.author.id) return;
         let type = args[1]
         let op = ["high","low"]
+	if(!op) return message.reply("Specify high or low")
         if(!op.some(el => type.toLowerCase().includes(el))) return message.reply("Valid Options: \`High, Low\`")
         if(!type) return message.reply('Please specify highgay or lowgay')
         let acceptbutton = new MessageButton()
