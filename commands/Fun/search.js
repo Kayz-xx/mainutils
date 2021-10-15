@@ -44,7 +44,39 @@ module.exports = {
 			`🍔 Amxaa's burger`,
 			`😸 Teanal's cat girl`,
 			`:potted_plant: Emil's weed`,
+			`Pentaion's ice cream`,
 			`Squid's janitor`,
+			`vee's pikachu`,
+			`<:laptop:775773370193150012> Kayz's laptop`,
+			`Ghosty's chicken`,
+			`<:phone:775771423926124614> Baba's Phone`,
+			`Manda's purse`,
+			`🍔 Amxaa's burger`,
+			`😸 Teanal's cat girl`,
+			`:potted_plant: Emil's weed`,
+			`Squid's janitor`,
+			`vee's pikachu`,
+			`Pentaion's ice cream`,
+			`<:laptop:775773370193150012> Kayz's laptop`,
+			`Ghosty's chicken`,
+			`<:phone:775771423926124614> Baba's Phone`,
+			`Manda's purse`,
+			`🍔 Amxaa's burger`,
+			`😸 Teanal's cat girl`,
+			`:potted_plant: Emil's weed`,
+			`Squid's janitor`,
+			`vee's pikachu`,
+			`Pentaion's ice cream`,
+			`<:laptop:775773370193150012> Kayz's laptop`,
+			`Ghosty's chicken`,
+			`<:phone:775771423926124614> Baba's Phone`,
+			`Manda's purse`,
+			`🍔 Amxaa's burger`,
+			`😸 Teanal's cat girl`,
+			`:potted_plant: Emil's weed`,
+			`Squid's janitor`,
+				`vee's pikachu`,
+			`Pentaion's ice cream`,
 			`<:laptop:775773370193150012> Kayz's laptop`,
 			`Ghosty's chicken`,
 			`<:phone:775771423926124614> Baba's Phone`,
@@ -61,30 +93,8 @@ module.exports = {
 			`😸 Teanal's cat girl`,
 			`:potted_plant: Emil's weed`,
 			`Squid's janitor`,
-			`<:laptop:775773370193150012> Kayz's laptop`,
-			`Ghosty's chicken`,
-			`<:phone:775771423926124614> Baba's Phone`,
-			`Manda's purse`,
-			`🍔 Amxaa's burger`,
-			`😸 Teanal's cat girl`,
-			`:potted_plant: Emil's weed`,
-			`Squid's janitor`,
-			`<:laptop:775773370193150012> Kayz's laptop`,
-			`Ghosty's chicken`,
-			`<:phone:775771423926124614> Baba's Phone`,
-			`Manda's purse`,
-			`🍔 Amxaa's burger`,
-			`😸 Teanal's cat girl`,
-			`:potted_plant: Emil's weed`,
-			`Squid's janitor`,
-			`<:laptop:775773370193150012> Kayz's laptop`,
-			`Ghosty's chicken`,
-			`<:phone:775771423926124614> Baba's Phone`,
-			`Manda's purse`,
-			`🍔 Amxaa's burger`,
-			`😸 Teanal's cat girl`,
-			`:potted_plant: Emil's weed`,
-			`Squid's janitor`,
+	`vee's pikachu`,
+			`Pentaion's ice cream`,
 			`<:laptop:775773370193150012> Kayz's laptop`,
 			`Ghosty's chicken`,
 			`<:phone:775771423926124614> Baba's Phone`,
@@ -125,9 +135,9 @@ module.exports = {
 			.setTimestamp()
 			.setColor('RANDOM')
 			.setDescription(
-				`You Searched In The **${
+				`You searched the **${
 					btn1.label
-				}** And Found ** ${amount.toLocaleString()}**`
+				}** and found ** ${amount.toLocaleString()}**`
 			);
 		const embed1 = new MessageEmbed()
 			.setAuthor(
@@ -137,9 +147,9 @@ module.exports = {
 			.setTimestamp()
 			.setColor('RANDOM')
 			.setDescription(
-				`You Searched In The  **${
+				`You searched the  **${
 					btn2.label
-				}** And Found ** ${amount1.toLocaleString()}** `
+				}** and found ** ${amount1.toLocaleString()}** `
 			);
 		const embed2 = new MessageEmbed()
 			.setAuthor(
@@ -149,9 +159,9 @@ module.exports = {
 			.setTimestamp()
 			.setColor('RANDOM')
 			.setDescription(
-				`You Searched In The  **${
+				`You searched the  **${
 					btn3.label
-				}** And Found **${amount2.toLocaleString()}**`
+				}** and found **${amount2.toLocaleString()}**`
 			);
 
 		const filter = (button) => button.user.id === message.author.id;
