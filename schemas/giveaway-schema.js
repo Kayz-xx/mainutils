@@ -1,17 +1,5 @@
-const {mongoPath} = require('../config.json')
+
 const mongoose = require('mongoose');
-mongoose.connect(mongoPath, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-});
-const db = mongoose.connection;
-
-
-db.on('error', console.error.bind(console, 'Connection error:'));
-db.once('open', () => {
-    console.log('Connected to MongoDB(Giveaways)');
-});
 const giveawaySchema = new mongoose.Schema({
     messageId: String,
     channelId: String,
