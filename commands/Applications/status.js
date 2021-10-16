@@ -34,6 +34,7 @@ module.exports = {
 
     const collector = new DiscordJS.MessageCollector(message.channel, {filter, 
       time: 100000,
+      max: questions.length
     })
     message.channel.send({
       embeds: [{
