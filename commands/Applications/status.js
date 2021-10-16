@@ -32,7 +32,7 @@ module.exports = {
       return m.author.id === message.author.id
     }
 
-    const collector = new DiscordJS.MessageCollector(message.channel, {filter: filter, 
+    const collector = new DiscordJS.MessageCollector(message.channel, {filter, 
       time: 100000,
     })
     message.channel.send({
