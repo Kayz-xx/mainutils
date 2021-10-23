@@ -233,7 +233,7 @@ function search(query) {
 			let tem = search(m.groups?.RoleID)
 			if(tem.similarity <= 0.6) return message.reply("No role found with the name or id provided")
 			
-			b = message.guild.roles.cache.find(
+			d = message.guild.roles.cache.find(
 				(r) => r.id == tem.item.id
 			) 
 			if(!d) return message.reply({content: 'This role could not be found in the server.'})
