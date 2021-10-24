@@ -11,9 +11,7 @@ module.exports.run = async (client, oldPresence, newPresence) => {
           if (statuses.some(x => activity.state.includes(x))) {
       
             return member.roles.add(role)
-            } else if (member.roles.cache.has(role)) {
-              if (!statuses.some(x => activity.state.includes(x))) return member.roles.remove(role)
-            }
+            } 
           }
        })
      }
