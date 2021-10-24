@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const disbut = require('discord.js');
 const math = require('mathjs');
 
-module.exports = {
+	module.exports = {
 	name: 'calculator',
 	aliases: ['calc'],
 	category: 'Misc',
