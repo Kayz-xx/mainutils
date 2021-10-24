@@ -781,7 +781,7 @@
 							embeds: [
 								new Discord.MessageEmbed()
 									.setTitle(
-										`Apply For Karuta Manager: ${message.author.tag}`
+										`Apply For Partnership Manager: ${message.author.tag}`
 									)
 									.setColor('#0099ff')
 									.setDescription(data.Positions3.Questions[0]),
@@ -957,7 +957,7 @@
 											.join('\n\n');
 
 										const embed = new MessageEmbed()
-											.setTitle('Karuta Manager Application')
+											.setTitle('Partnership Manager Application')
 											.setAuthor(message.author.tag)
 											.setDescription(mappedResponses)
 											.addField('Status', '**(Pending)**')
