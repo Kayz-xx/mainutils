@@ -2,7 +2,7 @@
 	const { db } = require('../../firebase');
 	const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
-	module.exports = {
+		module.exports = {
 		name: 'apply',
 		aliases: ['application'],
 		cooldown: '0',
