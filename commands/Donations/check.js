@@ -12,9 +12,22 @@ module.exports = {
     description: 'Checks a users donation or your own donation!',
     
     async execute(client, message, cmd,  args) {
-    
-    const target = message.mentions.users.first() || message.author
+    let str
+    let che = false
+    let user = args[0]
+    let target;
+    if(!user) target = message.author
+    else {
+    user = user.replace(/[\\<>@#&!]/g, "");
+    target = await client.users.fetch(user).catch(error => {})
+    if(!target) {
+        che = true
+        str = "This user was not found"
+        target = message.author
+    }
+    }
     const targetId = target.id
+
 
     const guildId = message.guild.id
     const userId = target.id
@@ -71,6 +84,9 @@ module.exports = {
     .addField(`Amount Donated in ${message.guild.name}:`, `${formatter.format(coins)} / ${formatter.format(val)} \`(${per.toFixed(2)}%)\`\n_${mesg}_`, true)
     .addField(`Progress`, bar)
     .setTimestamp()
+    if(che) {
+        embed.setFooter(str)
+    }
     message.channel.send({embeds: [embed]})
   },
 }
