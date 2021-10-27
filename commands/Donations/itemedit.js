@@ -111,7 +111,7 @@ module.exports = {
 		  
 		  }
 		
-        if(!message.member.roles.cache.has("764885367400693764") && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
+        if(!message.member.roles.cache.has("789854214288965644") && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
         let name = args.slice(2).join(" ")
         if(!name) return message.reply({content: 'Please specify an item name'})
         let amount = args[0]
