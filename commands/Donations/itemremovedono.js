@@ -136,7 +136,7 @@ module.exports = {
                 message.reply({content:'Please mention an amount of items.'})
                 return
               }
-
+			  if(args.slice(2).length == 0) return message.channel.send("Please specify an item.")
 			  let items =
 			  (await db
 				.ref(`Donations/Info/${message.guild.id}/List`)
