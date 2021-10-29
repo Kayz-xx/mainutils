@@ -17,6 +17,20 @@ module.exports = {
         let arr = []
         if(!["true", "false", "list"].includes(query))
         return message.reply({content: 'You can only specify true of false'})
+        let embed = new MessageEmbed()
+        .setTitle('Server Lockdown')
+        .setDescription('You have not been muted\nThe server has been locked down for a reason, the channels will be unlocked soon.')
+        .setTimestamp()
+        .setColor("RANDOM")
+        .setFooter('Sorry for the incovienience')
+
+        let embed2 = new MessageEmbed()
+        .setTitle('Server Has Been Unlocked')
+        .setDescription('The channels have been unlocked\nYou can now proceed to use the server normally')
+        .setTimestamp()
+        .setColor("RANDOM")
+        .setFooter('Thank you for cooperating')
+
 
         if(query == "true") {
         message.guild.channels.cache.forEach(channel => {
@@ -24,7 +38,7 @@ module.exports = {
                 channel.permissionOverwrites.edit(message.guild.roles.cache.find(x => x.name.toLowerCase().trim() === "@everyone"), {
                     SEND_MESSAGES: false
                 })
-            return;
+                if(channel.type == "GUILD_TEXT") channel.send({embeds: [embed]})
             } catch(e) {
                 console.log(e)
             }
@@ -34,9 +48,9 @@ module.exports = {
         message.guild.channels.cache.forEach(channel => {
             try {
                 channel.permissionOverwrites.edit(message.guild.roles.cache.find(x => x.name.toLowerCase().trim() === "@everyone"), {
-                    SEND_MESSAGES: true
+                    SEND_MESSAGES: null
                 })
-            return;
+                if(channel.type == "GUILD_TEXT") channel.send({embeds: [embed2]})
             } catch(e) {
                 console.log(e)
             }
@@ -46,7 +60,6 @@ module.exports = {
         message.guild.channels.cache.forEach(channel => {
             try {
                 arr.push(channel.id)
-            return;
             } catch(e) {
                 console.log(e)
             }
