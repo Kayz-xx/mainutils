@@ -1,29 +1,27 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 const { db } = require('../../firebase');
-let playerList = [];
+
 module.exports = {
 	name: 'lotterystart',
-	aliases: ['enter', 'lotteryend'],
+	aliases: ['enter', 'lotterylist', 'lotteryend'],
 	cooldown: '0',
 	permissions: [],
 	description:
-		'Lottery System!, (lotterystart- starts the lottery) (enter- allows the host to add users) (lotteryend- ends the lottery and determines a winner!)',
+		'Lottery System!, (lotterystart- starts the lottery) (enter- allows the host to add users) (lotterylist- lists users in the lottery) (lotteryend- ends the lottery and determines a winner!)',
 	category: 'Misc',
 
 	async execute(client, message, cmd, args) {
-		if (cmd === 'lotterystart') {
-			let data =
+        if(!message.member.roles.cache.has("764885367400693764") && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return;
+        if (cmd === 'lotterystart') {
+			let data2 =
 				(await db
-					.ref(`Lottery System/${message.guild.id}/Lottery`)
+					.ref(`Lottery System/${message.guild.id}/Status`)
 					.once('value')
 					.then((snapshot) => snapshot.val())) || [];
-			if (data.status === 'true') {
+			if (data2 === true) {
 				return message.channel.send({embeds: 
 					[new MessageEmbed()
-						.setTitle('An Error Occured <:sim:860034795169251358>')
 						.setDescription('A lottery is already being hosted!')
-						.setFooter(`Run \`lotteryend\` to end the lottery`)
-						.setTimestamp()
 						.setColor('CE1212')]
 				});
 			} else {
@@ -46,167 +44,206 @@ module.exports = {
 						.setTimestamp()
 						.setColor('5C33F6')
 						]});
-				lotteryBool = 'true';
-				let host = message.member.id;
-				db.ref(`Lottery System/${message.guild.id}/Lottery/status`).set(
-					lotteryBool
-				);
-				db.ref(`Lottery System/${message.guild.id}/Lottery/prize`).set(
-					prize
-				);
-				db.ref(`Lottery System/${message.guild.id}/Lottery/host`).set(
-					host
-				);
+                db.ref(`Lottery System/${message.guild.id}/Status`).set(true)
+                db.ref(`Lottery System/${message.guild.id}/Prize`).set(prize)
 			}
 		}
 		if (cmd === 'enter') {
-			let data =
+        	let data2 =
 				(await db
-					.ref(`Lottery System/${message.guild.id}/Lottery`)
+					.ref(`Lottery System/${message.guild.id}/Status`)
 					.once('value')
 					.then((snapshot) => snapshot.val())) || [];
-			const members = args.slice(0);
-			if (!members)
-				return message.channel.send({content:
-					`enter [members]\n      ^^^^^^^^\nMissing Argument(Atleast 1 member required)`
-				});
-			if (data.status === 'false') {
-				message.channel.send({embeds: [
-					new MessageEmbed()
-						.setTitle('An Error Occured <:sim:860034795169251358>')
-						.setDescription(
-							'There is no lottery being hosted at the moment.'
-						)
-						.setFooter(`Ask staff to host a lottery.`)
-						.setTimestamp()
-						.setColor('CE1212')
-						]});
-			} else if (message.member.id !== data.host)
-				return message.channel.send({embeds: [
-					new MessageEmbed()
-						.setTitle('An Error Occured <:sim:860034795169251358>')
-						.setDescription('Only host can enter participants')
-						.setFooter(`Ask host to enter.`)
-						.setTimestamp()
-						.setColor('CE1212')
-				]});
-			else if (data.status === 'true') {
-				if (playerList.includes(members)) {
-					return message.channel.send({embeds: [
-						new MessageEmbed()
-							.setTitle(
-								'An Error Occured <:sim:860034795169251358>'
-							)
-							.setDescription(
-								'You have already entered the lottery'
-							)
-							.setFooter(`Only 1 entry is allowed per lottery`)
-							.setTimestamp()
-							.setColor('CE1212')
-							]});
-				} else {
-					playerList = playerList.concat(members);
-					message.channel.send({embeds: [
-						new MessageEmbed()
-							.setAuthor(
-								'Lottery',
-								message.author.avatarURL({ dynamic: true })
-							)
-							.setDescription(
-								`Host has entered ${members} the lottery for **${data.prize}**!`
-							)
-							.setFooter('Good Luck')
-							.setTimestamp()
-							.setColor('5C33F6')
-					]});
-
-					db.ref(
-						`Lottery System/${message.guild.id}/Lottery/Entries`
-					).set(playerList);
-					return;
-				}
-			}
+        if (data2 !== true) {
+				return message.channel.send({embeds: 
+					[new MessageEmbed()
+						.setDescription('There is no lottery being hosted.')
+						.setColor('CE1212')]
+				})
+        }
+        let values = args.join(' ').split('+');
+		if (values.length < 1)
+	    return message.reply('You must atleast specify 1 user and amount of entried');
+		let array2 = [];
+		let amount;
+        let list = []
+		for (var i = 0; i < values.length; i++) {
+			array2.push(values[i].trim().split(' '));
 		}
-
-		if (cmd === 'lotteryend') {
-			let data =
+		for (const i of array2) {
+			amount = i[0];
+			if (!i[0]) {
+				return
+			}
+			if (!i[1]) {
+                return
+			}
+            if (isNaN(i[0])) {
+                return message.reply('Please specify a valid number of entries')
+				
+			}
+			if (isNaN(i[1])) {
+                return message.reply('Please specify a valid Discord Id')
+			}
+            if (i[1].length < 18) {
+                return message.reply('Please specify a valid Discord Id')
+			}
+            list.push({
+                "User": i[1],
+                "Entries": i[0]
+            })
+		}
+        let data =
+        (await db
+            .ref(`Lottery System/${message.guild.id}/Lottery`)
+            .once('value')
+            .then((snapshot) => snapshot.val())) || [];     
+       // db.ref(`Lottery System/${message.guild.id}/Lottery`).push(list)
+       let v = data.length
+       list.forEach((d) => {
+        db.ref(`Lottery System/${message.guild.id}/Lottery/${v++}`).set(d)
+       })
+        const newlist = list.map((d) => {
+            return `<@${d.User}> with **${d.Entries} Entries**`
+        })
+       
+    
+        let data3 =
 				(await db
-					.ref(`Lottery System/${message.guild.id}/Lottery`)
+					.ref(`Lottery System/${message.guild.id}/Prize`)
 					.once('value')
 					.then((snapshot) => snapshot.val())) || [];
-			if (data.status === 'false') {
-				return message.channel.send({embeds: [
-					new MessageEmbed()
-						.setTitle('An Error Occured <:sim:860034795169251358>')
-						.setDescription('No lottery is being held!')
-						.setFooter(`Use \`enter\` to join the lottery`)
-						.setTimestamp()
-						.setColor('CE1212')
-				]});
-			} else if (!data.Entries) {
-				return (
-					message.channel.send({embeds: [
-						new MessageEmbed()
-							.setTitle(
-								'An Error Occured <:sim:860034795169251358>'
-							)
-							.setDescription('No one entered the lottery!')
-							.setFooter(`Use \`enter\` to join the lottery`)
-							.setTimestamp()
-							.setColor('CE1212')
-					]}),
-					(lotteryBool = 'false'),
-					db
-						.ref(
-							`Lottery System/${message.guild.id}/Lottery/status`
-						)
-						.set(lotteryBool)
-				);
-			} else if (data.Entries.length >= 1) {
-				lotteryBool = 'false';
-				db.ref(`Lottery System/${message.guild.id}/Lottery/status`).set(
-					lotteryBool
-				);
+        let embed = new MessageEmbed()
+        .setTitle(`${data3} Raffle`)
+        .setAuthor(`${message.author.tag} has added these entries`)
+        .setDescription(newlist.join("\n"))
+        .setColor("RANDOM")
+        .setTimestamp()
+        message.channel.send({embeds: [embed]})
+        } if(cmd === "lotterylist") {
+            let data = 
+            (await db
+                .ref(`Lottery System/${message.guild.id}/Lottery`)
+                .once('value')
+                .then((snapshot) => snapshot.val())) || [];
+                let data2 = 
+                (await db
+                    .ref(`Lottery System/${message.guild.id}/Status`)
+                    .once('value')
+                    .then((snapshot) => snapshot.val())) || [];
+                    if (data2 !== true) {
+                        return message.channel.send({embeds: 
+                            [new MessageEmbed()
+                                .setDescription('There is no lottery being hosted.')
+                                .setColor('CE1212')]
+                        }) 
+                }
+            else {
+                let i = 0
+                const newlist = data.map((d) => {
+                    return `${i + 1}-${i = i + parseInt(d.Entries)}) <@${d.User}>`
+                })
+                newlist.sort(function (a, b) {
+                    return a.localeCompare(b); 
+                  });
+                let total = 0
+                data.forEach(d => {
+                    total += parseInt(d.Entries)
+                })
+                let data3 =
+				(await db
+					.ref(`Lottery System/${message.guild.id}/Prize`)
+					.once('value')
+					.then((snapshot) => snapshot.val())) || [];
+                let embed = new MessageEmbed()
+                .setTitle(`${data3} Raffle List`)
+                .setColor("RANDOM")
+                .setTimestamp()
+                .setDescription(newlist.join('\n\n'))
+                .setFooter(`Total Entries: ${total}`)
+                message.channel.send({embeds: [embed]})
+                
+            }
+        } if(cmd  === "lotteryend"){
+            let data =
+            (await db
+                .ref(`Lottery System/${message.guild.id}/Lottery`)
+                .once('value')
+                .then((snapshot) => snapshot.val())) || [];
+                let data2 = 
+                (await db
+                    .ref(`Lottery System/${message.guild.id}/Status`)
+                    .once('value')
+                    .then((snapshot) => snapshot.val())) || [];
+                    if (data2 !== true) {
+                        return message.channel.send({embeds: 
+                            [new MessageEmbed()
+                                .setDescription('There is no lottery being hosted.')
+                                .setColor('CE1212')]
+                        })
+                }   else if (data.length == 0) {
+                    message.channel.send({embeds: 
+                        [new MessageEmbed()
+                            .setDescription('No one entered the lottery')
+                            .setColor('CE1212')]
+                    })
+                    db.ref(`Lottery System/${message.guild.id}/Status`).set(false)
+                }
+        else if (data.length >= 1) {
+            let main = []
+            data.forEach(d => {
+                for(let i = 0; i < parseInt(d.Entries); i++) {
+                    main.push(d.User)
+                }
+            })
+            let data3 =
+            (await db
+                .ref(`Lottery System/${message.guild.id}/Prize`)
+                .once('value')
+                .then((snapshot) => snapshot.val())) || [];
+            const realWinner =
+                main[
+                    Math.floor(Math.random() * main.length)
+                ];
+            delete data.splice(0, data.length);
+            db.ref(
+                `Lottery System/${message.guild.id}/Lottery`
+            ).set(data);
 
-				const realWinner =
-					data.Entries[
-						Math.floor(Math.random() * data.Entries.length)
-					];
-				delete data.Entries.splice(0, data.Entries.length);
-				db.ref(
-					`Lottery System/${message.guild.id}/Lottery/Entries`
-				).set(data.Entries);
+            const user = await client.users.fetch(realWinner);
 
-				const user = await client.users.fetch(realWinner);
-				user.send({embeds: [
-					new MessageEmbed()
-						.setDescription(
-							`Congratulations you have won the lottery for :\n **${data.prize}**`
-						)
-						.addField(`\u200B`, `[Lottery](${message.url})`)
-						.setFooter('Your prize will be payed out soon.')
-						.setTimestamp()
-						.setColor('5C33F6')
-				]});
-				message.channel.send({embeds: [
-					new MessageEmbed()
-						.setTitle('Congratulations! <a:im6:860038641841602581>')
-						.setDescription(`<@${realWinner}> has won the lottery!`)
-						.setFooter('Your prize will be payed out soon.')
-						.setTimestamp()
-						.setColor('5C33F6')
-				]});
-			} else if (message.member.id !== data.host) {
-				return message.channel.send({embeds: [
-					new MessageEmbed()
-						.setTitle('An Error Occured <:sim:860034795169251358>')
-						.setDescription('Only host can end lottery')
-						.setFooter(`Ask host to enter.`)
-						.setTimestamp()
-						.setColor('CE1212')
-				]});
-			}
-			playerList = [];
-		}
+            user.send({embeds: [
+                new MessageEmbed()
+                    .setDescription(
+                        `Congratulations you have won the lottery for ${data3}`
+                    )
+                    .addField(`\u200B`, `[Lottery](${message.url})`)
+                    .setFooter('Your prize will be payed out soon.')
+                    .setTimestamp()
+                    .setColor('5C33F6')
+            ]});
+            let embed7 = new MessageEmbed()
+            .setDescription(`🟥 Deciding Winner 🟥`)
+            .setTimestamp()
+            .setColor('5C33F6')
+            let msg = await message.channel.send({embeds: [
+            embed7
+            ]});
+                setTimeout(() => {
+                    embed7.setDescription('🟧 Almost there! 🟧')
+                    msg.edit({embeds: [embed7]})
+                }, 2000);
+                setTimeout(() => {
+                        embed7.setTitle('Congratulations! <a:im6:860038641841602581>')
+						embed7.setDescription(`🟩 <@${realWinner}> has won the lottery! 🟩`)
+						embed7.setFooter('Your prize will be payed out soon.')
+						embed7.setTimestamp()
+						embed7.setColor('5C33F6')
+                msg.edit({embeds: [embed7]})
+              }, 4000);
+            db.ref(`Lottery System/${message.guild.id}/Status`).set(false)
+        } 
+       
+        }
 	},
 };
