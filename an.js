@@ -10,5 +10,5 @@ let newarr = arr.filter(x => x.coins >= 1)
 Promise.all(arr.map(a=> total = parseInt(total.toString()) + parseInt(a.coins.toString())))*/
 console.log(newarr.length)
 })
-}
+    }
 asyncCall()
