@@ -13,7 +13,7 @@ module.exports = {
 	description:
 		"This command sets the position's questions for the server",
 	async execute(client, message, cmd, args) {
-		if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) && !message.author.id === '491933949686448138')
+			if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) && !message.author.id === '491933949686448138')
 		return;
 		const filter = (m) => m.author.id === message.author.id;
 
