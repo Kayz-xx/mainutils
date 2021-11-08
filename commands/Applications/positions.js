@@ -12,7 +12,6 @@ module.exports = {
   
   async execute(client, message, cmd,  args) {
 
-   
     let data = await db
     .ref(`Applications/${message.guild.id}`)
     .once("value")
