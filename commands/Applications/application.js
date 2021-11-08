@@ -33,7 +33,7 @@
 			for (let i = 0; i < newdata.length; i++) {
 				exampleEmbed.addField(
 					`${i + 1}. ${newdata[i].Name.capitalize()}`,
-					`Total Questions: ${newdata[i].Questions.length.toString()}`,
+					`Total Questions: ${newdata[i].Questions.length.toString()}\nStatus: ${newdata[i].Status}`,
 					true
 				);
 			}
