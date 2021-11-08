@@ -47,7 +47,8 @@ module.exports = {
 					'Your application for moderator has been denied, thank you for applying!'
 			} else if (denyQuery === 'karuta manager') {
 				denyQuery = 'Your application for karuta manager has been denied, thank you for applying!'
-					
+			} else if (denyQuery === 'partnership manager') {
+					denyQuery = 'Your application for partnership manager has been denied, thank you for applying!'
 			}
 			user.send({
 				embeds: [{
