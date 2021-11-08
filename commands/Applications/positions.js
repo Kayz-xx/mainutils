@@ -12,7 +12,7 @@ module.exports = {
   
   async execute(client, message, cmd,  args) {
 
-    let index = 0
+   
     let data = await db
     .ref(`Applications/${message.guild.id}`)
     .once("value")
@@ -23,17 +23,17 @@ module.exports = {
     String.prototype.capitalize = function() {
       return this.charAt(0).toUpperCase() + this.slice(1);
   }
-
+   let newdata = Object.values(data)
 
     let exampleEmbed = new Discord.MessageEmbed()
 	.setColor('#0099ff')
-	.setTitle('Positions Availible')
-	.addFields(
-		{ name: data.Positions0.Name, value: `Total Questions: 7 \n Status: ${data.Positions0.Status.capitalize()}`, inline: true },
-		{ name: data.Positions1.Name, value: `Total Questions: 7 \n Status: ${data.Positions1.Status.capitalize()}`, inline: true },
-    { name: data.Positions2.Name, value: `Total Questions: 11 \n Status: ${data.Positions2.Status.capitalize()}`, inline: true },
-    { name: data.Positions3.Name, value: `Total Questions: 5 \n Status: ${data.Positions3.Status.capitalize()}`, inline: true },
-	) 
+	.setTitle('Positions Available');
+
+  for(let i = 0; i < newdata.length; i++) {
+    exampleEmbed.addField(newdata[i].Name.capitalize(), `Total Questions: ${newdata[i].Questions.length.toString()}`, true)
+  }
+
+
 message.channel.send({embeds: [exampleEmbed]})
     }
 }
