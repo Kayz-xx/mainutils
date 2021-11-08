@@ -30,7 +30,7 @@ module.exports = {
 	.setTitle('Positions Available');
 
   for(let i = 0; i < newdata.length; i++) {
-    exampleEmbed.addField(newdata[i].Name.capitalize(), `Total Questions: ${newdata[i].Questions.length.toString()}`, true)
+    exampleEmbed.addField(newdata[i].Name.capitalize(), `Total Questions: ${newdata[i].Questions.length.toString()}\nStatus: ${newdata[i].Status}`, true)
   }
 
 
