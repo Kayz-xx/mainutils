@@ -18,7 +18,7 @@ module.exports = {
         message.react('✅')
         let sentence = args.slice(arg).join(' ')
         if(!sentence) return channel.send({content: "Missing sentence"})
-        channel.send({content: sentence, allowedMentions: {parse: ["users"]})
+        channel.send({content: sentence, allowedMentions: {parse: ["users"]}})
         }
     }
 }
