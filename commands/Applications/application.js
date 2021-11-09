@@ -47,6 +47,7 @@
 				.then(async (message) => {
 					message = message.first();
 					let num = parseInt(message.content) - 1;
+					if(num > newdata.length - 1) return;
 					let data =
 						(await db
 							.ref(
