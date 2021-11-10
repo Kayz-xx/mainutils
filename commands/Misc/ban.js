@@ -39,7 +39,8 @@
             .setTimestamp()
             .setColor("RED")
 
-            message.channel.send({embeds: [embed]})
+            channel = client.channels.cache.get('803741521928519680')
+            channel.send({embeds: [embed]})
           } else {
       
               if(target.roles.cache.position >= message.member.roles.cache.position || message.author.id !== message.guild.ownerId) {
@@ -60,7 +61,8 @@
                 .setTimestamp()
                 .setColor("RED")
 
-                message.channel.send({embeds: [embed]})
+              channel = client.channels.cache.get('803741521928519680')
+              channel.send({embeds: [embed]})
               } else {
                 return message.channel.send(`Unable to ban this user.`)
               }
