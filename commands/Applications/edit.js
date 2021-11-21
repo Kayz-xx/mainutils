@@ -113,6 +113,6 @@ module.exports = {
 					if (reason == 'INVALID_NUMBER') return message.channel.send('The number is invalid');
 				});
 			}
-		editApplication(message)
+		setup(message)
 	},
 };
