@@ -1,13 +1,15 @@
 const Discord = require('discord.js');
 const { db } = require('../../firebase');
-
+const {Permissions} = require('discord.js')
 module.exports = {
 	name: 'setup',
 	aliases: [],
 	category: 'Applications',
 	cooldown: '0',
 
-	async execute(client, message, cmd, args) {		
+	async execute(client, message, cmd, args) {	
+		    if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR))
+      return;
 			async function addApplication({ guildID, questions, name, description, status, responseChannelID }) {
 				if (!guildID) throw new Error('guildID not provided');
 				if (!questions) throw new Error('questions Array not provided');
