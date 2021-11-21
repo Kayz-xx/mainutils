@@ -17,9 +17,8 @@ module.exports = {
 				if (!Array.isArray(questions)) throw new Error('questions must be an array');
 				if (typeof description !== 'string') throw new Error('description must be a string');
 				if (typeof status !== 'string') throw new Error('status must be a string');
-                console.log(number)
 				const object = {
-                    Name: name,
+                    			Name: name,
 					Questions: questions,
 					Description: description,
 					Status: status,
