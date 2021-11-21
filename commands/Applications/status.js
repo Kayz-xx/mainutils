@@ -25,6 +25,7 @@ module.exports = {
       `Please specify status for ${data.Positions1.Name}!`,
       `Please specify status for ${data.Positions2.Name}!`,
       `Please specify status for ${data.Positions3.Name}!`,
+      `Please specify status for ${data.Positions4.Name}!`,
     ]
     let counter = 0
 
