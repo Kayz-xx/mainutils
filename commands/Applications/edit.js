@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { app } = require('firebase-admin');
 const { db } = require('../../firebase');
-
+const {Permissions} = require('discord.js')
 module.exports = {
 	name: 'edit',
 	aliases: [],
@@ -9,6 +9,8 @@ module.exports = {
 	cooldown: '0',
 
 	async execute(client, message, cmd, args) {		
+		    if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR))
+      return;
 			async function editApplication({ guildID, questions, description, status, number, name}) {
 				if (!guildID) throw new Error('guildID not provided');
 				if (!questions) throw new Error('questions Array not provided');
