@@ -121,9 +121,8 @@ module.exports.getDonation = async (guildId, userId) => {
       const data = await profileSchema.find ({ 
         guildId
       });
-      
+      data = data.slice(0, 30)
       data.sort ((a, b) => b.coins - a.coins);
-
       return data
     } finally {
 
