@@ -118,7 +118,7 @@ module.exports.getDonation = async (guildId, userId) => {
 
   return await mongo().then(async (mongoose) => {
     try {
-      const data = await profileSchema.find ({ 
+      let data = await profileSchema.find ({ 
         guildId
       });
       data = data.slice(0, 30)
