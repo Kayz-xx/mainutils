@@ -20,13 +20,11 @@ module.exports = {
 
 		db.ref(`Applications/${message.guild.id}`);
     message.channel.send({content:"Status can only be (Open/Closed)"})
-    const questions = [
-      `Please specify status for ${data.Positions0.Name}!`,
-      `Please specify status for ${data.Positions1.Name}!`,
-      `Please specify status for ${data.Positions2.Name}!`,
-      `Please specify status for ${data.Positions3.Name}!`,
-      `Please specify status for ${data.Positions4.Name}!`,
-    ]
+    let questions = [];
+    for (const [key, value] of Object.entries(data)) {
+        if(!value.Name) return;
+        questions.push(`Please specify the status for ${value.Name}`)
+      }
     let counter = 0
 
     const filter = (m) => {
