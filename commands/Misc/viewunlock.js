@@ -25,6 +25,8 @@ module.exports = {
 		];
 		let mem = args[1];
 		if (!mem) return message.reply('Please specify a role id.')
+	    	let state = null
+		if(args[2] === 'true') state = true
         let newd = array.map(d => `<@&${d}>`)
         let embed = new Discord.MessageEmbed()
         .setTitle('Valid Roles')
@@ -37,10 +39,11 @@ module.exports = {
         //if(!channel.permissionsFor(role).has("VIEW_CHANNEL")) return message.channel.send(`${channel} was already viewunlocked for \`${role.name}\``)
 		channel.permissionOverwrites.edit(
 			role,
-			{ VIEW_CHANNEL: null },
+			{ VIEW_CHANNEL: state },
 			{ reason: `Viewlock command by ${message.author.tag}` }
 		);
-        message.channel.send(`<#${channel.id}> has been viewunlocked for \`${role.name}\``)
+	if(state === true) return message.channel.send(`<#${channel.id}> has been viewunlocked for \`${role.name}\` with state \`${state}\``)
+	   else return message.channel.send(`<#${channel.id}> has been viewunlocked for \`${role.name}\``)
 
         } catch (error) {
             message.channel.send('There was an error viewunlocking the channel, please make sure there are no errors.')
