@@ -73,7 +73,7 @@ try {
 		const filter = (reaction, user) => {
 			return user.bot === false
 		};
-		const collector = message.createReactionCollector({ filter, time: 15000 });
+		const collector = message.createReactionCollector({ filter, time: 15000, max: 2 });
 		collector.on('collect', (reaction, user) => {
 			if(reaction.emoji.name === '✔') {
 			let embed = new MessageEmbed()
