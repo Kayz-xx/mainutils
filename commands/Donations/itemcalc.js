@@ -152,7 +152,7 @@ module.exports = {
 		let embed = new MessageEmbed()
 			.setTitle('Item Calculator')
 			.setDescription(`**Value:** ${coins.toLocaleString()}`)
-			.addField(`Command`, `\`e!eventdonoadd @user ${coins}\``)
+			.addField(`Command`, `\`e!donoadd @user ${coins}\``)
 			.setFooter(message.author.tag, message.author.displayAvatarURL())
 			.setColor('RANDOM');
 		message.channel.send({ embeds: [embed] });
