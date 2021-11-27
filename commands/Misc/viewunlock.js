@@ -12,7 +12,6 @@ module.exports = {
 		if(!message.member.roles.cache.has("764885367400693764") && !message.member.roles.cache.has("792799102140022785") &&  !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)) return;
 		if(message.channel.id !== "792795803037990943" && message.channel.id !== "792505415748812801") return;
 		let channel = message.mentions.channels.first()
-		if (!channel) return;
 		let array = [
 			'764885367160700960',
 			'794628723613761566',
@@ -24,9 +23,11 @@ module.exports = {
 			'764885367249174612',
 		];
 		let mem = args[1];
+		let st = args[2];
+		if (!channel) channel = message.channel; mem = args[0]; st = args[1]
 		if (!mem) return message.reply('Please specify a role id.')
 	    	let state = null
-		if(args[2] === 'true') state = true
+		if(st === 'true') state = true
         let newd = array.map(d => `<@&${d}>`)
         let embed = new Discord.MessageEmbed()
         .setTitle('Valid Roles')
