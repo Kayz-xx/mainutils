@@ -42,6 +42,10 @@ module.exports = {
 		let rolesinfo = roles.split(' ');
 		let usersinfo = users.split(' ');
 		let array = [];
+		
+      function sleep(ms){
+        return new Promise(resolve => setTimeout(resolve, ms))
+        }
 		rolesinfo.forEach(async (rolesinfo) => {
 			let role = message.guild.roles.cache.find(
 				(r) => r.id === rolesinfo
@@ -63,6 +67,7 @@ module.exports = {
 				else if (user) {
 					if (user.roles.cache.some((r) => r.id === array[i].id))
 						return;
+					await sleep(2500)
 					user.roles.add(array);
 				}
 				i++;
