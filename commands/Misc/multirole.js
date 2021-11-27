@@ -7,6 +7,7 @@ module.exports = {
 	category: 'Misc',
 
 	async execute(client, message, cmd, args) {
+		      if(!message.member.roles.cache.has("764885367400693764") && !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)) return;
 		let roles;
 		let users;
 		const flags = new Map();
