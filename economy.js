@@ -118,11 +118,8 @@ module.exports.getDonation = async (guildId, userId) => {
 
   return await mongo().then(async (mongoose) => {
     try {
-      let data = await profileSchema.find ({ 
-        guildId
-      });
+      let data = await profileSchema.find ({guildId , coins: {$gt: 500000000}});
       data.sort ((a, b) => b.coins - a.coins);
-      data = data.slice(0, 50)
       return data
     } finally {
 
