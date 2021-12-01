@@ -26,9 +26,7 @@ const amount = require('./amount');
       
       async execute(client, message, cmd,  args) {
           const guildId = message.guild.id
-          const data = await economy.getDonation(guildId);
-          const total = await economy.getTotal(guildId);
-          const donors = await economy.getDonors(guildId);
+          const [data, total, donors] = await economy.getDonation(guildId)
 
   
           let first = new MessageButton()
@@ -88,7 +86,11 @@ const amount = require('./amount');
           };
           
      
-      const msg = await message.channel.send({
+       let emb = new MessageEmbed()
+      .setDescription('Loading...')
+      .setColor('RANDOM')    
+      let msge = await message.channel.send({embeds: [emb]})
+      const msg = await msge.edit({
         embeds: [generateEmbed(0)],
         components: [row],
       });
