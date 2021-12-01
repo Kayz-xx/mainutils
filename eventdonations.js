@@ -112,22 +112,13 @@ module.exports.getCoins = async (guildId, userId) => {
 }
 
 module.exports.getDonation = async (guildId, userId) => {
-  const cachedValue = eventcoinsCache[`${guildId}-${userId}`]
-  if (cachedValue) {
-    return cachedValue
-  }
-
   return await mongo().then(async (mongoose) => {
-    try {
       const data = await eventSchema.find ({ 
-        guildId, eventcoins: {$gt: 1}
+        guildId, eventcoins: {$gt: 1000000}
       });
       
       data.sort ((a, b) => b.eventcoins - a.eventcoins);
 
       return data
-    } finally {
-
-    }
   })
 }
