@@ -14,7 +14,7 @@ module.exports = {
       if(!prize) return message.channel.send("Please specify an amount")
       const time = args[1]
       if(!time) return message.channel.send("Please specify an amount of time")
-      const donor = client.users.cache.get(args[2]) || message.guild.roles.cache.get(args[2])
+      const donor = client.users.cache.get(args[2]) || message.guild.roles.cache.get(args[2]) || message.mentions.members.first()
       if(!donor) return message.channel.send("Please specify a donor")
       const requirement = args[3]
       if(!requirement) return message.channel.send("Please specify a requirement")
