@@ -110,37 +110,18 @@ module.exports.getCoins = async (guildId, userId) => {
   })
 }
 
-module.exports.getDonation = async (guildId, userId) => {
-  const cachedValue = coinsCache[`${guildId}-${userId}`]
-  if (cachedValue) {
-    return cachedValue
-  }
-
+module.exports.getDonation = async (guildId) => {
   return await mongo().then(async (mongoose) => {
-    try {
       let data = await profileSchema.find ({guildId , coins: {$gt: 2000000000}});
       data.sort ((a, b) => b.coins - a.coins);
-      return data
-    } finally {
+      let arr = await profileSchema.find({guildId: guildId})
+      let total = 0
+      Promise.all(arr.map(a=> total = parseInt(total.toString()) + parseInt(a.coins.toString())))
+      let arr2 = await profileSchema.find({guildId: guildId})
+      let newarr = arr2.filter(x => x.coins >= 1).length
 
-    }
+      return [data, total, newarr]
   })
 }
 
-module.exports.getTotal = async (guildId) => {
-  return await mongo().then(async (mongoose) => {
-    let arr = await profileSchema.find({guildId: guildId})
-    let total = 0
-    Promise.all(arr.map(a=> total = parseInt(total.toString()) + parseInt(a.coins.toString())))
-    return total
-    })
-    }
 
-    module.exports.getDonors = async (guildId) => {
-      return await mongo().then(async (mongoose) => {
-        let arr = await profileSchema.find({guildId: guildId})
-        let newarr = arr.filter(x => x.coins >= 1)
-        return newarr.length
-        })
-  }
-    
