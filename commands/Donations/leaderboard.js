@@ -26,7 +26,7 @@ const amount = require('./amount');
       
       async execute(client, message, cmd,  args) {
           const guildId = message.guild.id
-          const [data, total, donors] = await economy.getDonation(guildId)
+          const [data, donors, total] = await economy.getDonation(guildId)
 
   
           let first = new MessageButton()
@@ -64,19 +64,21 @@ const amount = require('./amount');
 
 
   let i = 1
-  let newarr = data.filter(x => x.coins >= 1)
-  const newd = newarr.map((d, i) => {
-    return `${i+1}) <@!${d.userId}> - **${formatter.format(d.coins)} coins**\n`
-  });
-  let pg = newd.length - 1
+  let text = []
+  for(let i = 0; i < data.length; i++) {
+    const {userId, coins} = data[i];
+
+    text.push(`${i+1}) <@!${userId}> - **${formatter.format(coins)} coins**\n`)
+  }
+  let pg = text.length - 1
 
    
           const index = 10;
           const generateEmbed = (start) => {
-          const current = newd.slice(start, start + index).join(`\n\n`);
+          const current = text.slice(start, start + index).join(`\n\n`);
           const embed = new MessageEmbed ()
           .setTitle(`Donation Leaderboard in ${message.guild.name}`)
-          .setDescription(`[Total Donors:](https://discord.com/channels/764885367160700958/870744835877908520/877243923377029131) **${donors}**\n[Total Amount:](https://discord.com/channels/764885367160700958/870744835877908520/877243923377029131) **${formatter.format(total)}**\n\n${current}`)
+          .setDescription(`[Total Donors:](https://discord.com/channels/764885367160700958/870744835877908520/877243923377029131) **${donors}**\n[Total Amount:](https://discord.com/channels/764885367160700958/870744835877908520/877243923377029131) **${total.toLocaleString()}**\n\n${current}`)
           .setFooter(`These are normal donations`)
           .setColor('88FFF7')
           .setFooter(
@@ -84,9 +86,7 @@ const amount = require('./amount');
           );
           return embed;
           };
-          
-     
-       let emb = new MessageEmbed()
+      let emb = new MessageEmbed()
       .setDescription('Loading...')
       .setColor('RANDOM')    
       let msge = await message.channel.send({embeds: [emb]})
