@@ -113,12 +113,7 @@ module.exports.getCoins = async (guildId, userId) => {
 
 module.exports.getDonation = async (guildId, userId) => {
   return await mongo().then(async (mongoose) => {
-      const data = await eventSchema.find ({ 
-        guildId, eventcoins: {$gt: 1000000}
-      });
-      
-      data.sort ((a, b) => b.eventcoins - a.eventcoins);
-
-      return data
+        let data = await eventSchema.find({guildId}).sort({eventcoins: -1}).limit(50)
+    return data
   })
 }
