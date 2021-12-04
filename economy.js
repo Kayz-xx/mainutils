@@ -112,15 +112,25 @@ module.exports.getCoins = async (guildId, userId) => {
 
 module.exports.getDonation = async (guildId) => {
   return await mongo().then(async (mongoose) => {
-      let data = await profileSchema.find ({guildId , coins: {$gt: 2000000000}});
-      data.sort ((a, b) => b.coins - a.coins);
-      let arr = await profileSchema.find({guildId: guildId})
-      let total = 0
-      await Promise.all(arr.map(a=> total = parseInt(total.toString()) + parseInt(a.coins.toString())))
-      let arr2 = await profileSchema.find({guildId: guildId})
-      let newarr = arr2.filter(x => x.coins >= 1).length
+     let data = await profileSchema.find({guildId}).sort({coins: -1}).limit(50)
 
-      return [data, total, newarr]
+		let count = await profileSchema.count({guildId, coins: {$gt: 1}})
+
+		let arr = await profileSchema.aggregate([{
+			$match: {
+			  guildId: guildId
+			}
+		  },
+		  {
+			$group: {
+			  _id: guildId,
+			  total: { $sum: "$coins" }
+			}
+		  }
+		]);
+		let total = Math.round(arr[0].total)
+
+		return [data, count, total]
   })
 }
 
