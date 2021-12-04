@@ -64,9 +64,9 @@ module.exports = {
 
 let text = []
 for(let i = 0; i < data.length; i++) {
-  const {userId, coins} = data[i];
+  const {userId, eventcoins} = data[i];
 
-  text.push(`${i+1}) <@!${userId}> - **${formatter.format(coins)} coins**\n`)
+  text.push(`${i+1}) <@!${userId}> - **${formatter.format(eventcoins)} coins**\n`)
 }
 let pg = text.length - 1
 
