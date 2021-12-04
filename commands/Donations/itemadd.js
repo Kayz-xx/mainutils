@@ -77,7 +77,7 @@ module.exports = {
         let embed6 = new MessageEmbed()
         .setTitle(`**Elite's Item List**`)
         .setAuthor(`${item.name}(New Item)`)
-        .setDescription(`**<:dott:878752973587615776>Amount**<a:im5:859288337280925746> \`⏣ ${formatter.format(item.amount)}\`\n**<:dott:878752973587615776>Aliases**<a:im5:859288337280925746> \`${item.aliases}\`\n**<:dott:878752973587615776>Item Type**<a:im5:859288337280925746> \`${item.type}\``)
+        .setDescription(`**<:dott:878752973587615776>Amount**<a:im5:859288337280925746> \`⏣ ${formatter.format(item.amount)}\`\n**<:dott:878752973587615776>Aliases**<a:im5:859288337280925746> \`${item.id}\`\n**<:dott:878752973587615776>Item Type**<a:im5:859288337280925746> \`${item.type}\``)
         .setColor('RANDOM')
         .setFooter(`Elite Empire`, `https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024`)
         message.channel.send({embeds: [embed6]})
