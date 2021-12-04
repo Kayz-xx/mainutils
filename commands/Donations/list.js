@@ -25,7 +25,6 @@ module.exports = {
 				.once('value')
 				.then((snapshot) => snapshot.val())) || [];
 		db.ref(`Donations/Info/${message.guild.id}/List`);
-		data = data.sort();
 
 		let first = new MessageButton()
 			.setEmoji('<:fastb:878937208818630706>')
@@ -60,31 +59,23 @@ module.exports = {
 			last
 		);
 
-		const newd = data.map((d) => {
-			return `${d.name}<a:im5:859288337280925746> ⏣ **${formatter.format(
-				d.amount
-			)}**`;
-		});
-		let pg = newd.length - 1;
+		let text = []
+		for(let i = 0; i < data.length; i++) {
+		  const {name, amount} = data[i];
+	  
+		  text.push(`${name}<a:im5:859288337280925746> ⏣ **${formatter.format(
+			amount
+		)}**`)
+		}
+		let pg = text.length - 1
 
-		newd.sort(function (a, b) {
+		text.sort(function (a, b) {
 			return a.localeCompare(b); 
 		  });
 		  
-		
-		const embed = new MessageEmbed()
-			.setTitle('Item List')
-			.setDescription(
-				`Total Items: **${data.length}** \n\n ${newd
-					.slice(0, 10)
-					.join(`\n\n`)}`
-			)
-			.setColor('RANDOM')
-			.setFooter(`Page 0 of ${Math.floor(pg / 10)}`);
-
 		const index = 10;
 		const generateEmbed = (start) => {
-			const current = newd.slice(start, start + index).join(`\n\n`);
+			const current = text.slice(start, start + index).join(`\n\n`);
 			const embed = new MessageEmbed()
 				.setTitle('Item List')
 				.setDescription(current)
@@ -95,7 +86,7 @@ module.exports = {
 		};
 
 		const msg = await message.channel.send({
-			embeds: [embed],
+			embeds: [generateEmbed(0)],
 			components: [row],
 		});
 
