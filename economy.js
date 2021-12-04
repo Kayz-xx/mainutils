@@ -116,7 +116,7 @@ module.exports.getDonation = async (guildId) => {
       data.sort ((a, b) => b.coins - a.coins);
       let arr = await profileSchema.find({guildId: guildId})
       let total = 0
-      Promise.all(arr.map(a=> total = parseInt(total.toString()) + parseInt(a.coins.toString())))
+      await Promise.all(arr.map(a=> total = parseInt(total.toString()) + parseInt(a.coins.toString())))
       let arr2 = await profileSchema.find({guildId: guildId})
       let newarr = arr2.filter(x => x.coins >= 1).length
 
