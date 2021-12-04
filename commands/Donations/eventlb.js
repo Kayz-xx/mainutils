@@ -62,17 +62,18 @@ module.exports = {
     );
 
 
-let i = 1
-let newarr = data.filter(x => x.eventcoins >= 1)
-const newd = newarr.map((d, i) => {
-return `${i+1}) <@!${d.userId}> - **${formatter.format(d.eventcoins)} coins**\n`
-});
-let pg = newd.length - 1
+let text = []
+for(let i = 0; i < data.length; i++) {
+  const {userId, coins} = data[i];
+
+  text.push(`${i+1}) <@!${userId}> - **${formatter.format(coins)} coins**\n`)
+}
+let pg = text.length - 1
 
 
       const index = 10;
       const generateEmbed = (start) => {
-      const current = newd.slice(start, start + index).join(`\n\n`);
+      const current = text.slice(start, start + index).join(`\n\n`);
       const embed = new MessageEmbed ()
       .setTitle(`Donation Leaderboard in ${message.guild.name}`)
       .setDescription(`${current}`)
