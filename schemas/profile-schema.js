@@ -10,6 +10,9 @@ const profileSchema = mongoose.Schema({
   userId: reqString,
   coins: {
     type: Number,
+    min: 0,
+    max: 10 ** 100,
+    default: 0,
     required: true,
   },
 })
