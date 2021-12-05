@@ -11,7 +11,10 @@ module.exports = {
   
 
     async execute(client, message, cmd,  args) {
-
+        
+      const formatMemoryUsage = (data) => `${Math.round(data / 1024 / 1024 * 100) / 100} MB`
+      const memoryData = process.memoryUsage()
+    
       const roles = message.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
       let txt = '<:txtchannel:872428761478463510>'
       let ch = '<:voice:872428749642170378>'
@@ -26,6 +29,7 @@ module.exports = {
       )
       .addFields(
         { name: 'Roles', value: `${roles.length}`},
+          {name: 'RAM', value: `${formatMemoryUsage(memoryData.heapUsed)}`}
     )
       .addField('Channels', `${txt} Channels : ${message.guild.channels.cache.filter((c) => c.type === "GUILD_TEXT").size} 
            ${ch} Voice Channels :  ${message.guild.channels.cache.filter((c) => c.type === "GUILD_VOICE").size}`,
