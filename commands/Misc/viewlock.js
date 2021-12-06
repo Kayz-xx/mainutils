@@ -19,7 +19,8 @@ module.exports = {
 				return;
 			if (
 				message.channel.id !== '792795803037990943' &&
-				message.channel.id !== '792505415748812801'
+				message.channel.id !== '792505415748812801' &&
+				message.channel.id !== '916771549753778246'
 			)
 				return;
 			let channel = message.mentions.channels.first();
