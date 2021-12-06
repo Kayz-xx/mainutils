@@ -24,7 +24,11 @@ module.exports = {
 		];
 		let mem = args[1];
 		let st = args[2];
-		if (!channel) channel = message.channel; mem = args[0]; st = args[1]
+			if (!channel) {
+				channel = message.channel; 
+				mem = args[0];
+				st = args[1]
+			}
 		if (!mem) return message.reply('Please specify a role id.')
 	    	let state = null
 		if(st === 'true') state = true
