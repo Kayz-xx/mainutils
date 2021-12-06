@@ -11,6 +11,12 @@ module.exports = {
   
 
     async execute(client, message, cmd,  args) {
+        try {
+        if (global.gc) {global.gc();}
+        } catch (e) {
+         console.log("`node --expose-gc index.js`");
+          process.exit()
+        }
         
       const formatMemoryUsage = (data) => `${Math.round(data / 1024 / 1024 * 100) / 100} MB`
       const memoryData = process.memoryUsage()
