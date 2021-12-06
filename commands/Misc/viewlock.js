@@ -43,6 +43,7 @@ module.exports = {
 				.setDescription(newd.join(`\n`))
 				.setColor('RANDOM')
 				.setTimestamp();
+			console.log(mem)
 			if (!array.includes(mem))
 				return message.reply({
 					content: `Please choose a role from below.`,
