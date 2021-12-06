@@ -35,7 +35,10 @@ module.exports = {
 				'764885367249174612',
 			];
 			let mem = args[1];
-			if (!channel) channel = message.channel; mem = args[0];
+				if (!channel) {
+				channel = message.channel; 
+				mem = args[0];
+			}
 			if (!mem) return message.reply('Please specify a role id.');
 			let newd = array.map((d) => `<@&${d}>`);
 			let embed = new Discord.MessageEmbed()
