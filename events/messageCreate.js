@@ -48,6 +48,7 @@ module.exports.run = async (client, message) => {
 	}*/
 	if(message.channel.type === "GUILD_TEXT") {
 try {
+	if(message.author.bot) return;
 	const conditions = ['/', '*', '+', '-']
 	const conditions2 = ['k', 'm', 'b']
 	function hasNumber(myString) {
