@@ -44,23 +44,7 @@ module.exports = {
     const userId = mention.id
 
     const newCoins = await economy.addCoins(guildId, userId, coins)
-    
-    let data = await db
-    .ref(`Donations/Info/Amount Added`)
-    .once("value")
-    .then(snapshot => snapshot.val())|| []
-
-    data.push({
-      "amount" : formatter.format(coins),
-  "responsible_moderator_id" : `${message.author.id}`,
-  "responsible_moderator_tag" : `${message.author.tag}`,
-  "timestamp" : Date.now(),
-  "donor" : userId,
-  "server_id" : guildId
-    })
-    db.ref(`Donations/Info/Amount Added`).set(data)
-
-
+   
     let data3 = await db
     .ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
     .once("value")
