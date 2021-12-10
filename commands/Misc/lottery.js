@@ -143,9 +143,6 @@ module.exports = {
                 const newlist = data.map((d) => {
                     return `${i + 1}-${i = i + parseInt(d.Entries)}) <@${d.User}>`
                 })
-                newlist.sort(function (a, b) {
-                    return a.localeCompare(b); 
-                  });
                 let total = 0
                 data.forEach(d => {
                     total += parseInt(d.Entries)
