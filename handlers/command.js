@@ -12,7 +12,7 @@ module.exports = (client) => {
         // By using a cross in the table we made.
         for (let file of commands) {
             let pull = require(`${__dirname.replace("\handlers", "\commands")}/${dir}/${file}`);
-
+            
             if (pull.name) {
                 client.commands.set(pull.name, pull);
                 array.push({File: file, Status: '✅'})
@@ -23,6 +23,7 @@ module.exports = (client) => {
     
             // If there's an aliases key, read the aliases.
             if (pull.aliases && Array.isArray(pull.aliases)) pull.aliases.forEach(alias => client.aliases.set(alias, pull.name));
+            delete require.cache[require.resolve(`../commands/${dir}/${file}`)];
         }
     });
     console.table(array)
