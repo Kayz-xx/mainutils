@@ -48,7 +48,7 @@
 		"something-random-on-discord": "3.4.4",
 		"stream": "^0.0.2",
 		"vue-socket.io": "^3.0.10",
-		"weather-js": "^2.0.0",
+		"weather-js": "^2.0.0"
 	},
 	"devDependencies": {
 		"electron-rebuild": "^2.3.5"
