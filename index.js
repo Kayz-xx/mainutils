@@ -78,8 +78,6 @@ client.snipes = new discord.Collection();
 client.vouches = new Map();
 client.giveaways = Creator
 
-require('@weky/inlinereply');
-
 let array = ['command', 'events', 'giveaways', 'antiCrash'];
 array.forEach((handler) => {
 	require(`./handlers/${handler}`)(client);
