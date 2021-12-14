@@ -6,7 +6,7 @@ const {db} = require('../../firebase.js')
 
 module.exports = {
     name: 'notes',
-    aliases: ['notes', 'sn', 'deletenote', 'clearnotes'],
+    aliases: ['notes', 'sn', 'deletenote', 'clearnotes', 'setnote'],
     cooldown: '0',
     permissions: [],
     usage: '<note>',
@@ -21,15 +21,14 @@ module.exports = {
     
     const mention = message.mentions.users.first() || message.author
 
-    const guildId = message.guild.id
     const userId = mention.id
     
     let data2 = await db
     .ref(`Notes/${message.guild.id}/${userId}`)
     .once("value")
     .then(snapshot => snapshot.val()) || []
-    if(data2.length == 0){  
-        return message.reply(`There are no notes`)
+    if(data2.length === 0){  
+        return message.reply(`There are no notes for this user.`)
     }   
 
     data2.reverse()
@@ -40,19 +39,19 @@ module.exports = {
     .setTimestamp()
     data2.forEach((note) => {
       embed.addFields(
-		{ name: `Note #${note.note_id}` , value: `From ${note.note_author} at ${note.timestamp.toString()}: \n ${note.note}`, inline: true },
+		{ name: `Note #${note.note_id}` , value: `From ${note.note_author} at <t:${note.timestamp}:R>: \n ${note.note}`, inline: true },
     )
     })
-    message.channel.send({embeds: [embed]})
+    return message.channel.send({embeds: [embed]})
   }
 
-    if(cmd === 'sn'){
+    if(cmd === 'sn' || cmd === 'setnote'){
       setTimeout(() => message.delete(), 1000)
     const mention = message.mentions.users.first() 
     
 
     if(!mention) {
-        message.channel.send({content: 'Please mention a user to add note to'})
+       return message.channel.send({content: 'Please mention a user to add note to'})
     }
 
     const note = args.slice(1).join(' ');
@@ -70,31 +69,29 @@ module.exports = {
 
     let note_id = Object.keys(data)
     if(note_id.length <= 0){
-      console.log(1)
       note_id = 1
     }else{
       note_id = parseInt(note_id.unshift() + 1)
     }
     
-    var d = new Date(Date.now());
+    let  d = Math.round(Date.now() / 1000)
 
     data.push({
         "note" : note,
     "note_author" : `${message.author.tag}`,
-    "timestamp" : d.toUTCString(),
+    "timestamp" : d,
     "server_id" : guildId,
     "note_id": note_id
       })
       db.ref(`Notes/${message.guild.id}/${userId}`).set(data)
 
 
-      message.channel.send({content: `<:tick2:859344779367284736> ***Note taken.*** \n **Note:** ${note}`})
+      return message.channel.send({content: `<:tick2:859344779367284736> ***Note taken.*** \n **Note:** ${note}`})
 
       }
       if(cmd === 'deletenote'){
         setTimeout(() => message.delete(), 1000)
         const mention = message.mentions.users.first() 
-        const guildId = message.guild.id
         const userId = mention.id
         let note = args[1] || null
         if(note === null){
@@ -104,19 +101,18 @@ module.exports = {
     .ref(`Notes/${message.guild.id}/${userId}`)
     .once("value")
     .then(snapshot => snapshot.val()) || []
-           if(data == null){
-             return message.reply(`There are no notes`) 
+    if(data.length === 0){
+      return message.reply(`There are no notes for this user.`)
            }else if (note > data.length){
              return message.reply(`there is only ${data.length} notes, not ${note}`)
-            
            }else {
              delete data[parseInt(note - 1)]
              db.ref(`Notes/${message.guild.id}/${userId}`).set(data)
              return message.channel.send({
-          embeds : {
+          embeds : [{
             description : `Note Deleted!`,
             color : "RANDOM"
-          }
+          }]
           })
         }
       }
@@ -124,23 +120,22 @@ module.exports = {
      if(cmd === 'clearnotes'){
       setTimeout(() => message.delete(), 1000)
       const mention = message.mentions.users.first() 
-      const guildId = message.guild.id
       const userId = mention.id
     
    let data = await db
   .ref(`Notes/${message.guild.id}/${userId}`)
   .once("value")
   .then(snapshot => snapshot.val()) || []
-         if(data == null){
-           return message.reply({content: `There are no notes`})  
+         if(data.length === 0){
+          return message.reply(`There are no notes for this user.`)
          }else {
            delete data.splice(0, data.length)
            db.ref(`Notes/${message.guild.id}/${userId}`).set(data)
            return message.channel.send({
-        embeds : {
+        embeds : [{
           description : `All notes Deleted!`,
           color : "RANDOM"
-              }
+              }]
            })
         }
       }
