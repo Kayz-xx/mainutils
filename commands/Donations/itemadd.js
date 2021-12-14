@@ -1,4 +1,4 @@
-const { Client, Message, MessageEmbed, Collection, Permissions} = require('discord.js')
+const { Client, MessageEmbed, Collection, Permissions} = require('discord.js')
 const formatter = new Intl.NumberFormat('en')
 const {db} = require('../../firebase.js')
 
