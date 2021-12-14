@@ -4,7 +4,7 @@ const formatter = new Intl.NumberFormat('en');
 const { db } = require('../../firebase.js');
 const {Permissions} = require('discord.js')
 module.exports = {
-	name: 'kemovedono',
+	name: 'kremovedono',
 	aliases: [],
 	cooldown: '0',
 	permissions: [],
