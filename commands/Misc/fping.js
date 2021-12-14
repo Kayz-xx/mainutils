@@ -51,7 +51,7 @@ module.exports = {
        if(cmd === 'karuta'){
         if(message.guild.id === "764885367160700958") {
         if(!message.member.roles.cache.some(x => x.id === '862094191520907275') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return 
-       if(message.channel.id !== "855634300354822164" && message.channel.id !== "764885370391232575") return;
+       if(message.channel.id !== "855628710706020362" && message.channel.id !== "764885370391232575") return;
         setTimeout(() => message.delete(), 100)
         const msg = args.slice(0).join(' ');
         message.channel.send({content:`<@&855638128215195649> ${msg} **- ${message.author.tag}**`})
@@ -69,7 +69,7 @@ module.exports = {
          if(cmd === 'owo') {
         if(message.guild.id === "764885367160700958") {
           if(!message.member.roles.cache.some(x => x.id === '914242310894657536') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return 
-           if(message.channel.id !== "913178075808817202" && message.channel.id !== "764885370391232575") return;
+           if(message.channel.id !== "913178049753792522" && message.channel.id !== "764885370391232575") return;
           setTimeout(() => message.delete(), 100)
           const msg = args.slice(0).join(' ');
           message.channel.send({content:`<@&888763947874930749> ${msg} **- ${message.author.tag}**`})
