@@ -14,23 +14,23 @@ module.exports = {
     async execute(client, message, cmd,  args) {
         if(!message.member.roles.cache.has("764885367400693764") && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
         let embed2 = new MessageEmbed()
-        .setDescription(`\`\`\`markdown\nitemadd <name> <amount> <aliases> <type>\n        ^^^^^^\nInvalid Syntax\`\`\``)
+        .setDescription(`\`\`\`markdown\nitemadd *<name>* <amount> <aliases> <type>\n        ^^^^^^\nInvalid Syntax\`\`\``)
         .setColor('RANDOM')
         .setFooter(`Elite Empire`, `https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024`)
         let embed3 = new MessageEmbed()
-        .setDescription(`\`\`\`markdown\nitemadd <name> <amount> <aliases> <type>\n               ^^^^^^^^\nInvalid Syntax\`\`\``)
+        .setDescription(`\`\`\`markdown\nitemadd *<name>* <amount> <aliases> <type>\n               ^^^^^^^^\nInvalid Syntax\`\`\``)
         .setColor('RANDOM')
         .setFooter(`Elite Empire`, `https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024`)
         let embed4 = new MessageEmbed()
-        .setDescription(`\`\`\`markdown\nitemadd <name> <amount> <aliases> <type>\n                        ^^^^^^^^^\nInvalid Syntax\`\`\``)
+        .setDescription(`\`\`\`markdown\nitemadd *<name>* <amount> <aliases> <type>\n                        ^^^^^^^^^\nInvalid Syntax\`\`\``)
         .setColor('RANDOM')
         .setFooter(`Elite Empire`, `https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024`)
         let embed5 = new MessageEmbed()
-        .setDescription(`\`\`\`markdown\nitemadd <name> <amount> <aliases> <type>\n                                  ^^^^^^\nInvalid Syntax\`\`\``)
+        .setDescription(`\`\`\`markdown\nitemadd *<name>* <amount> <aliases> <type>\n                                  ^^^^^^\nInvalid Syntax\`\`\``)
         .setColor('RANDOM')
         .setFooter(`Elite Empire`, `https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024`)
         let name = args.slice(0).join(' ')
-        if(!name.includes('*')) return
+        if(!name.includes('*')) return message.reply({embeds: [embed2]})
         let arr2 = name.split('*')
         let arr = arr2[2].split(' ')
         name = arr2[1]
