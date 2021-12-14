@@ -1,7 +1,7 @@
 const {Permissions, MessageEmbed} = require("discord.js")
 module.exports = {
     name: 'fping',
-    aliases: ['mping', 'mm', 'friendly', 'partnership', 'karuta', 'nitro'],
+    aliases: ['mping', 'mm', 'friendly', 'partnership', 'karuta', 'nitro', 'owo'],
     cooldown: '0',
     category: 'Misc',
 
@@ -64,6 +64,14 @@ module.exports = {
         const msg = args.slice(0).join(' ');
         message.channel.send({content:`<@&774568693522366474> ${msg} **- ${message.author.tag}**`})
         }
+      }
+         if(cmd === 'owo') {
+        if(message.guild.id === "764885367160700958") {
+          if(!message.member.roles.cache.some(x => x.id === '914242310894657536') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return 
+          setTimeout(() => message.delete(), 100)
+          const msg = args.slice(0).join(' ');
+          message.channel.send({content:`<@&888763947874930749> ${msg} **- ${message.author.tag}**`})
+          }
       }
   }
 }	  
