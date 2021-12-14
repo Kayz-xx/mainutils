@@ -1,4 +1,4 @@
-const economy = require('../../owo')
+const economy = require('../../karuta')
 const Discord = require('discord.js')
 const formatter = new Intl.NumberFormat('en')
 const {Permissions} = require('discord.js')
