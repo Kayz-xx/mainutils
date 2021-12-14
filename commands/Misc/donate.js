@@ -323,7 +323,7 @@ module.exports = {
   }
     if(cmd === 'wdonate') {
       try {
-        await donate('872376861018177547', message, args, '913178075808817202')
+        await donate('914242310894657536', message, args, '913178075808817202')
         } catch (error) {
           console.log(error)
         }
