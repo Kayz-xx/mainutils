@@ -1,4 +1,4 @@
-const economy = require('../../owo');
+const economy = require('../../karuta');
 const { MessageEmbed } = require('discord.js');
 const formatter = new Intl.NumberFormat('en');
 const { db } = require('../../firebase.js');
