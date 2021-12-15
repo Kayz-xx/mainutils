@@ -46,6 +46,7 @@ module.exports = {
   }
 
     if(cmd === 'sn' || cmd === 'setnote'){
+ if(!message.member.roles.cache.has("774008242127765535") && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
       setTimeout(() => message.delete(), 1000)
     const mention = message.mentions.users.first() 
     
@@ -90,6 +91,7 @@ module.exports = {
 
       }
       if(cmd === 'deletenote'){
+ if(!message.member.roles.cache.has("774008242127765535") && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
         setTimeout(() => message.delete(), 1000)
         const mention = message.mentions.users.first() 
         const userId = mention.id
@@ -118,6 +120,7 @@ module.exports = {
       }
     }
      if(cmd === 'clearnotes'){
+ if(!message.member.roles.cache.has("774008242127765535") && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return;
       setTimeout(() => message.delete(), 1000)
       const mention = message.mentions.users.first() 
       const userId = mention.id
