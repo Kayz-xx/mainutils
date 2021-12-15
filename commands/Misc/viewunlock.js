@@ -10,7 +10,7 @@ module.exports = {
 	async execute(client, message, cmd, args) {
     try {
 		if(!message.member.roles.cache.has("764885367400693764") && !message.member.roles.cache.has("792799102140022785") &&  !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)) return;
-		if(message.channel.id !== "792795803037990943" && message.channel.id !== "792505415748812801" && message.channel.id !== '916771549753778246') return;
+		if(message.channel.id !== "792795803037990943" && message.channel.id !== "792505415748812801" && message.channel.id !== '916771549753778246' && message.channel.id !== '774383258250248233') return;
 		let channel = message.mentions.channels.first()
 		let array = [
 			'764885367160700960',
