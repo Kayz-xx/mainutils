@@ -60,24 +60,26 @@ module.exports = {
     }
 
     
-
-    const newCoins = await economy.addCoins(guildId, userId, coins)
     
-    message.guild.channels.cache.get(`805543230473109534`).
-    send({embeds:[
-      new Discord.MessageEmbed()
+    const newCoins = await economy.addCoins(guildId, userId, coins)
+    const embed = new Discord.MessageEmbed()
     .setTitle('Karuta Donation Logging')
     .setColor("RANDOM")
     .addFields(
       { name: 'User', value: `<@${userId}>` },
       { name: 'Tickets Added', value: formatter.format(coins) },
       { name: 'New Total Tickets', value: formatter.format(newCoins) },
-      { name: 'Cards', value: card}
     )
     .addField(`\u200B`,`[Link To CMD](${message.url})`)
     .setFooter(`Action taken by ${message.author.tag}`)
     .setTimestamp()
-    ]})
+
+    if(card) {
+      embed.addField('Cards', card)
+}
+    
+    message.guild.channels.cache.get(`805543230473109534`).
+    send({embeds:[embed]})
 
       message.react('<a:EE_purplecheck:866351693108215849>')
         }
