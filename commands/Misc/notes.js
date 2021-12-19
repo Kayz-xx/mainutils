@@ -34,7 +34,7 @@ module.exports = {
     data2.reverse()
 
     let embed = new MessageEmbed()
-    .setAuthor(mention.tag, message.author.avatarURL({ dynamic:true }))
+    .setAuthor(mention.tag, mention.displayAvatarURL({ dynamic:true }))
     .setColor("RANDOM")
     .setTimestamp()
     data2.forEach((note) => {
