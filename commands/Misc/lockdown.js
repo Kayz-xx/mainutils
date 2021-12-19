@@ -35,6 +35,7 @@ module.exports = {
         if(query == "true") {
         message.guild.channels.cache.forEach(channel => {
             try {
+                    if(channel.type != 'GUILD_TEXT') return
                 channel.permissionOverwrites.edit(message.guild.roles.cache.find(x => x.name.toLowerCase().trim() === "@everyone"), {
                     SEND_MESSAGES: false
                 })
@@ -47,6 +48,7 @@ module.exports = {
       if(query == "false") {
         message.guild.channels.cache.forEach(channel => {
             try {
+                if(channel.type != 'GUILD_TEXT') return
                 channel.permissionOverwrites.edit(message.guild.roles.cache.find(x => x.name.toLowerCase().trim() === "@everyone"), {
                     SEND_MESSAGES: null
                 })
@@ -59,6 +61,7 @@ module.exports = {
       if(query == "list") {
         message.guild.channels.cache.forEach(channel => {
             try {
+                if(channel.type != 'GUILD_TEXT') return
                 arr.push(channel.id)
             } catch(e) {
                 console.log(e)
