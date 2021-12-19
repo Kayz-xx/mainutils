@@ -106,7 +106,7 @@ module.exports = {
     if(data.length === 0){
       return message.reply(`There are no notes for this user.`)
            }else if (note > data.length){
-             return message.reply(`there is only ${data.length} notes, not ${note}`)
+             return message.reply(`There are only ${data.length} notes, not ${note}`)
            }else {
              delete data[parseInt(note - 1)]
              db.ref(`Notes/${message.guild.id}/${userId}`).set(data)
