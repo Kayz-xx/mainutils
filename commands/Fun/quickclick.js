@@ -224,6 +224,6 @@ module.exports = {
 					return 
 				}
 			});
-		}, Math.floor(Math.random() * 700) + 300);
+		}, Math.floor(Math.random() * 1200) + 500);
 	},
 };
