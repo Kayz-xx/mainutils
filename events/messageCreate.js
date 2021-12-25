@@ -172,7 +172,7 @@ try {
 		if (command.ownerOnly) {
 			if (message.author.id !== '491933949686448138')
 				return message.channel.send({content: 
-					'This command can only be use by owner!'
+					'This command can only be used by the owner!'
 				});
 		}
 	}
