@@ -126,7 +126,7 @@ module.exports = {
 			});
 		
 			const Collector2 = await question.createMessageComponentCollector({
-				filter: (fn) => fn,
+				filter: (btn) => btn.user.id === oppenent.id,
 				time: 60000,
 			});
 		
@@ -232,7 +232,7 @@ module.exports = {
             const gameCreatedAt = Date.now();
 
 			const Collector = msg.createMessageComponentCollector({
-				filter: (fn) => fn,
+				filter: (btn) => btn.user.id === oppenent.id || btn.user.id === challenger.id,
 				time: time,
 			});
 
