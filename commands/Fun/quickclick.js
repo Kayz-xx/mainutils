@@ -89,13 +89,96 @@ module.exports = {
 		ongoingMessage =
 			"A game is already runnning in <#{{channel}}>. You can't start a new one!";
 
+			acceptMessage =
+			'<@{{challenger}}> has challenged <@{{opponent}}> for a quickclick battle!';
+
+			othersMessage = 'Only {{author}} can use the buttons!';
+
+
+			const oppenent = message.mentions.members.first()
+			if(!oppenent) return;
+			const challenger = message.author;
+			let acceptbutton = new Discord.MessageButton()
+				.setStyle('SUCCESS')
+				.setLabel('Accept')
+				.setCustomId('accept');
+			let denybutton = new Discord.MessageButton()
+				.setStyle('DANGER')
+				.setLabel('Deny')
+				.setCustomId('deny');
+			let component = new Discord.MessageActionRow().addComponents([
+				acceptbutton,
+				denybutton,
+			]);
+			const embed2 = new Discord.MessageEmbed()
+				.setTitle(embed.title)
+				.setDescription(
+					acceptMessage
+						.replace('{{challenger}}', challenger.id)
+						.replace('{{opponent}}', oppenent.id),
+				)
+				.setFooter(embed.footer)
+				.setColor(embed.color);
 	
+			const question = await message.reply({
+				embeds: [embed2],
+				components: [component],
+			});
+		
+			const Collector2 = await question.createMessageComponentCollector({
+				filter: (fn) => fn,
+				time: 60000,
+			});
+		
+			Collector2.on('collect', async (_btn) => {
+				if (_btn.member.id !== oppenent.id) {
+					return _btn.reply({
+						content: othersMessage.replace(
+							'{{author}}',
+							`<@${oppenent.id}>`,
+						),
+						ephemeral: true,
+					});
+				}
+		
+				await _btn.deferUpdate();
+		
+				if (_btn.customId === 'deny') {
+					acceptbutton = new Discord.MessageButton()
+						.setDisabled()
+						.setStyle('SUCCESS')
+						.setLabel('Accept')
+						.setCustomId('accept');
+					denybutton = new Discord.MessageButton()
+						.setDisabled()
+						.setStyle('DANGER')
+						.setLabel('Deny')
+						.setCustomId('deny');
+					component = new Discord.MessageActionRow().addComponents([
+						acceptbutton,
+						denybutton,
+					]);
+					const emd = new Discord.MessageEmbed()
+						.setTitle(embed.title)
+						.setDescription(
+							`Did not accept the challenge.`
+						)
+						.setFooter(embed.footer)
+						.setColor(embed.color);
+					if (embed.timestamp) {
+						emd.setTimestamp();
+					}
+					Collector2.stop();
+					return question.edit({
+						embeds: [emd],
+						components: [component],
+					});
+				} else if (_btn.customId === 'accept') {
 		
 
-	
 		const msg = await message.reply({ content: waitMessage });
 
-
+		Collector2.stop()
 
 		setTimeout(async function () {
 			const rows = [];
@@ -105,7 +188,7 @@ module.exports = {
 				buttons.push(
 					new Discord.MessageButton()
 						.setDisabled()
-						.setLabel('\u200b')
+						.setLabel('Not here')
 						.setStyle('SECONDARY')
 						.setCustomId(getRandomString(20))
 				);
@@ -224,6 +307,27 @@ module.exports = {
 					return 
 				}
 			});
-		}, Math.floor(Math.random() * 1200) + 500);
+		}, Math.floor(Math.random() * 700) + 300);
+	}
+});
+Collector2.on('end', async (msg, reason) => {
+		acceptbutton = new Discord.MessageButton()
+			.setDisabled()
+			.setStyle('SUCCESS')
+			.setLabel('Accept')
+			.setCustomId('accept');
+		denybutton = new Discord.MessageButton()
+			.setDisabled()
+			.setStyle('DANGER')
+			.setLabel('Deny')
+			.setCustomId('deny');
+		component = new Discord.MessageActionRow().addComponents([
+			acceptbutton,
+			denybutton,
+		]);
+		return question.edit({
+			components: [component],
+		});
+});
 	},
 };
