@@ -1,7 +1,7 @@
 const { MessageEmbed, Permissions } = require('discord.js');
 const { db } = require('../../firebase');
 
-function shuffleArray(array) {
+	function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = array[i];
