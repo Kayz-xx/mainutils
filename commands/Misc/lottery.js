@@ -1,6 +1,15 @@
 const { MessageEmbed, Permissions } = require('discord.js');
 const { db } = require('../../firebase');
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
 module.exports = {
 	name: 'lotterystart',
 	aliases: ['enter', 'lotterylist', 'lotteryend'],
@@ -198,6 +207,7 @@ module.exports = {
                 .ref(`Lottery System/${message.guild.id}/Prize`)
                 .once('value')
                 .then((snapshot) => snapshot.val())) || [];
+	    main = shuffleArray(main)
             const realWinner =
                 main[
                     Math.floor(Math.random() * main.length)
