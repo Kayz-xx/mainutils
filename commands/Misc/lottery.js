@@ -207,7 +207,7 @@ module.exports = {
                 .ref(`Lottery System/${message.guild.id}/Prize`)
                 .once('value')
                 .then((snapshot) => snapshot.val())) || [];
-	    main = shuffleArray(main)
+	    shuffleArray(main)
             const realWinner =
                 main[
                     Math.floor(Math.random() * main.length)
