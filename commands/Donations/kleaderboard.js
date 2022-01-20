@@ -15,8 +15,8 @@ const amount = require('./amount');
 
 
   module.exports = {
-      name: 'leaderboard',
-      aliases: ['lb'],
+      name: 'kleaderboard',
+      aliases: ['klb'],
       cooldown: '0',
       usage: '',
       permissions: [],
