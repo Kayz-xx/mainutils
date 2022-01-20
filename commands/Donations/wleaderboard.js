@@ -13,8 +13,8 @@ const formatter = new Intl.NumberFormat('en');
 let page = 0;
 
 module.exports = {
-	name: 'leaderboard',
-	aliases: ['lb'],
+	name: 'wleaderboard',
+	aliases: ['wlb'],
 	cooldown: '0',
 	usage: '',
 	permissions: [],
