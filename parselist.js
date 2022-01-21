@@ -5,4 +5,4 @@ var parseList = function (list) {
         .filter(function (w) { return w !== ""; })
         .join(" and ");
 };
-exports.default = parseList;
+    exports.default = parseList;
