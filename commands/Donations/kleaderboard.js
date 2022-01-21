@@ -20,14 +20,12 @@ const amount = require('./amount');
       cooldown: '0',
       usage: '',
       permissions: [],
-      commands: ['leaderboard'],
       category: 'Donations',
       description: 'Donation Leaderboard',
       
       async execute(client, message, cmd,  args) {
           const guildId = message.guild.id
           const [data, donors, total] = await economy.getDonation(guildId)
-          console.log(data)
 
   
           let first = new MessageButton()
