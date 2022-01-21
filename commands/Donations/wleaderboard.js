@@ -18,7 +18,6 @@ module.exports = {
 	cooldown: '0',
 	usage: '',
 	permissions: [],
-	commands: ['leaderboard'],
 	category: 'Donations',
 	description: 'Donation Leaderboard',
 
