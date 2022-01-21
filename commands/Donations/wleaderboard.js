@@ -23,8 +23,8 @@ module.exports = {
 
 	async execute(client, message, cmd, args) {
 		const guildId = message.guild.id;
-		const [data, donors, total] = await economy.getDonation(guildId);
-		console.log(data);
+		const data = await economy.getDonation(guildId);
+
 
 		let first = new MessageButton()
 			.setEmoji('<:fastb:878937208818630706>')
@@ -75,10 +75,11 @@ module.exports = {
 		const index = 10;
 		const generateEmbed = (start) => {
 			const current = text.slice(start, start + index).join(`\n\n`);
+
 			const embed = new MessageEmbed()
 				.setTitle(`Donation Leaderboard in ${message.guild.name}`)
 				.setDescription(
-					`[Total Donors:](https://discord.com/channels/764885367160700958/870744835877908520/877243923377029131) **${donors}**\n[Total Amount:](https://discord.com/channels/764885367160700958/870744835877908520/877243923377029131) **${total.toLocaleString()}**\n\n${current}`
+					`${current}`
 				)
 				.setFooter(`These are normal donations`)
 				.setColor('88FFF7')
