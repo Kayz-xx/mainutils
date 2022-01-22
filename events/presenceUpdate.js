@@ -1,4 +1,4 @@
-  module.exports.run = async (client, oldPresence, newPresence) => {
+  /*module.exports.run = async (client, oldPresence, newPresence) => {
   if(newPresence.guild == "764885367160700958") {
   const {member, guild} = newPresence
   if(newPresence.activities) {
@@ -15,3 +15,4 @@
      }
   }
 }
+*/
