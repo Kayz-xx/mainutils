@@ -46,6 +46,16 @@ module.exports.run = async (client, message) => {
 	  }
 	}*/
 	if(message.channel.type === "GUILD_TEXT") {
+	if(message.author.id === '270904126974590976' && message.channel.id === "866419331776905226" && message.embeds[0].fields[0].name.includes('Shared')) {
+				let ar = message.embeds[0].fields[0].value.split('`')[1]
+				let te = ar.replace('⏣', '')
+				let user = message.mentions.repliedUser.id
+				if(te.includes(',')) te = te.replace(/,/g, '')
+				let num = parseInt(te)
+				await economy.addCoins(message.guild.id, user, num)
+				let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('Grinders Donation').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ⏣ ${num} `).setFooter('Thank You').setTimestamp()
+				message.channel.send({embeds: [embed]})
+		}
 try {
 	if(message.author.bot) return;
 	const conditions = ['/', '*', '+', '-']
