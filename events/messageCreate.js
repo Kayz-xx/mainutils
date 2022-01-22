@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 const {afk} = require('../collection')
 const moment = require('moment')
 const math = require('mathjs')
+const economy = require('../economy')
 module.exports.run = async (client, message) => {    
 	/*if(message.guild.id === "855455031385391104") {
 		if(message.author.id === "491933949686448138") {
