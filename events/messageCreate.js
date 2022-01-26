@@ -8,7 +8,7 @@ const math = require('mathjs')
 const economy = require('../economy')
 const {db} = require('../firebase')
 module.exports.run = async (client, message) => {    
-	/*if(message.guild.id === "855455031385391104") {
+		/*if(message.guild.id === "855455031385391104") {
 		if(message.author.id === "491933949686448138") {
 			if(message.content.includes("You gave eye holder")) {
 				if(message.content.includes("pepetrophy")) {
