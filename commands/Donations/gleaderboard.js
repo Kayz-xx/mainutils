@@ -62,6 +62,7 @@ module.exports = {
 
 		let i = 1;
 		let text = [];
+				data.sort(function(a, b){return b.coins-a.coins})
 		for (let i = 0; i < data.length; i++) {
             
             const {userId, coins } = data[i];
