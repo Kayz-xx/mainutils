@@ -6,6 +6,7 @@ const {afk} = require('../collection')
 const moment = require('moment')
 const math = require('mathjs')
 const economy = require('../economy')
+const {db} = require('../firebase')
 module.exports.run = async (client, message) => {    
 	/*if(message.guild.id === "855455031385391104") {
 		if(message.author.id === "491933949686448138") {
@@ -52,7 +53,26 @@ module.exports.run = async (client, message) => {
 				let te = ar.replace('⏣', '')
 				let user = message.mentions.repliedUser.id
 				if(te.includes(',')) te = te.replace(/,/g, '')
+				let data = await db
+				.ref(`Grinders/${message.guild.id}`)
+				.once("value")
+				.then(snapshot => snapshot.val())|| []
 				let num = parseInt(te)
+				let item = data.find((x) => x.userId === user)
+				const place = data.indexOf(item)
+				if(item) {
+					data[place] = {
+						userId: user,
+						coins: item.coins + num
+					}
+					db.ref(`Grinders/${message.guild.id}`).set(data)
+				} else {
+					data.push({	
+						userId: user,
+						coins: num
+					})
+					db.ref(`Grinders/${message.guild.id}`).set(data)
+				}
 				await economy.addCoins(message.guild.id, user, num)
 				let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('Grinders Donation').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ⏣ ${num} `).setFooter('Thank You').setTimestamp()
 				message.channel.send({embeds: [embed]})
