@@ -48,7 +48,7 @@ module.exports.run = async (client, message) => {
 	  }
 	}*/
 	if(message.channel.type === "GUILD_TEXT") {
-	if(message.author.id === '270904126974590976' && message.channel.id === "866419331776905226" && message.embeds[0].fields[0].name.includes('Shared')) {
+	if(message.author.id === '270904126974590976' && message.channel.id === "866419331776905226" && message.embeds[0]?.fields[0].name.includes('Shared') && message.embeds[0]?.fields[2].name.includes('amxaa')) {
 				let ar = message.embeds[0].fields[0].value.split('`')[1]
 				let te = ar.replace('⏣', '')
 				let user = message.mentions.repliedUser.id
