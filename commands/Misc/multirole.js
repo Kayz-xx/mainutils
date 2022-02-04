@@ -63,7 +63,8 @@ module.exports = {
 				if (!user)
 					message.channel.send({
 						content: `The user ${user} could not be found`,
-					});
+					})
+				return;
 				else if (user) {
 					if (user.roles.cache.some((r) => r.id === array[i].id))
 						return;
