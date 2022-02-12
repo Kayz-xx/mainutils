@@ -6,6 +6,7 @@ module.exports = {
     category: 'Misc',
 
     async execute(client, message, cmd,  args) {
+    if(message.channel.id === '764885370391232575' && message.channel.id === '919688997637341264') return;
      if(cmd === 'fping'){
       if(message.guild.id === "764885367160700958") {
          console.log(!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
