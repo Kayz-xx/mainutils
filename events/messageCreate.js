@@ -7,25 +7,9 @@ const moment = require('moment')
 const math = require('mathjs')
 const economy = require('../economy')
 const {db} = require('../firebase')
+const go = require('../functions')
+const eventdonations = require('../eventdonations')
 module.exports.run = async (client, message) => {    
-		/*if(message.guild.id === "855455031385391104") {
-		if(message.author.id === "491933949686448138") {
-			if(message.content.includes("You gave eye holder")) {
-				if(message.content.includes("pepetrophy")) {
-					//let user = message.content.slice(0, 22)
-					//let number = message.content.substr(45, 3).replace(/[*]/g, '')
-					let te = message.content.split(" ")
-				    let embed = new MessageEmbed()
-					.setTitle("Odd Eye Raffle")
-					.setDescription(`${te[0]} You gained ${te[5]} entries`)
-					.setFooter("Check Profile")
-					.setColor("FFFFFF")
-					.setThumbnail("https://images-ext-1.discordapp.net/external/6dLo523x4mPONn-TL1O4NqOHB5vookWf__UHV-QpDIs/https/cdn.discordapp.com/emojis/787964747848089642.gif")
-					message.channel.send({embeds: [embed]})
-				}
-			}
-		}
-	}*/
 	/*if(message.author.id === '491933949686448138') {
 		const mention = message.mentions.members.first()
 		if(!mention) return;
@@ -77,6 +61,31 @@ module.exports.run = async (client, message) => {
 				let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('Grinders Donation').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ⏣ ${num} `).setFooter('Thank You').setTimestamp()
 				message.channel.send({embeds: [embed]})
 		}
+		let users = ['Bàbà_yàgà', 'amxaa']
+		if(message.author.id === '270904126974590976' && message.channel.id === "942321197155254292" && message.embeds[0]?.fields[0]?.name.includes('Gifted') && users.some(el =>  message.embeds[0]?.fields[2].name.includes(el))) {
+			let ar = message.embeds[0].fields[0].value.split('`')
+			let number = ar[1]
+			let item = ar[2].split('>')[1].trim()
+			let user = message.mentions.repliedUser.id
+			if(number.includes(',')) number = number.replace(/,/g, '')
+			let items =
+      		(await db
+        	.ref(`Donations/Info/${message.guild.id}/List`)
+       		.once('value')
+        	.then((snapshot) => snapshot.val())) || [];
+        
+			let tem = go.search(item, items)
+        	if (tem.similarity <= 0.6)
+        	return message.reply({ content: `Could not find that item!` });
+      
+      		const items2 = tem.item
+    		const coins = items2.amount * Number(number)
+			await economy.addCoins(message.guild.id, user, coins)
+			await eventdonations.addCoins(message.guild.id, user, coins)
+			let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k special donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ${coins} `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
+			.addField('Items', `**${number} x ${item}** = **${coins.toLocaleString()}**`, true)
+			message.channel.send({embeds: [embed]})
+	}
 try {
 	if(message.author.bot) return;
 	const conditions = ['/', '*', '+', '-']
