@@ -2,7 +2,7 @@ const config = require('../config.json');
 const { MessageEmbed } = require('discord.js');
 const cooldowns = new Map();
 const Discord = require('discord.js');
-const {afk} = require('../collection')
+const {afk} = require('../afk')
 const moment = require('moment')
 const math = require('mathjs')
 const economy = require('../economy')
@@ -129,27 +129,38 @@ try {
 	}
 	const mentionedMember = message.mentions.members.first()
 	if (mentionedMember && !message.author.bot) {
-		const data = afk.get(mentionedMember.id)
-
-		if(data) {
-			const [timestamp, reason] = data
-			const timeAgo = moment(timestamp).fromNow()
+		const data = await afk.find(mentionedMember.id, message.guild.id)
+		if(!data) return;
+		if(mentionedMember.id === data.userId) return;
+		if(data.AFK === true) {
+			const {timestamp, reason} = data
+			await afk.push(data.userId, data.guildId, message.url, message.author.id, message.createdTimestamp)
 			let embeds = new MessageEmbed()
 			.setAuthor(message.author.tag, message.author.displayAvatarURL())
-			.setDescription(`<:replycont:877221297308958761> ${mentionedMember} is currently AFK: ${reason}\n<:reply:877221312198754355> ${timeAgo}`)
+			.setDescription(`<:replycont:877221297308958761> ${mentionedMember} is currently AFK: ${reason}\n<:reply:877221312198754355> <t:${timestamp}:R>`)
 			.setColor('ffffff')
 			message.reply({embeds: [embeds]})
 		}
 	}
 
-	const getData = afk.get(message.author.id)
-	if(getData){
-		const [timestamp, reason] = getData
-		let now = Date.now()
+	const getData = await afk.find(message.author.id, message.guild.id)
+	if(getData?.AFK === true){
+		const {timestamp} = getData
+		let now = Math.round(Date.now()/1000)
 		let diff = now - timestamp
-		if(diff >= 30000) {
-		afk.delete(message.author.id)
-		message.reply({content: `Welcome back ${message.member}, your AFK has been removed`})
+		if(diff >= 0) {
+		data = await afk.find(message.author.id, message.guild.id)
+		let map = data.pings.map(x => {
+			`<@${x.author}> **-** <t:${Math.round(x.time/1000)}:R> : [Here](${x.url})\n`
+		})
+		let embed = new Discord.MessageEmbed()
+		.setTitle(`Welcome back, ${message.author.username}`)
+		.setColor("RANDOM")
+		if(data.pings.length > 0) {
+			embed.setDescription(`You got ${data.pings.length} pings(s) while you were afk:\n${map}`)
+		}
+		await afk.set(message.author.id, message.guild.id)
+		message.reply({embeds: [embed]})
 		}
 	}
 
