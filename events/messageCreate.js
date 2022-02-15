@@ -149,14 +149,13 @@ try {
 		let now = Math.round(Date.now()/1000)
 		let diff = now - timestamp
 		if(diff >= 0) {
-		pong = await afk.find(message.author.id, message.guild.id)
+		let pong = await afk.find(message.author.id, message.guild.id)
 		let map = pong.pings.map(x => {
 			`<@${x.author}> **-** <t:${Math.round(x.time/1000)}:R> : [Here](${x.url})\n`
 		})
 		let embed = new Discord.MessageEmbed()
 		.setTitle(`Welcome back, ${message.author.username}`)
 		.setColor("RANDOM")
-		console.log(pong)
 		if(pong.pings.length > 0) {
 			embed.setDescription(`You got ${pong.pings.length} pings(s) while you were afk:\n${map}`)
 		}
