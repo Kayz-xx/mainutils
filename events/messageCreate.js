@@ -130,7 +130,6 @@ try {
 	const mentionedMember = message.mentions.members.first()
 	if (mentionedMember && !message.author.bot) {
 		const data = await afk.find(mentionedMember.id, message.guild.id)
-		console.log(data)
 		if(!data) return;
 		if(mentionedMember.id === data.userId) return;
 		if(data.AFK === true) {
@@ -150,15 +149,15 @@ try {
 		let now = Math.round(Date.now()/1000)
 		let diff = now - timestamp
 		if(diff >= 0) {
-		data = await afk.find(message.author.id, message.guild.id)
-		let map = data.pings.map(x => {
+		pong = await afk.find(message.author.id, message.guild.id)
+		let map = pong.pings.map(x => {
 			`<@${x.author}> **-** <t:${Math.round(x.time/1000)}:R> : [Here](${x.url})\n`
 		})
 		let embed = new Discord.MessageEmbed()
 		.setTitle(`Welcome back, ${message.author.username}`)
 		.setColor("RANDOM")
-		if(data.pings.length > 0) {
-			embed.setDescription(`You got ${data.pings.length} pings(s) while you were afk:\n${map}`)
+		if(pong.pings.length > 0) {
+			embed.setDescription(`You got ${pong.pings.length} pings(s) while you were afk:\n${map}`)
 		}
 		await afk.set(message.author.id, message.guild.id)
 		message.reply({embeds: [embed]})
