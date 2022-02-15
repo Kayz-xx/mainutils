@@ -129,12 +129,14 @@ try {
 	}
 	const mentionedMember = message.mentions.members.first()
 	if (mentionedMember && !message.author.bot) {
-		const data = await afk.find(mentionedMember.id, message.guild.id)
-		if(!data) return;
-		if(mentionedMember.id === data.userId) return;
-		if(data.AFK === true) {
-			const {timestamp, reason} = data
-			await afk.push(data.userId, data.guildId, message.url, message.author.id, message.createdTimestamp)
+		const ping = await afk.find(mentionedMember.id, message.guild.id)
+		if(!ping) return;
+		if(mentionedMember.id === ping.userId) return;
+		console.log(ping)
+		if(ping.AFK === true) {
+			console.log(ping)
+			const {timestamp, reason} = ping
+			await afk.push(ping.userId, ping.guildId, message.url, message.author.id, message.createdTimestamp)
 			let embeds = new MessageEmbed()
 			.setAuthor(message.author.tag, message.author.displayAvatarURL())
 			.setDescription(`<:replycont:877221297308958761> ${mentionedMember} is currently AFK: ${reason}\n<:reply:877221312198754355> <t:${timestamp}:R>`)
