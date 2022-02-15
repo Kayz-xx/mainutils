@@ -132,9 +132,7 @@ try {
 		const ping = await afk.find(mentionedMember.id, message.guild.id)
 		if(!ping) return;
 		if(message.author.id === ping.userId) return;
-		console.log(ping)
 		if(ping.AFK === true) {
-			console.log(ping)
 			const {timestamp, reason} = ping
 			await afk.push(ping.userId, ping.guildId, message.url, message.author.id, message.createdTimestamp)
 			let embeds = new MessageEmbed()
@@ -158,6 +156,7 @@ try {
 		let embed = new Discord.MessageEmbed()
 		.setTitle(`Welcome back, ${message.author.username}`)
 		.setColor("RANDOM")
+		console.log(pong)
 		if(pong.pings.length > 0) {
 			embed.setDescription(`You got ${pong.pings.length} pings(s) while you were afk:\n${map}`)
 		}
