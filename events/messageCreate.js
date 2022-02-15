@@ -130,6 +130,7 @@ try {
 	const mentionedMember = message.mentions.members.first()
 	if (mentionedMember && !message.author.bot) {
 		const data = await afk.find(mentionedMember.id, message.guild.id)
+		console.log(data)
 		if(!data) return;
 		if(mentionedMember.id === data.userId) return;
 		if(data.AFK === true) {
