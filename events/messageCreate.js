@@ -131,7 +131,7 @@ try {
 	if (mentionedMember && !message.author.bot) {
 		const ping = await afk.find(mentionedMember.id, message.guild.id)
 		if(!ping) return;
-		if(mentionedMember.id === ping.userId) return;
+		if(message.author.id === ping.userId) return;
 		console.log(ping)
 		if(ping.AFK === true) {
 			console.log(ping)
