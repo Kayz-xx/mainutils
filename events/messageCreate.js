@@ -127,42 +127,41 @@ try {
 		}
 	} catch(error) {
 	}
-// 	const mentionedMember = message.mentions.members.first()
-// 	if (mentionedMember && !message.author.bot) {
-// 		const ping = await afk.find(mentionedMember.id, message.guild.id)
-// 		if(!ping) return;
-// 		if(message.author.id === ping.userId) return;
-// 		if(ping.AFK === true) {
-// 			const {timestamp, reason} = ping
-// 			await afk.push(ping.userId, ping.guildId, message.url, message.author.id, message.createdTimestamp)
-// 			let embeds = new MessageEmbed()
-// 			.setAuthor(message.author.tag, message.author.displayAvatarURL())
-// 			.setDescription(`<:replycont:877221297308958761> ${mentionedMember} is currently AFK: ${reason}\n<:reply:877221312198754355> <t:${timestamp}:R>`)
-// 			.setColor('ffffff')
-// 			message.reply({embeds: [embeds]})
-// 		}
-// 	}
+	const mentionedMember = message.mentions.members.first()
+	if (mentionedMember && !message.author.bot) {
+		const ping = await afk.find(mentionedMember.id, message.guild.id)
+		if(ping && ping.AFK === true) {
+			if(message.author.id === ping.userId) return;
+			const {timestamp, reason} = ping
+			await afk.push(ping.userId, ping.guildId, message.url, message.author.id, message.createdTimestamp)
+			let embeds = new MessageEmbed()
+			.setAuthor(message.author.tag, message.author.displayAvatarURL())
+			.setDescription(`<:replycont:877221297308958761> ${mentionedMember} is currently AFK: ${reason}\n<:reply:877221312198754355> <t:${timestamp}:R>`)
+			.setColor('ffffff')
+			message.reply({embeds: [embeds]})
+		}
+	}
 
-// 	const getData = await afk.find(message.author.id, message.guild.id)
-// 	if(getData?.AFK === true){
-// 		const {timestamp} = getData
-// 		let now = Math.round(Date.now()/1000)
-// 		let diff = now - timestamp
-// 		if(diff >= 0) {
-// 		let pong = await afk.find(message.author.id, message.guild.id)
-// 		let map = pong.pings.map(x => {
-// 			`<@${x.author}> **-** <t:${Math.round(x.time/1000)}:R> : [Here](${x.url})\n`
-// 		})
-// 		let embed = new Discord.MessageEmbed()
-// 		.setTitle(`Welcome back, ${message.author.username}`)
-// 		.setColor("RANDOM")
-// 		if(pong.pings.length > 0) {
-// 			embed.setDescription(`You got ${pong.pings.length} pings(s) while you were afk:\n${map}`)
-// 		}
-// 		await afk.set(message.author.id, message.guild.id)
-// 		message.reply({embeds: [embed]})
-// 		}
-// 	}
+	const getData = await afk.find(message.author.id, message.guild.id)
+	if(getData?.AFK === true){
+		const {timestamp} = getData
+		let now = Math.round(Date.now()/1000)
+		let diff = now - timestamp
+		if(diff >= 0) {
+		let pong = await afk.find(message.author.id, message.guild.id)
+		let map = pong.pings.map(x => {
+			`<@${x.author}> **-** <t:${Math.round(x.time/1000)}:R> : [Here](${x.url})\n`
+		})
+		let embed = new Discord.MessageEmbed()
+		.setTitle(`Welcome back, ${message.author.username}`)
+		.setColor("RANDOM")
+		if(pong.pings.length > 0) {
+			embed.setDescription(`You got ${pong.pings.length} pings(s) while you were afk:\n${map}`)
+		}
+		await afk.set(message.author.id, message.guild.id)
+		message.reply({embeds: [embed]})
+		}
+	}
 
 	const prefix = config.prefix;
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
