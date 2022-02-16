@@ -152,15 +152,15 @@ try {
 		let map = pong.pings.map(x => {
 			`<@${x.author}> **-** <t:${Math.round(x.time/1000)}:R> : [Here](${x.url})`
 		})
-		console.log(map, pong.pings)
+		console.log(map)
 		let embed = new Discord.MessageEmbed()
 		.setTitle(`Welcome back, ${message.author.username}`)
 		.setColor("RANDOM")
 		if(pong.pings.length > 0) {
 			embed.setDescription(`You got ${pong.pings.length} pings(s) while you were afk:\n${map.join('\n')}`)
 		}
-		await afk.set(message.author.id, message.guild.id)
 		message.reply({embeds: [embed]})
+		await afk.set(message.author.id, message.guild.id)
 		}
 	}
 
