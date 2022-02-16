@@ -1,0 +1,23 @@
+const Discord = require('discord.js');
+let data = require('../../dare.json');
+
+module.exports = {
+	name: 'dare',
+	category: 'fun',
+
+	async execute(client, message, cmd, args) {
+		let user = message.mentions.members.first();
+		data = data.filter((data) => data.type === 'Dare');
+		let { summary } = data[Math.floor(Math.random() * data.length)];
+		let str = '';
+		user === undefined
+			? (str = `${message.author.username} dared ${message.author.username}`)
+			: (str = `${message.author.username} dared ${user.displayName}`);
+		let embed = new Discord.MessageEmbed()
+			.setTitle(str)
+			.setDescription(summary)
+			.setColor('RANDOM');
+
+		message.channel.send({ embeds: [embed] });
+	},
+};
