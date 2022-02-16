@@ -1,11 +1,5 @@
 const { readdirSync } = require("fs");
-
-const ascii = require("ascii-table");
-
-
-// Create a new Ascii table
-let table = new ascii("Events");
-table.setHeading("Events", "Load status");
+let array = []
 
 module.exports = (client) => {
 
@@ -17,7 +11,7 @@ module.exports = (client) => {
     let pull = require(`${__dirname.replace("\handlers", "\events")}/${file}`);
 
     if (pull.event && typeof pull.event !== "string") {
-      table.addRow(file, `❌ -> Property event should be string.`);
+      array.push({File: file.replace('.js', ''), Status: `❌ -> Property event should be string.`});
       continue;
     }
 
@@ -25,15 +19,15 @@ module.exports = (client) => {
 
     client.on(pull.event, pull.run.bind(null, client))
 
-    table.addRow(file, '✅');
+    array.push({File:file.replace('.js', ''), Status: '✅'});
 
     } catch(err) {
 
   console.log("Error While loading/executing command")
   console.log(err)
-  table.addRow(file, `❌ -> Error while loading event`);
+  array.push({File:file.replace('.js', ''), Status:`❌ -> Error while loading event`});
     }
   }
 
-   console.log(table.toString());
+  console.table(array)
 }
