@@ -3,12 +3,13 @@ const { Message, Client, MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'snipe',
-	aliases: ['peek'],
+	aliases: ['snipelist'],
 	cooldown: '0',
 	permissions: [],
 	category: 'Misc',
 	ownerOnly: true,
 	async execute(client, message, cmd, args) {
+		if(cmd === 'snipe') {
 		const snipes = client.snipes.get(message.channel.id);
 		if (!snipes)
 			return message.reply({content: 'There is nothing to snipe in this channel'});
@@ -24,12 +25,28 @@ module.exports = {
 				.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 				.setImage(image)
 				.setFooter(
-					`${moment(time).fromNow()} -> ${snipe + 1} / ${
+					`${moment(time).fromNow()} ${snipe + 1} / ${
 						snipes.length
 					}`
 				)
 				.setDescription(`**${type}**\n${msg.content} `)
 				.setColor('RANDOM')]}
 		);
+	} if(cmd === 'snipelist') {
+		const snipes = client.snipes.get(message.channel.id);
+		if (!snipes) 
+			return message.reply({content: 'There is nothing to snipe'});
+		let data = snipes
+			.map((snipe, index) => {
+				const { msg, time, image, type } = snipe;
+				return `**${type} by ${msg.author.tag} (<t:${Math.floor(time/1000)}:R>)**\n${msg.content}`;
+			})
+		data = data.slice(0, 10)
+		let embed = new MessageEmbed()
+		.setColor('RANDOM')
+		.setDescription(data.join('\r\n'))
+
+		message.channel.send({embeds: [embed]})
+	}
 	},
 };
