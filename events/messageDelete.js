@@ -1,7 +1,7 @@
 
 module.exports.run = (client, message) => {
 
-        /*let snipes = client.snipes.get(message.channel.id) || []
+        let snipes = client.snipes.get(message.channel.id) || []
     
         snipes.unshift({
             msg: message,
@@ -10,7 +10,7 @@ module.exports.run = (client, message) => {
             type: 'Message Deleted'
         })
     
-        client.snipes.set(message.channel.id, snipes)*/
+        client.snipes.set(message.channel.id, snipes)
      
     }
   
