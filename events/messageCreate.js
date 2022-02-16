@@ -149,8 +149,8 @@ try {
 		let diff = now - timestamp
 		if(diff >= 0) {
 		let pong = await afk.find(message.author.id, message.guild.id)
-		let map = pong.pings.map(x => {
-			`<@${x.author}> **-** <t:${Math.round(x.time/1000)}:R> : [Here](${x.url})`
+		let map = pong.pings.map((x) => {
+			return `<@${x.author}> **-** <t:${Math.round(x.time/1000)}:R> : [Here](${x.url})`
 		})
 		console.log(map)
 		let embed = new Discord.MessageEmbed()
