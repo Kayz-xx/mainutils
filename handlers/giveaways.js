@@ -1,10 +1,7 @@
 
-const ascii = require("ascii-table");
 const {readdirSync} = require('fs')
 
-// Create a new Ascii table
-let table = new ascii("Giveways");
-table.setHeading("Giveaways", "Load status");
+let array = []
 
 module.exports = (client) => {
 
@@ -16,7 +13,7 @@ module.exports = (client) => {
     let pull = require(`${__dirname.replace("\handlers", "\giveaways")}/${file}`);
 
     if (pull.event && typeof pull.event !== "string") {
-      table.addRow(file, `❌ -> Property event should be string.`);
+      array.push({File: file.replace('.js', ''), Status: `❌ -> Property event should be string.`});
       continue;
     }
 
@@ -24,15 +21,15 @@ module.exports = (client) => {
 
     client.giveaways.on(pull.event, pull.run.bind(null, client))
 
-    table.addRow(file, '✅');
+    array.push({File:file.replace('.js', ''), Status: '✅'});
 
     } catch(err) {
 
   console.log("Error While loading/executing command")
   console.log(err)
-  table.addRow(file, `❌ -> Error while loading giveaway event`);
+  array.push({File:file.replace('.js', ''), Status:`❌ -> Error while loading giveaway event`});
     }
   }
 
-   console.log(table.toString());
+   console.table(array);
 }
