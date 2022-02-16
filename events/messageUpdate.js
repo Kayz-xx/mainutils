@@ -1,7 +1,7 @@
 
 module.exports.run = (client, oldMessage, newMessage) => {
 
-   /* let snipes = client.snipes.get(newMessage.channel.id) || []
+    let snipes = client.snipes.get(newMessage.channel.id) || []
 
     snipes.unshift({
         msg: newMessage,
@@ -10,6 +10,6 @@ module.exports.run = (client, oldMessage, newMessage) => {
         type: 'Message Edited'
     })
 
-    client.snipes.set(newMessage.channel.id, snipes)*/
+    client.snipes.set(newMessage.channel.id, snipes)
  
 }
