@@ -1,6 +1,6 @@
 
 module.exports.run = (client, message) => {
-    if(message.author.bot) return;
+//      if(message.author.bot) return;
         let snipes = client.snipes.get(message.channel.id) || []
         if(snipes.size > 1 || snipes.length > 1) {
             snipes = snipes.slice(0, 50)
