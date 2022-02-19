@@ -151,14 +151,16 @@ try {
 		let map = getData.pings.map((x) => {
 			return `<@${x.author}> **-** <t:${Math.round(x.time/1000)}:R> : [Here](${x.url})`
 		})
-		console.log(map)
 		let embed = new Discord.MessageEmbed()
 		.setTitle(`Welcome back, ${message.author.username}`)
 		.setColor("RANDOM")
 		if(getData.pings.length > 0) {
 			embed.setDescription(`You got ${getData.pings.length} pings(s) while you were afk:\n${map.join('\n')}`)
 		}
-		message.reply({embeds: [embed]})
+		message.reply({embeds: [embed]}).then(msg=> {
+			setTimeout(() => msg.delete(), 3000)
+			message.author.send({embeds: [embed]})
+		})
 		await afk.set(message.author.id, message.guild.id)
 		}
 	}
