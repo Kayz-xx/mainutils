@@ -64,7 +64,7 @@ module.exports = {
         mesg = `Congrats, you have all the donation perks`
 
       let embed = new MessageEmbed()
-      .setAuthor(`${target.tag}'s Event Donations`)
+      .setAuthor(`${target.tag}'s 50k Event Donations`)
       .setColor("RANDOM")
       .addField(`Amount Donated in ${message.guild.name}:`, `${formatter.format(coins)} / ${formatter.format(val)} \`(${per.toFixed(2)}%)\`\n_${mesg}_`, true)
       .addField(`Progress`, bar)
