@@ -86,7 +86,7 @@ module.exports.run = async (client, message) => {
 			.addField('Items', `**${number} x ${item}** = **${coins.toLocaleString()}**`, true)
 			message.channel.send({embeds: [embed]})
 	}
-if(message.author.id === '270904126974590976' && message.channel.id === "945352910194229338" && message.embeds[0]?.fields[2].name.includes('Bàbà_yàgà')) {
+if(message.author.id === '270904126974590976' && message.channel.id === "945352910194229338" && message.embeds[0]?.fields[2]?.name.includes('Bàbà_yàgà')) {
 		if(message.embeds[0]?.fields[0]?.name.includes('Shared')) {
 		let ar = message.embeds[0].fields[0].value.split('`')[1]
 		let te = ar.replace('⏣', '')
