@@ -86,6 +86,47 @@ module.exports.run = async (client, message) => {
 			.addField('Items', `**${number} x ${item}** = **${coins.toLocaleString()}**`, true)
 			message.channel.send({embeds: [embed]})
 	}
+if(message.author.id === '270904126974590976' && message.channel.id === "945352910194229338" && message.embeds[0]?.fields[2].name.includes('Bàbà_yàgà')) {
+		if(message.embeds[0]?.fields[0]?.name.includes('Shared')) {
+		let ar = message.embeds[0].fields[0].value.split('`')[1]
+		let te = ar.replace('⏣', '')
+		let user = message.mentions.repliedUser.id
+		if(te.includes(',')) te = te.replace(/,/g, '')
+		let num = Math.trunc(parseInt(te) / 100)
+		if(num < 1) return message.channel.send(`<@${user}>'s entry (${num}) has been invalidated as it does not meet the requirements.`)
+		let data =
+        (await db
+            .ref(`Lottery System/${message.guild.id}/Lottery`)
+            .once('value')
+            .then((snapshot) => snapshot.val())) || [];     
+        data.push({
+			"User": user,
+			"Entries": num
+		})
+		db.ref(`Lottery System/${message.guild.id}/Lottery/`).set(data)
+		let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('Blob Raffle Entry').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Entries:** ${num} `).setFooter('Good Luck').setTimestamp()
+		message.channel.send({embeds: [embed]})
+	} if(message.embeds[0]?.fields[0]?.name.includes('Gifted')) {
+		let ar = message.embeds[0].fields[0].value.split('`')
+		let num = ar[1]
+		let item = ar[2].split('>')[1].trim()
+		let user = message.mentions.repliedUser.id
+		if(num.includes(',')) num = num.replace(/,/g, '')
+		if(item !== 'Pepe Trophy') return message.channel.send(`<@${user}>'s entry (${num}) has been invalidated as it does not meet the requirements.`)
+		let data =
+        (await db
+            .ref(`Lottery System/${message.guild.id}/Lottery`)
+            .once('value')
+            .then((snapshot) => snapshot.val())) || [];     
+        data.push({
+			"User": user,
+			"Entries": num * 8
+		})
+		db.ref(`Lottery System/${message.guild.id}/Lottery/`).set(data)
+		let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('Blob Raffle Entry').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Entries:** ${num*8} `).setFooter('Good Luck').setTimestamp()
+		message.channel.send({embeds: [embed]})
+	}
+}
 try {
 	if(message.author.bot) return;
 	const conditions = ['/', '*', '+', '-']
