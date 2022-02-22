@@ -1,7 +1,7 @@
 const {Permissions, MessageEmbed} = require("discord.js")
 module.exports = {
     name: 'eping',
-    aliases: [''],
+    aliases: [],
     cooldown: 540,
     category: 'Misc',
 
