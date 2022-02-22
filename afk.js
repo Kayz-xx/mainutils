@@ -1,4 +1,4 @@
-const mongo = require('./mongo')
+ const mongo = require('./mongo')
 const schema = require('./schemas/afk-schema')
 
 module.exports.find = async (userId, guildId) => {
