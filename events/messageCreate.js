@@ -92,7 +92,7 @@ if(message.author.id === '270904126974590976' && message.channel.id === "9453529
 		let te = ar.replace('⏣', '')
 		let user = message.mentions.repliedUser.id
 		if(te.includes(',')) te = te.replace(/,/g, '')
-		let num = Math.trunc(parseInt(te) / 100)
+		let num = Math.trunc(parseInt(te) / 5000000)
 		if(num < 1) return message.channel.send(`<@${user}>'s entry (${num}) has been invalidated as it does not meet the requirements.`)
 		let data =
         (await db
