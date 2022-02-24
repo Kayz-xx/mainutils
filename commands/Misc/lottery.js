@@ -9,7 +9,7 @@ const { db } = require('../../firebase');
         array[j] = temp;
     }
 }
-
+let page = 0
 module.exports = {
 	name: 'lotterystart',
 	aliases: ['enter', 'lotterylist', 'lotteryend'],
