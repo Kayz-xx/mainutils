@@ -148,26 +148,133 @@ module.exports = {
                         }) 
                 }
             else {
+                 let first = new MessageButton()
+				.setEmoji('<:fastb:878937208818630706>')
+				.setCustomId('first')
+				.setStyle('SECONDARY');
+
+			let back = new MessageButton()
+				.setEmoji('<:behind:875319719161397248>')
+				.setCustomId('back')
+				.setStyle('SECONDARY');
+
+			let next = new MessageButton()
+				.setEmoji('<:ahead:875319731220017162>')
+				.setCustomId('next')
+				.setStyle('SECONDARY');
+
+			let last = new MessageButton()
+				.setEmoji('<:fasta:878937199578607626>')
+				.setCustomId('last')
+				.setStyle('SECONDARY');
+
+			let del = new MessageButton()
+				.setEmoji('<:Cancel:875313311640616971>')
+				.setCustomId('del')
+				.setStyle('DANGER');
+
+			let row = new MessageActionRow().addComponents(
+				first,
+				back,
+				del,
+				next,
+				last
+			);
+
+
                 let i = 0
                 const newlist = data.map((d) => {
                     return `${i + 1}-${i = i + parseInt(d.Entries)}) <@${d.User}>`
                 })
-                let total = 0
-                data.forEach(d => {
-                    total += parseInt(d.Entries)
-                })
+                
+
+                let pg = newlist.length - 1
                 let data3 =
 				(await db
 					.ref(`Lottery System/${message.guild.id}/Prize`)
 					.once('value')
 					.then((snapshot) => snapshot.val())) || [];
-                let embed = new MessageEmbed()
-                .setTitle(`${data3} Raffle List`)
-                .setColor("RANDOM")
-                .setTimestamp()
-                .setDescription(newlist.join('\n\n'))
-                .setFooter(`Total Entries: ${total}`)
-                message.channel.send({embeds: [embed]})
+
+                const index = 15
+                const generateEmbed = (start) => {
+                    const current = newlist.slice(start, start + index).join(`\n\n`);
+                    const embed = new MessageEmbed()
+                    .setTitle(`${data3} Raffle List`)
+                        .setDescription(current)
+                        .setColor('RANDOM')
+                        .setTimestamp()
+                        .setFooter(`Page ${start / 10} of ${Math.floor(pg / 10)}`);
+    
+                    return embed;
+                };
+
+                const filter = (fn) => fn
+    
+                const msg = await message.channel.send({
+                    embeds: [generateEmbed(0)],
+                    components: [row],
+                });
+
+                const collector = msg.createMessageComponentCollector({
+                    filter,
+                    time: 180000,
+                });
+                
+    
+                collector.on('collect', async (btn) => {
+                    if (btn.customId === 'first') {
+                        page = 0;
+                        btn.update({
+                            embeds: [generateEmbed(page)],
+                            components: [row],
+                        });
+                    }
+                    if (btn.customId === 'back') {
+                        if (page > Math.floor(pg / 15) * 15 || page <= 0) {
+                            return btn.deferUpdate();
+                        } else {
+                            page -= index;
+                            btn.update({
+                                embeds: [generateEmbed(page)],
+                                components: [row],
+                            });
+                        }
+                    }
+                    if (btn.customId === 'next') {
+                        if (page >= Math.floor(pg / 15) * 15 || page < 0) {
+                            return btn.deferUpdate();
+                        } else {
+                            page += index;
+                            btn.update({
+                                embeds: [generateEmbed(page)],
+                                components: [row],
+                            });
+                        }
+                    }
+                    if (btn.customId === 'last') {
+                        page = Math.floor(pg / 15) * 15;
+                        btn.update({
+                            embeds: [generateEmbed(page)],
+                            components: [row],
+                        });
+                    }
+                    if (btn.customId === 'del') {
+                        setTimeout(() => msg.delete(), 500);
+                        collector.stop();
+                    }
+                });
+                collector.on('end', (reason) => {
+                    msg.components[0].components.forEach((com) => {
+                        com.setDisabled(true);
+                        com.setStyle('SECONDARY');
+                    });
+                    let rows2 = new MessageActionRow().addComponents(
+                        msg.components[0].components
+                    );
+                    msg.edit({
+                        components: [rows2],
+                    });
+                });
                 
             }
         } if(cmd  === "lotteryend"){
