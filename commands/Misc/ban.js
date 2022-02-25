@@ -43,7 +43,7 @@
             channel.send({embeds: [embed]})
           } else {
       
-              if(target.roles.cache.position >= message.member.roles.cache.position || message.author.id !== message.guild.ownerId) {
+              if(target.roles.cache.position >= message.member.roles.cache.position || target.id === message.guild.ownerId) {
                 return message.channel.send(`You cannot ban that user due to role hierachy.`)
               }
               
