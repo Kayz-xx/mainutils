@@ -203,7 +203,7 @@ module.exports = {
                         .setDescription(current)
                         .setColor('RANDOM')
                         .setTimestamp()
-                        .setFooter(`Page ${start / 10} of ${Math.floor(pg / 10)}`);
+                        .setFooter(`Page ${start / 15} of ${Math.floor(pg / 15)}`);
     
                     return embed;
                 };
