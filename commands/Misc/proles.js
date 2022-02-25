@@ -38,7 +38,7 @@ module.exports = {
 				buttons.push(
 					new MessageButton()
 						.setStyle('PRIMARY')
-						.setCustomId(ping1[i].role)
+						.setCustomId(`p${ping1[i].role}`)
 						.setLabel(role.name)
 						.setEmoji(ping1[i].emoji)
 				);
