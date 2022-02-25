@@ -2,13 +2,13 @@
 // const { shuffle, sample } = require('lodash');
 // const QuickChart = require('quickchart-js');
 module.exports.run = async (client, interaction) => {
-	// await interaction.deferUpdate()
+	await interaction.deferUpdate()
 	// if (interaction.customId.startsWith('poll')) {
 	// 	const [_, pollID, __, choice] = interaction.customId.split('_');
 	// 	const { user } = interaction;
 	// 	const hasVoted = await polle.hasVoted(pollID, user.id, interaction.guild.id);
 	// 	if (hasVoted === true) {
-	// 		return interaction.reply({
+	// 		return interaction.followUp({
 	// 			embeds: [
 	// 				{
 	// 					title: 'You can only vote once',
@@ -21,7 +21,7 @@ module.exports.run = async (client, interaction) => {
 	// 	}
 
 	// 	await polle.addVote(pollID, user.id, choice, interaction.guild.id);
-	// 	return interaction.reply({
+	// 	return interaction.followUp({
 	// 		embeds: [
 	// 			{
 	// 				description: `You've successfully voted for **poll #${pollID}**`,
@@ -36,7 +36,7 @@ module.exports.run = async (client, interaction) => {
 	// 	const pollID = interaction.customId.split('_')[1];
 	// 	const poll = await polle.get(+pollID, interaction.guild.id);
 	// 	if (poll.user !== interaction.user.id) {
-	// 		return interaction.reply({
+	// 		return interaction.followUp({
 	// 			embeds: [
 	// 				{
 	// 					description:
@@ -142,7 +142,7 @@ module.exports.run = async (client, interaction) => {
 	// 			}
 	// 		]
 	// 	});
-	// 	return interaction.reply({
+	// 	return interaction.followUp({
 	// 		content: `Successfully ended poll **#${pollID}**`,
 	// 		ephemeral: true
 	// 	});
@@ -183,7 +183,7 @@ module.exports.run = async (client, interaction) => {
 			await interaction.member.roles.remove(category);
 		}
 		await interaction.member.roles.add(role);
-		return await interaction.reply({
+		return await interaction.followUp({
 			content: `You got the <@&${role}> role!`,
 			ephemeral: true,
 		});
@@ -194,7 +194,7 @@ module.exports.run = async (client, interaction) => {
 			!interaction.member.roles.cache.has('768840484906729473') &&
 			!interaction.member.roles.cache.has('764885367249174614')
 		)
-			return interaction.reply({
+			return interaction.followUp({
 				content: `You do not qualify for these roles!`,
 				ephemeral: true,
 			});
@@ -209,7 +209,7 @@ module.exports.run = async (client, interaction) => {
 		// 	}
 		// });
 		await interaction.member.roles.add(role);
-		return await interaction.reply({
+		return await interaction.followUp({
 			content: `You got the <@&${role}> role!`,
 			ephemeral: true,
 		});
@@ -241,7 +241,7 @@ module.exports.run = async (client, interaction) => {
 	}
 	if (interaction.customId === 'removeRoles') {
 		await interaction.member.roles.remove(category);
-		return await interaction.reply({
+		return await interaction.followUp({
 			content: `You removed all the roles!`,
 			ephemeral: true,
 		});
@@ -279,7 +279,7 @@ module.exports.run = async (client, interaction) => {
 	}
 	if (interaction.customId === 'removeRoles2') {
 		await interaction.member.roles.remove(roleExclusive);
-		return await interaction.reply({
+		return await interaction.followUp({
 			content: `You removed all the roles!`,
 			ephemeral: true,
 		});
@@ -330,25 +330,25 @@ module.exports.run = async (client, interaction) => {
 	];
 
 	let roles = [
-		'764885367241048064',
-		'827280787228590170',
-		'767787322133184542',
-		'764885367223484484',
+		'p764885367241048064',
+		'p827280787228590170',
+		'p767787322133184542',
+		'p764885367223484484',
 	];
 
 	async function pingRoles(interaction, array) {
 		for (let i = 0; i < array.length; i++) {
 			if (interaction.customId === array[i]) {
-				if (interaction.member.roles.cache.has(array[i])) {
-					await interaction.member.roles.remove(array[i]);
-					return await interaction.reply({
-						content: `You removed the <@&${array[i]}> role!`,
+				if (interaction.member.roles.cache.has(array[i].replace('p', ''))) {
+					await interaction.member.roles.remove(array[i].replace('p', ''));
+					return await interaction.followUp({
+						content: `You removed the <@&${array[i].replace('p', '')}> role!`,
 						ephemeral: true,
 					});
 				} else {
-					await interaction.member.roles.add(array[i]);
-					return await interaction.reply({
-						content: `You got the <@&${array[i]}> role!`,
+					await interaction.member.roles.add(array[i].replace('p', ''));
+					return await interaction.followUp({
+						content: `You got the <@&${array[i].replace('p', '')}> role!`,
 						ephemeral: true,
 					});
 				}
@@ -364,6 +364,7 @@ module.exports.run = async (client, interaction) => {
 	pingRoles(interaction, p2);
 	pingRoles(interaction, p3);
 	pingRoles(interaction, p4);
+	
 
 	pingRoles(interaction, roles);
 };
