@@ -146,7 +146,7 @@ module.exports.run = async (client, interaction) => {
 	// 		ephemeral: true
 	// 	});
 	// }
-	if(interaction.channel.id === '896851166112141312' || interaction.channel.id === '945760941792981072' || interaction.channel.id === '945757610316013638') {
+	if(interaction.channel.id === '945760854136209478' || interaction.channel.id === '945760941792981072' || interaction.channel.id === '945757610316013638') {
 	let role1 = '764885367387586620';
 	let role2 = '764885367378804805';
 	let role3 = '860638310837256234';
@@ -316,19 +316,19 @@ module.exports.run = async (client, interaction) => {
 	];
 
 	async function pingRoles(interaction, array) {
-		for (i of array) {
-			if (interaction.customId === i) {
+		for (let i = 0; i < array.length; i++) {
+			if (interaction.customId === array[i]) {
 				await interaction.deferUpdate()
-				if (interaction.member.roles.cache.has(i)) {
-					await interaction.member.roles.remove(i);
+				if (interaction.member.roles.cache.has(array[i])) {
+					await interaction.member.roles.remove(array[i]);
 					return await interaction.followUp({
-						content: `You removed the <@&${i}> role!`,
+						content: `You removed the <@&${array[i]}> role!`,
 						ephemeral: true,
 					});
 				} else {
-					await interaction.member.roles.add(i);
+					await interaction.member.roles.add(array[i]);
 					return await interaction.followUp({
-						content: `You got the <@&${i}> role!`,
+						content: `You got the <@&${array[i]}> role!`,
 						ephemeral: true,
 					});
 				}
