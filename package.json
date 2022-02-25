@@ -7,7 +7,7 @@
 		"node": "16.9.0"
 	},
 	"scripts": {
- 	 "start": "node --expose-gc index.js"
+		"start": "node --expose-gc index.js"
 	},
 	"keywords": [],
 	"author": "",
@@ -23,6 +23,7 @@
 		"discord-giveaways": "^5.0.1",
 		"discord-tts": "^1.2.0",
 		"discord.js": "^13.5.0",
+		"dotenv": "^16.0.0",
 		"download": "^8.0.0",
 		"express": "^4.17.1",
 		"ffmpeg": "^0.0.4",
