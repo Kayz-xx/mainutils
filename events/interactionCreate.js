@@ -341,9 +341,9 @@ module.exports.run = async (client, interaction) => {
 	];
 
 	async function pingRoles(interaction, array) {
-		await interaction.deferUpdate()
 		for (let i = 0; i < array.length; i++) {
 			if (interaction.customId === array[i]) {
+				await interaction.deferUpdate()
 				if (interaction.member.roles.cache.has(array[i].replace('p', ''))) {
 					await interaction.member.roles.remove(array[i].replace('p', ''));
 					return await interaction.followUp({
