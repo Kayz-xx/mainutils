@@ -146,7 +146,7 @@ module.exports.run = async (client, interaction) => {
 	// 		ephemeral: true
 	// 	});
 	// }
-	if(interaction.channel.id === '945760854136209478' || interaction.channel.id === '945760941792981072' || interaction.channel.id === '945757610316013638') {
+	if(interaction.channel.id === '896851166112141312' || interaction.channel.id === '945760941792981072' || interaction.channel.id === '945757610316013638') {
 	let role1 = '764885367387586620';
 	let role2 = '764885367378804805';
 	let role3 = '860638310837256234';
@@ -289,49 +289,24 @@ module.exports.run = async (client, interaction) => {
 		});
 	}
 
-	let ping1 = [
-		'764885367241048064',
-		'767787322133184542',
-		'774568693522366474',
-		'827280787228590170',
-	];
-
-	let ping2 = [
-		'764885367223484484',
-		'764885367223484483',
-		'860297165846872066',
-		'855638128215195649',
-		'888763947874930749',
-	];
-
-	let ping3 = [
-		'778355810043559976',
-		'914243403070459914',
-		'793676669550329897',
-		'794315002449231893',
-		'767788380351102976',
-	];
-
-	let p1 = ['764885367223484478', '764885367223484479', '764885367223484477'];
-
-	let p2 = ['764885367223484476', '764885367211294759', '764885367211294758'];
-
-	let p3 = [
-		'764885367211294757',
-		'764885367211294756',
-		'764885367211294755',
-		'764885367211294754',
-		'764885367211294753',
-		'764885367211294752',
-	];
-
-	let p4 = [
-		'764885367173677106',
-		'764885367173677105',
-		'771819040372948992',
-		'764885367173677104',
-		'764885367173677103',
-	];
+	let all = [
+		'764885367241048064', '767787322133184542',
+		'774568693522366474', '827280787228590170',
+		'764885367223484484', '764885367223484483',
+		'860297165846872066', '855638128215195649',
+		'888763947874930749', '778355810043559976',
+		'914243403070459914', '793676669550329897',
+		'794315002449231893', '767788380351102976',
+		'764885367223484478', '764885367223484479',
+		'764885367223484477', '764885367223484476',
+		'764885367211294759', '764885367211294758',
+		'764885367211294757', '764885367211294756',
+		'764885367211294755', '764885367211294754',
+		'764885367211294753', '764885367211294752',
+		'764885367173677106', '764885367173677105',
+		'771819040372948992', '764885367173677104',
+		'764885367173677103'
+	  ]
 
 	let roles = [
 		'p764885367241048064',
@@ -341,19 +316,19 @@ module.exports.run = async (client, interaction) => {
 	];
 
 	async function pingRoles(interaction, array) {
-		for (let i = 0; i < array.length; i++) {
-			if (interaction.customId === array[i]) {
+		for (i of array) {
+			if (interaction.customId === i) {
 				await interaction.deferUpdate()
-				if (interaction.member.roles.cache.has(array[i].replace('p', ''))) {
-					await interaction.member.roles.remove(array[i].replace('p', ''));
+				if (interaction.member.roles.cache.has(i)) {
+					await interaction.member.roles.remove(i);
 					return await interaction.followUp({
-						content: `You removed the <@&${array[i].replace('p', '')}> role!`,
+						content: `You removed the <@&${i}> role!`,
 						ephemeral: true,
 					});
 				} else {
-					await interaction.member.roles.add(array[i].replace('p', ''));
+					await interaction.member.roles.add(i);
 					return await interaction.followUp({
-						content: `You got the <@&${array[i].replace('p', '')}> role!`,
+						content: `You got the <@&${i}> role!`,
 						ephemeral: true,
 					});
 				}
@@ -361,16 +336,10 @@ module.exports.run = async (client, interaction) => {
 		}
 	}
 
-	pingRoles(interaction, ping1);
-	pingRoles(interaction, ping2);
-	pingRoles(interaction, ping3);
-
-	pingRoles(interaction, p1);
-	pingRoles(interaction, p2);
-	pingRoles(interaction, p3);
-	pingRoles(interaction, p4);
+	pingRoles(interaction, all);
 	
 
-	pingRoles(interaction, roles);
+	//pingRoles(interaction, roles);
+	//.replace('p', '')
 	}
 };
