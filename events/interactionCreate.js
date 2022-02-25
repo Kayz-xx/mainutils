@@ -146,6 +146,7 @@ module.exports.run = async (client, interaction) => {
 	// 		ephemeral: true
 	// 	});
 	// }
+	if(interaction.channel.id === '945760854136209478' || interaction.channel.id === '945760941792981072' || interaction.channel.id === '945757610316013638') {
 	let role1 = '764885367387586620';
 	let role2 = '764885367378804805';
 	let role3 = '860638310837256234';
@@ -371,4 +372,5 @@ module.exports.run = async (client, interaction) => {
 	
 
 	pingRoles(interaction, roles);
+	}
 };
