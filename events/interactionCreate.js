@@ -329,6 +329,13 @@ module.exports.run = async (client, interaction) => {
 		'764885367173677103',
 	];
 
+	let roles = [
+		'764885367241048064',
+		'827280787228590170',
+		'767787322133184542',
+		'764885367223484484',
+	];
+
 	async function pingRoles(interaction, array) {
 		for (let i = 0; i < array.length; i++) {
 			if (interaction.customId === array[i]) {
@@ -357,4 +364,6 @@ module.exports.run = async (client, interaction) => {
 	pingRoles(interaction, p2);
 	pingRoles(interaction, p3);
 	pingRoles(interaction, p4);
+
+	pingRoles(interaction, roles);
 };
