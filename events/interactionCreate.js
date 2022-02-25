@@ -2,7 +2,6 @@
 // const { shuffle, sample } = require('lodash');
 // const QuickChart = require('quickchart-js');
 module.exports.run = async (client, interaction) => {
-	await interaction.deferUpdate()
 	// if (interaction.customId.startsWith('poll')) {
 	// 	const [_, pollID, __, choice] = interaction.customId.split('_');
 	// 	const { user } = interaction;
@@ -172,6 +171,7 @@ module.exports.run = async (client, interaction) => {
 	];
 
 	async function colorRole(interaction, role) {
+		await interaction.deferUpdate()
 		// await category.forEach((role) => {
 		// 	if (
 		// 		interaction.member.roles.cache.some((r) => role.includes(r.id))
@@ -190,6 +190,7 @@ module.exports.run = async (client, interaction) => {
 	}
 
 	async function EcolorRole(interaction, role) {
+			await interaction.deferUpdate()
 		if (
 			!interaction.member.roles.cache.has('768840484906729473') &&
 			!interaction.member.roles.cache.has('764885367249174614')
@@ -240,6 +241,7 @@ module.exports.run = async (client, interaction) => {
 		colorRole(interaction, role8);
 	}
 	if (interaction.customId === 'removeRoles') {
+		await interaction.deferUpdate()
 		await interaction.member.roles.remove(category);
 		return await interaction.followUp({
 			content: `You removed all the roles!`,
@@ -278,6 +280,7 @@ module.exports.run = async (client, interaction) => {
 		EcolorRole(interaction, roleExclusive[9]);
 	}
 	if (interaction.customId === 'removeRoles2') {
+		await interaction.deferUpdate()
 		await interaction.member.roles.remove(roleExclusive);
 		return await interaction.followUp({
 			content: `You removed all the roles!`,
@@ -337,6 +340,7 @@ module.exports.run = async (client, interaction) => {
 	];
 
 	async function pingRoles(interaction, array) {
+		await interaction.deferUpdate()
 		for (let i = 0; i < array.length; i++) {
 			if (interaction.customId === array[i]) {
 				if (interaction.member.roles.cache.has(array[i].replace('p', ''))) {
