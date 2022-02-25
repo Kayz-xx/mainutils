@@ -179,11 +179,11 @@ module.exports.run = async (client, interaction) => {
 		// 		interaction.member.roles.remove(role);
 		// 	}
 		// });
-		if(interaction.member.roles.cache.hasAny(...(category))){
+		if (interaction.member.roles.cache.hasAny(...category)) {
 			await interaction.member.roles.remove(category);
 		}
 		await interaction.member.roles.add(role);
-		await interaction.reply({
+		return await interaction.reply({
 			content: `You got the <@&${role}> role!`,
 			ephemeral: true,
 		});
@@ -198,7 +198,7 @@ module.exports.run = async (client, interaction) => {
 				content: `You do not qualify for these roles!`,
 				ephemeral: true,
 			});
-		if(interaction.member.roles.cache.hasAny(...(roleExclusive))){
+		if (interaction.member.roles.cache.hasAny(...roleExclusive)) {
 			await interaction.member.roles.remove(roleExclusive);
 		}
 		// await roleExclusive.forEach((role) => {
@@ -209,7 +209,7 @@ module.exports.run = async (client, interaction) => {
 		// 	}
 		// });
 		await interaction.member.roles.add(role);
-		await interaction.reply({
+		return await interaction.reply({
 			content: `You got the <@&${role}> role!`,
 			ephemeral: true,
 		});
@@ -241,7 +241,7 @@ module.exports.run = async (client, interaction) => {
 	}
 	if (interaction.customId === 'removeRoles') {
 		await interaction.member.roles.remove(category);
-		interaction.reply({
+		return await interaction.reply({
 			content: `You removed all the roles!`,
 			ephemeral: true,
 		});
@@ -279,7 +279,7 @@ module.exports.run = async (client, interaction) => {
 	}
 	if (interaction.customId === 'removeRoles2') {
 		await interaction.member.roles.remove(roleExclusive);
-		interaction.reply({
+		return await interaction.reply({
 			content: `You removed all the roles!`,
 			ephemeral: true,
 		});
@@ -341,13 +341,13 @@ module.exports.run = async (client, interaction) => {
 			if (interaction.customId === array[i]) {
 				if (interaction.member.roles.cache.has(array[i])) {
 					await interaction.member.roles.remove(array[i]);
-					await interaction.reply({
+					return await interaction.reply({
 						content: `You removed the <@&${array[i]}> role!`,
 						ephemeral: true,
 					});
 				} else {
 					await interaction.member.roles.add(array[i]);
-					await interaction.reply({
+					return await interaction.reply({
 						content: `You got the <@&${array[i]}> role!`,
 						ephemeral: true,
 					});
