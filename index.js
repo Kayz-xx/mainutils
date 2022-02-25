@@ -1,5 +1,5 @@
 require('dotenv').config();
-const token = process.env.TOKEN;
+const token = process.env.token;
 const discord = require('discord.js');
 
 const { GiveawaysManager } = require('discord-giveaways');
