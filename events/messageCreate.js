@@ -62,8 +62,9 @@ module.exports.run = async (client, message) => {
 				message.channel.send({embeds: [embed]})
 		}
 		let users = ['Bàbà_yàgà', 'amxaa']
-		if(message.author.id === '270904126974590976' && message.channel.id === "942321197155254292" && message.embeds[0]?.fields[0]?.name.includes('Gifted') && users.some(el =>  message.embeds[0]?.fields[2].name.includes(el))) {
-			let ar = message.embeds[0].fields[0].value.split('`')
+		if(message.author.id === '270904126974590976' && message.channel.id === "942321197155254292" && users.some(el =>  message.embeds[0]?.fields[2].name.includes(el))) {
+			if(message.embeds[0]?.fields[0]?.name.includes('Gifted')) {
+				let ar = message.embeds[0].fields[0].value.split('`')
 			let number = ar[1]
 			let item = ar[2].split('>')[1].trim()
 			let user = message.mentions.repliedUser.id
@@ -85,6 +86,18 @@ module.exports.run = async (client, message) => {
 			let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k special donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ${coins} `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
 			.addField('Items', `**${number} x ${item}** = **${coins.toLocaleString()}**`, true)
 			message.channel.send({embeds: [embed]})
+			} if (message.embeds[0]?.fields[0]?.name.includes('Shared')) {
+				let ar = message.embeds[0].fields[0].value.split('`')[1]
+				let te = ar.replace('⏣', '')
+				let user = message.mentions.repliedUser.id
+				if(te.includes(',')) te = te.replace(/,/g, '')
+				let num = parseInt(te)
+				await economy.addCoins(message.guild.id, user, num)
+				await eventdonations.addCoins(message.guild.id, user, num)
+				let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k special donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ${num} `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
+			message.channel.send({embeds: [embed]})
+			}
+			
 	}
 if(message.author.id === '270904126974590976' && message.channel.id === "945352910194229338" && message.embeds[0]?.fields[2]?.name.includes('Bàbà_yàgà')) {
 		if(message.embeds[0]?.fields[0]?.name.includes('Shared')) {
