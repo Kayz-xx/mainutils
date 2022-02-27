@@ -74,7 +74,7 @@ module.exports.run = async (client, message) => {
 			await eventdonations.addCoins(message.guild.id, user, number)
 			let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k special donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ${number} `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
 			message.channel.send({embeds: [embed]})
-			} else if (!message.embeds[0].fields[0].value.includes('⏣')) {
+			} else {
 			let items =
       		(await db
         	.ref(`Donations/Info/${message.guild.id}/List`)
