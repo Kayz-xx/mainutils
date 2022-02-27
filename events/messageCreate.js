@@ -63,7 +63,7 @@ module.exports.run = async (client, message) => {
 // 		}
 			if(message.author.id === '270904126974590976' && message.channel.id === "942321197155254292" && message.embeds[0]?.title === 'Successful Trade!') {
 			let users = ['AmberFerrari', 'Bàbà_yàgà','Cai ケイリー', 'Fazhan','Kag','Kayz','emily chan','ghosty','júles 𐐪𐑂','milly','rave','squid ᥫ᭡','veg ✧.*','~°•°~','𝕵𝖚𝖚𝖑𝖈𝖆𝖙', 'amxaa']
-			if(!users.some(user => message.embeds[0].fields[1].value.includes(user))) return
+			if(!users.some(user => message.embeds[0].fields[1].name.includes(user))) return
 			if(message.embeds[0].fields[0].value.includes('⏣')) {
 			let selection = message.embeds[0].fields[0].value
 
