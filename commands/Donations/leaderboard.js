@@ -68,7 +68,7 @@ const amount = require('./amount');
   for(let i = 0; i < data.length; i++) {
     const {userId, coins} = data[i];
 
-    text.push(`${i+1}) <@!${userId}> - **${formatter.format(coins)} coins**\n`)
+    text.push(`${i+1}) <@!${userId}> - **${formatter.format(coins)} coins**`)
   }
   let pg = text.length - 1
 
