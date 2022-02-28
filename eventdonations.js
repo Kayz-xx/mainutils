@@ -2,7 +2,9 @@
 const mongo = require('./mongo')
 const eventSchema = require('./schemas/event-schema')
 
-const eventcoinsCache = {} // { 'guildId-userId': coins }
+const eventcoinsCache = {
+  coins: 0, cowoncy: 0, tickets: 0
+} // { 'guildId-userId': coins }
 
 module.exports = (client) => {}
 
@@ -40,11 +42,13 @@ module.exports.addCoins = async (guildId, userId, eventcoins, type) => {
 
 
       eventcoinsCache[`${guildId}-${userId}`] = { 
-        coins, cowoncy: eventcowoncy, tickets: eventtickets
+        coins: result.eventcoins, cowoncy: result.eventcowoncy, tickets: result.eventtickets
       }
 
-      return result.eventcoins
-    } catch(error) {
+      if(type == "dank") return result.eventcoins
+      if(type == "owo")  return result.eventcowoncy
+      if(type == "karuta")  return result.eventtickets
+    } finally {
 
     }
   })
@@ -84,11 +88,14 @@ module.exports.removeCoins = async (guildId, userId, eventcoins, type) => {
  
 
       eventcoinsCache[`${guildId}-${userId}`] = { 
-        coins: coins, cowoncy: eventcowoncy, tickets: eventtickets
+        coins: result.eventcoins, cowoncy: result.eventcowoncy, tickets: result.eventtickets
       }
 
-      return result.eventcoins
-    } catch(error) {
+     
+      if(type == "dank") return result.eventcoins
+      if(type == "owo")  return result.eventcowoncy
+      if(type == "karuta")  return result.eventtickets
+    } finally {
 
     }
   })
@@ -132,7 +139,7 @@ module.exports.getCoins = async (guildId, userId) => {
         coins: eventcoins, cowoncy: eventcowoncy, tickets: eventtickets
       }
       return [eventcoins, eventcowoncy, eventtickets]
-    } catch(error) {
+    } finally {
 
     }
   })
