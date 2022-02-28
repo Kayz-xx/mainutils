@@ -126,66 +126,92 @@ module.exports = {
 
 
     if(cmd === 'eventdonoadd'){
-            const mention = message.mentions.users.first()
-            
-            let data2 = await db
-            .ref(`Donations/Info/${message.guild.id}/Settings/Role`)
-            .once("value")
-            .then(snapshot => snapshot.val())|| []
-          db.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
-   
-            
-       	if(!message.member.roles.cache.has(`764885367400693764`) && !message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return message.channel.send({content: 'You cant use this command'})
-         
-            if (!mention) {
-              message.reply({content:'Please tag a user to add the donation to'})
-              return
-            }
-        
-            const eventcoins = args[1]
-            if (isNaN(eventcoins)) {
-              message.reply({content:'Please provide a valid number of coins.'})
-              return
-            }
-            
-        let data5 = await db
-        .ref(`Donations/Info/Events/${message.guild.id}/Event`)
-        .once("value")
-        .then(snapshot => snapshot.val())|| []
-        db.ref(`Donations/Info/Events/${message.guild.id}/Event`)   
+          const mention = message.mentions.users.first();
 
-            const guildId = message.guild.id
-            const userId = mention.id
-        
-            const neweventcoins = await eventdonations.addCoins(guildId, userId, eventcoins)
-            const and = await economy.addCoins(guildId, userId, eventcoins)
+			let data2 =
+				(await db
+					.ref(`Donations/Info/${message.guild.id}/Settings/Role`)
+					.once('value')
+					.then((snapshot) => snapshot.val())) || [];
 
-            let data3 = await db
-    .ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
-    .once("value")
-    .then(snapshot => snapshot.val())|| []
-  db.ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
+			if (
+				!message.member.roles.cache.has(`${data2}`) &&
+				!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)
+			)
+				return message.channel.send({
+					content: 'You cant use this command',
+				}); //replace with staff role id
 
+			if (!mention) {
+				message.reply({
+					content: 'Please tag a user to add the donation to',
+				});
+				return;
+			}
 
+			const type = args[1];
+			let types = ['dank', 'owo', 'karuta'];
+      if (!types.includes(type.toLowerCase())) 
+				return message.reply({
+					content: `Valid types are: ${types.join(', ')}`,
+				});
 
-    message.guild.channels.cache.get(`${data3}`). // replace with donation log channel id 
-    send({embeds: [
-      new Discord.MessageEmbed()
-    .setTitle(`Event - ${data5} Donation Logging`)
-    .setColor("RANDOM")
-    .addFields(
-      { name: 'User', value: `<@${userId}>` },
-      { name: 'Amount Added', value: formatter.format(eventcoins) },
-      { name: 'New Total Amount', value: formatter.format(neweventcoins) },
-    )
-    .addField(`\u200B`,`[Link To CMD](${message.url})`)
-    .setFooter(`Action taken by ${message.author.tag}`)
-    .setTimestamp()
-    ]})
+			const eventcoins = args[2];
+			if (isNaN(eventcoins)) {
+				message.reply({
+					content: 'Please provide a valid number of coins.',
+				});
+				return;
+			}
 
-      message.react('<a:EE_purplecheck:866351693108215849>')
+			let data5 =
+				(await db
+					.ref(`Donations/Info/Events/${message.guild.id}/Event`)
+					.once('value')
+					.then((snapshot) => snapshot.val())) || [];
 
+			const guildId = message.guild.id;
+			const userId = mention.id;
 
+			const neweventcoins = await eventdonations.addCoins(
+				guildId,
+				userId,
+				eventcoins,
+				type
+			);
+			await economy.addCoins(guildId, userId, eventcoins);
+
+			let data3 =
+				(await db
+					.ref(`Donations/Info/${message.guild.id}/Settings/Channel`)
+					.once('value')
+					.then((snapshot) => snapshot.val())) || [];
+
+			message.guild.channels.cache
+				.get(`${data3}`) // replace with donation log channel id
+				.send({
+					embeds: [
+						new Discord.MessageEmbed()
+							.setTitle(`Event - ${data5} Donation Logging`)
+							.setColor('RANDOM')
+							.addFields(
+								{ name: 'User', value: `<@${userId}>` },
+								{
+									name: 'Amount Added',
+									value: formatter.format(eventcoins),
+								},
+								{
+									name: 'New Total Amount',
+									value: formatter.format(neweventcoins),
+								}
+							)
+							.addField(`\u200B`, `[Link To CMD](${message.url})`)
+							.setFooter(`Action taken by ${message.author.tag}`)
+							.setTimestamp(),
+					],
+				});
+
+			message.react('<a:EE_purplecheck:866351693108215849>');
     }     
   },
 }
