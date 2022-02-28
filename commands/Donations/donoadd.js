@@ -1,4 +1,6 @@
 const economy = require('../../economy')
+const economy2 = require('../../karuta')
+const economy3 = require('../../owo')
 const { MessageEmbed } = require('discord.js')
 const Discord = require('discord.js')
 const formatter = new Intl.NumberFormat('en')
@@ -149,9 +151,9 @@ module.exports = {
 				return;
 			}
 
-			const type = args[1];
+			const type = args[1].toLowerCase();
 			let types = ['dank', 'owo', 'karuta'];
-      if (!types.includes(type.toLowerCase())) 
+      			if (!types.includes(type)) 
 				return message.reply({
 					content: `Valid types are: ${types.join(', ')}`,
 				});
@@ -179,7 +181,9 @@ module.exports = {
 				eventcoins,
 				type
 			);
-			await economy.addCoins(guildId, userId, eventcoins);
+			if(type === 'dank') await economy.addCoins(guildId, userId, eventcoins);
+  			if(type === 'karuta') await economy2.addCoins(guildId, userId, eventcoins);
+			if(type === 'owo') await economy3.addCoins(guildId, userId, eventcoins);
 
 			let data3 =
 				(await db
