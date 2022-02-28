@@ -19,7 +19,7 @@ module.exports = {
       const guildId = message.guild.id
       const userId = target.id
   
-      const coins = await eventdonations.getCoins(guildId, userId)
+      const [coins] = await eventdonations.getCoins(guildId, userId)
   
       let check = [250000000, 500000000, 1000000000, 2000000000, 4000000000]
   
