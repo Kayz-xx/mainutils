@@ -12,6 +12,16 @@ const eventSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  eventcowoncy: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  eventtickets: {
+    type: Number,
+    required: true,
+    default: 0
+  },
 })
 
 module.exports = mongoose.model('events', eventSchema)
