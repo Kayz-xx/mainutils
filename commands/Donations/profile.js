@@ -3,7 +3,7 @@ const economy2 = require('../../karuta')
 const economy3 = require('../../economy')
 const { MessageEmbed } = require('discord.js')
 const formatter = new Intl.NumberFormat('en')
-
+const event = require('../../eventdonations')
 module.exports = {
     name: 'profile',
     aliases: ['wcheck', 'kcheck', 'eventprofile'],
