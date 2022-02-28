@@ -1,4 +1,6 @@
 const economy = require('../../economy');
+const economy2 = require('../../karuta')
+const economy3 = require('../../owo')
 const { MessageEmbed } = require('discord.js');
 const formatter = new Intl.NumberFormat('en');
 const { db } = require('../../firebase.js');
@@ -204,7 +206,9 @@ module.exports = {
 				-eventcoins,
 				type
 			);
-			const and = await economy.removeCoins(guildId, userId, -eventcoins)
+			if(type === 'dank') await economy.addCoins(guildId, userId, -eventcoins);
+  			if(type === 'karuta') await economy2.addCoins(guildId, userId, -eventcoins);
+			if(type === 'owo') await economy3.addCoins(guildId, userId, -eventcoins);
 
 			let data3 =
 				(await db
