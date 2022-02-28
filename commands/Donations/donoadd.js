@@ -192,7 +192,7 @@ module.exports = {
 				.send({
 					embeds: [
 						new Discord.MessageEmbed()
-							.setTitle(`Event - ${data5} Donation Logging`)
+							.setTitle(`Event - ${data5} ${type} Donation Logging`)
 							.setColor('RANDOM')
 							.addFields(
 								{ name: 'User', value: `<@${userId}>` },
