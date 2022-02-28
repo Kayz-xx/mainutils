@@ -6,7 +6,7 @@ const formatter = new Intl.NumberFormat('en')
 
 module.exports = {
     name: 'profile',
-    aliases: ['wcheck', 'kcheck'],
+    aliases: ['wcheck', 'kcheck', 'eventprofile'],
     cooldown: '0',
     permissions: [],
     category: 'Donations',
@@ -65,6 +65,19 @@ module.exports = {
         .setAuthor(`${target.tag}'s Donations`)
         .setColor("RANDOM")
         .addField(`Karuta Donation`, `${formatter.format(coins2)} **Tickets** 🎟️`)
+        .setTimestamp()
+        if(che) {
+            embed.setFooter(str)
+        }
+        message.channel.send({embeds: [embed]})
+    }if(cmd === 'eventprofile') {
+        const [coins6, coins5, coins4] = await event.getCoins(guildId, userId)
+        let embed = new MessageEmbed()
+        .setAuthor(`${target.tag}'s 50k Special Donations`)
+        .setColor("RANDOM")
+        .addField(`Dank Donation`, `${formatter.format(coins6)} **Coins** ⏣`)
+        .addField(`Owo Donation`, `${formatter.format(coins5)} **Cowoncy** <:cowoncy:919665528811974667>`)
+        .addField(`Karuta Donation`, `${formatter.format(coins4)} **Tickets** 🎟️`)
         .setTimestamp()
         if(che) {
             embed.setFooter(str)
