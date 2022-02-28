@@ -6,10 +6,15 @@ const eventcoinsCache = {} // { 'guildId-userId': coins }
 
 module.exports = (client) => {}
 
-module.exports.addCoins = async (guildId, userId, eventcoins) => {
+module.exports.addCoins = async (guildId, userId, eventcoins, type) => {
   return await mongo().then(async (mongoose) => {
     try {
 
+      let coins = eventcoins
+      let cowoncy = 0
+      let tickets = 0
+      if(type == "owo") cowoncy = eventcoins
+      if(type == "karuta") tickets = eventcoins
 
       const result = await eventSchema.findOneAndUpdate(
         {
@@ -20,7 +25,9 @@ module.exports.addCoins = async (guildId, userId, eventcoins) => {
           guildId,
           userId,
           $inc: {
-            eventcoins, 
+            eventcoins: coins, 
+            eventcowoncy: cowoncy,
+            eventtickets: tickets
           },
         },
         {
@@ -31,19 +38,26 @@ module.exports.addCoins = async (guildId, userId, eventcoins) => {
 
 
 
-      eventcoinsCache[`${guildId}-${userId}`] = result.eventcoins
+      eventcoinsCache[`${guildId}-${userId}`] = { 
+        coins: eventcoins, cowoncy: eventcowoncy, tickets: eventtickets
+      }
 
       return result.eventcoins
-    } finally {
+    } catch(error) {
 
     }
   })
 }
 
-module.exports.removeCoins = async (guildId, userId, eventcoins) => {
+module.exports.removeCoins = async (guildId, userId, eventcoins, type) => {
   return await mongo().then(async (mongoose) => {
     try {
  
+      let coins = eventcoins
+      let cowoncy = 0
+      let tickets = 0
+      if(type == "owo") cowoncy = eventcoins
+      if(type == "karuta") tickets = eventcoins
 
       const result = await eventSchema.findOneAndUpdate(
         {
@@ -54,7 +68,9 @@ module.exports.removeCoins = async (guildId, userId, eventcoins) => {
           guildId,
           userId,
           $inc: {
-            eventcoins,
+            eventcoins: coins, 
+            eventcowoncy: cowoncy,
+            eventtickets: tickets
           },
         },
         {
@@ -65,10 +81,12 @@ module.exports.removeCoins = async (guildId, userId, eventcoins) => {
 
  
 
-      eventcoinsCache[`${guildId}-${userId}`] = result.eventcoins
+      eventcoinsCache[`${guildId}-${userId}`] = { 
+        coins: eventcoins, cowoncy: eventcowoncy, tickets: eventtickets
+      }
 
       return result.eventcoins
-    } finally {
+    } catch(error) {
 
     }
   })
@@ -77,7 +95,7 @@ module.exports.removeCoins = async (guildId, userId, eventcoins) => {
 module.exports.getCoins = async (guildId, userId) => {
   const cachedValue = eventcoinsCache[`${guildId}-${userId}`]
   if (cachedValue) {
-    return cachedValue
+    return [cachedValue.coins, cachedValue.cowoncy, cachedValue.tickets]
   }
 
   return await mongo().then(async (mongoose) => {
@@ -91,21 +109,28 @@ module.exports.getCoins = async (guildId, userId) => {
 
 
       let eventcoins = 0
+      let eventcowoncy = 0
+      let eventtickets = 0
       if (result) {
         eventcoins = result.eventcoins
+        eventcowoncy = result.eventcowoncy
+        eventtickets = result.eventtickets
       } else {
 
         await new eventSchema({
           guildId,
           userId,
           eventcoins,
+          eventcowoncy,
+          eventtickets 
         }).save()
       }
 
-      eventcoinsCache[`${guildId}-${userId}`] = eventcoins
-
-      return eventcoins
-    } finally {
+      eventcoinsCache[`${guildId}-${userId}`] = { 
+        coins: eventcoins, cowoncy: eventcowoncy, tickets: eventtickets
+      }
+      return [eventcoins, eventcowoncy, eventtickets]
+    } catch(error) {
 
     }
   })
@@ -113,7 +138,7 @@ module.exports.getCoins = async (guildId, userId) => {
 
 module.exports.getDonation = async (guildId, userId) => {
   return await mongo().then(async (mongoose) => {
-        let data = await eventSchema.find({guildId}).sort({eventcoins: -1}).limit(50)
+    let data = await eventSchema.find({guildId}).sort({eventcoins: -1}).limit(50)
     return data
   })
 }
