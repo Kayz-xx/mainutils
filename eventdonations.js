@@ -10,9 +10,10 @@ module.exports.addCoins = async (guildId, userId, eventcoins, type) => {
   return await mongo().then(async (mongoose) => {
     try {
 
-      let coins = eventcoins
+      let coins = 0
       let cowoncy = 0
       let tickets = 0
+      if(type == "dank") coins = eventcoins
       if(type == "owo") cowoncy = eventcoins
       if(type == "karuta") tickets = eventcoins
 
@@ -39,7 +40,7 @@ module.exports.addCoins = async (guildId, userId, eventcoins, type) => {
 
 
       eventcoinsCache[`${guildId}-${userId}`] = { 
-        coins: eventcoins, cowoncy: eventcowoncy, tickets: eventtickets
+        coins, cowoncy: eventcowoncy, tickets: eventtickets
       }
 
       return result.eventcoins
@@ -53,9 +54,10 @@ module.exports.removeCoins = async (guildId, userId, eventcoins, type) => {
   return await mongo().then(async (mongoose) => {
     try {
  
-      let coins = eventcoins
+      let coins = 0
       let cowoncy = 0
       let tickets = 0
+      if(type == "dank") coins = eventcoins
       if(type == "owo") cowoncy = eventcoins
       if(type == "karuta") tickets = eventcoins
 
@@ -82,7 +84,7 @@ module.exports.removeCoins = async (guildId, userId, eventcoins, type) => {
  
 
       eventcoinsCache[`${guildId}-${userId}`] = { 
-        coins: eventcoins, cowoncy: eventcowoncy, tickets: eventtickets
+        coins: coins, cowoncy: eventcowoncy, tickets: eventtickets
       }
 
       return result.eventcoins
