@@ -71,7 +71,7 @@ module.exports.run = async (client, message) => {
 			let user = message.mentions.repliedUser.id
 
 			await economy.addCoins(message.guild.id, user, number)
-			await eventdonations.addCoins(message.guild.id, user, number)
+			await eventdonations.addCoins(message.guild.id, user, number, 'dank')
 			let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k Special Donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** \`${number}\` `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
 			message.channel.send({embeds: [embed]})
 			} else {
@@ -93,7 +93,7 @@ module.exports.run = async (client, message) => {
 			const total = final.item.amount * parseInt(number)
 
 			await economy.addCoins(message.guild.id, user, total)
-			await eventdonations.addCoins(message.guild.id, user, total)
+			await eventdonations.addCoins(message.guild.id, user, total, 'dank')
 			let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k Special Donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ${total} `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
 			.addField(`**__Items__**`, `\`${number}x\` **${item}** = \`${total.toLocaleString()}\``, true)
 			message.channel.send({embeds: [embed]})
