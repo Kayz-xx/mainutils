@@ -109,9 +109,9 @@ function makeEmbed(type, userId, eventcoins, neweventcoins, message) {
 							)
 							.addField(`\u200B`, `[Link To CMD](${message.url})`)
 							.setFooter(`Action taken by ${message.author.tag}`)
-							.setTimestamp(),
+							.setTimestamp()
 
-						  return embed
+   return embed
 }
 
 module.exports = {
