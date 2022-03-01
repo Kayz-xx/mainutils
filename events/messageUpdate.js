@@ -1,17 +1,15 @@
 
 module.exports.run = (client, oldMessage, newMessage) => {
-//     if(newMessage.author.bot) return;
-    let snipes = client.snipes.get(newMessage.channel.id) || []
-    if(snipes.size > 100 || snipes.length > 100) {
-        snipes = snipes.slice(0, 50)
-    }
+    if (newMessage?.author?.bot) return
+    let snipes = client.snipes.get(oldMessage.channel.id) || []
+
     snipes.unshift({
+        oldContent: oldMessage.content,
+        newContent: newMessage.content,
+        editedIn: newMessage.createdAt - oldMessage.editedAt,
         msg: newMessage,
-        image: newMessage.attachments.first()?.proxyURL || null,
-        time: Date.now(),
         type: 'Message Edited'
     })
 
-    client.snipes.set(newMessage.channel.id, snipes)
- 
+    client.snipes.set(oldMessage.channel.id, snipes)
 }
