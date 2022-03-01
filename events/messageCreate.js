@@ -61,9 +61,9 @@ module.exports.run = async (client, message) => {
 // 				let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('Grinders Donation').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ⏣ ${num} `).setFooter('Thank You').setTimestamp()
 // 				message.channel.send({embeds: [embed]})
 // 		}
-			if(message.author.id === '270904126974590976' && message.channel.id === "942321197155254292" && message.embeds[0]?.title === 'Successful Trade!') {
+				if(message.author.id === '270904126974590976' && message.channel.id === "942321197155254292" && message.embeds[0]?.title === 'Successful Trade!') {
 			let users = ['AmberFerrari', 'Bàbà_yàgà','Cai ケイリー', 'Fazhan','Kag','Kayz','emily chan','ghosty','júles 𐐪𐑂','milly','rave','squid ᥫ᭡','veg ✧.*','~°•°~','𝕵𝖚𝖚𝖑𝖈𝖆𝖙', 'amxaa']
-			if(!users.some(user => message.embeds[0].fields[1].name.includes(user))) return
+			if(!users.some(user => message.embeds[0].fields[1].value.includes(user))) return
 			if(message.embeds[0].fields[0].value.includes('⏣')) {
 			let selection = message.embeds[0].fields[0].value
 
@@ -71,10 +71,13 @@ module.exports.run = async (client, message) => {
 			let user = message.mentions.repliedUser.id
 
 			await economy.addCoins(message.guild.id, user, number)
-			await eventdonations.addCoins(message.guild.id, user, number, 'dank')
-			let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k Special Donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** \`${number}\` `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
+			const newcoins = await eventdonations.addCoins(message.guild.id, user, number)
+			let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k special donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ${number} `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
+			let channel = message.guild.channels.cache.get(`805543230473109534`) 
+			let emb = go.makeEmbed('dank', number, newcoins, message)
 			message.channel.send({embeds: [embed]})
-			} else {
+			channel.send({embeds: [emb]})
+			} else if (!message.embeds[0].fields[0].value.includes('⏣')) {
 			let items =
       		(await db
         	.ref(`Donations/Info/${message.guild.id}/List`)
@@ -93,10 +96,13 @@ module.exports.run = async (client, message) => {
 			const total = final.item.amount * parseInt(number)
 
 			await economy.addCoins(message.guild.id, user, total)
-			await eventdonations.addCoins(message.guild.id, user, total, 'dank')
-			let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k Special Donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ${total} `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
-			.addField(`**__Items__**`, `\`${number}x\` **${item}** = \`${total.toLocaleString()}\``, true)
+			const newcoins = await eventdonations.addCoins(message.guild.id, user, total)
+			let embed = new Discord.MessageEmbed().setColor('RANDOM').setTitle('50k special donations').setDescription(`<:replycont:877221297308958761> **User:** <@${user}>\n<:reply:877221312198754355> **Amount:** ${total} `).setFooter('Thank You').setTimestamp().setThumbnail('https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024')
+			.addField('Items', `**${number} x ${item}** = **${total.toLocaleString()}**`, true)
+			let channel = message.guild.channels.cache.get(`805543230473109534`) 
+			let emb = go.makeEmbed('dank', total, newcoins, message)
 			message.channel.send({embeds: [embed]})
+			channel.send({embeds: [emb]})
 			}
 
 	}
