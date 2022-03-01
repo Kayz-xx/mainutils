@@ -391,15 +391,18 @@ module.exports = {
       }
     })
     collector.on('end', async (collected, reason) => {
-        msg.components[0].components.forEach((com) => {
+        if(reason.toUpperCase() === 'TIME') {
+      msg.components[0].components.forEach((com) => {
           com.setDisabled(true);
           com.setStyle('SECONDARY');
         });
         let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
         msg.edit({content: `No one **claimed** the donation proceed **manually**.`, components: [rows2]});
         message.channel.send({content: `<@&${role}>`})
-    })
-  }
+            })
+      }
+
+}
  eventDonation('764885367400693764', message, args, '942321197155254292')
 }
   }
