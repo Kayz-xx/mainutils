@@ -91,8 +91,33 @@ function search(query, items) {
 	return candidates.sort((a, b) => b.similarity - a.similarity)[0];
 }
 
+function makeEmbed(type, userId, eventcoins, neweventcoins, message) {
+		
+						let embed = new Discord.MessageEmbed()
+							.setTitle(`Event - 50k ${type} Donation Logging`)
+							.setColor('RANDOM')
+							.addFields(
+								{ name: 'User', value: `<@${userId}>` },
+								{
+									name: 'Amount Added',
+									value: formatter.format(eventcoins),
+								},
+								{
+									name: 'New Total Amount',
+									value: formatter.format(neweventcoins),
+								}
+							)
+							.addField(`\u200B`, `[Link To CMD](${message.url})`)
+							.setFooter(`Action taken by ${message.author.tag}`)
+							.setTimestamp(),
+
+						  return embed
+}
+
 module.exports = {
 	similarityBetween,
 	editDistance,
 	search,
+	makeEmbed
 };
+
