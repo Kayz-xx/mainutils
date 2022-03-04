@@ -1,7 +1,7 @@
 const { MessageEmbed, MessageButton, MessageActionRow, Permissions } = require('discord.js')
       
-async function donate(role, message, args, channel) {
-  if(message.channel.id !== channel) return;
+async function donate(role, message, args, channelReq) {
+  if(message.channel.id !== channelReq) return;
   if(!message.member.roles.cache.has('764885367160700960')) return;
   setTimeout(() => message.delete(), 100)
   const prize = args[0]
@@ -328,13 +328,7 @@ module.exports = {
           console.log(error)
         }
 }  
- if(cmd === 'wdonate') {
-      try {
-        await donate('872376861018177547', message, args, '913178075808817202')
-        } catch (error) {
-          console.log(error)
-        }
-}   if (cmd === 'edonate') {
+  if (cmd === 'edonate') {
   async function eventDonation(role, message, args, channel) {
     if(message.channel.id !== channel) return;
     if(!message.member.roles.cache.has('764885367160700960')) return;
