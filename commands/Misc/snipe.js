@@ -36,10 +36,10 @@ module.exports = {
 		const snipes = client.snipes.get(message.channel.id);
 		if (!snipes) 
 			return message.reply({content: 'There is nothing to snipe'});
-		let data = snipes
-			.map((snipe, index) => {
-				const { msg, time, image, type } = snipe;
-				return `**${type} by ${msg.author.tag} (<t:${Math.floor(time/1000)}:R>)**\n${msg.content}`;
+		let data = snipes.map((snipe, index) => {
+				const { msg, time, type, oldContent} = snipe;
+				if(type === 'Message Deleted') return `**${type} by ${msg.author.tag} (<t:${Math.floor(time/1000)}:R>)**\n${msg.content}`;
+				else return `**${type} by ${msg.author.tag} (<t:${Math.floor(time/1000)}:R>)**\n${oldContent}`;
 			})
 		data = data.slice(0, 10)
 		let embed = new MessageEmbed()
