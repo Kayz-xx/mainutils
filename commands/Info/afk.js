@@ -10,10 +10,10 @@ module.exports = {
     cooldown: '0',
     permissions: [],
     category: 'Misc',
-    ownerOnly: true,
 
   
     async execute(client, message, cmd,  args) {
+        if(!message.member.roles.cache.has('851263668595326976') && !message.member.roles.cache.has('800814702800142337') && !message.member.roles.cache.has('926436979204292609') && !message.member.roles.cache.has('878635281241227344')) return;
         const reason = args.join(" ") || 'AFK'
        
         let data = await afk.find(message.author.id, message.guild.id)

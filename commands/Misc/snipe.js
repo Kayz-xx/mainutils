@@ -7,8 +7,8 @@ module.exports = {
 	cooldown: '0',
 	permissions: [],
 	category: 'Misc',
-	ownerOnly: true,
 	async execute(client, message, cmd, args) {
+		if(!message.member.roles.cache.has('935582622460043345') && !message.member.roles.cache.has('937763384017973290') && !message.member.roles.cache.has('935582622460043345') && !message.member.roles.cache.has('878635281241227344')) return;
 		if(cmd === 'snipe') {
 		let snipes = client.snipes.get(message.channel.id);
 		if(snipes) snipes = snipes.filter(x => x.type === 'Message Deleted')
