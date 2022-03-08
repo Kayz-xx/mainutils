@@ -8,6 +8,7 @@ module.exports.run = (client, oldMessage, newMessage) => {
         newContent: newMessage.content,
         editedIn: newMessage.createdAt - oldMessage.editedAt,
         msg: newMessage,
+        time: oldMessage.createdAt,
         type: 'Message Edited'
     })
 
