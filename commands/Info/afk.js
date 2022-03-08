@@ -17,8 +17,10 @@ module.exports = {
         const reason = args.join(" ") || 'AFK'
        
         let data = await afk.find(message.author.id, message.guild.id)
+        if(data) {
+                 if(Math.round(Date.now()/1000) - data?.timestamp < 30) return message.reply({ content: `A little too quick there.`, allowedMentions: { repliedUser: false }})
+        }
         if(!data || data.AFK === false) {
-            if(Math.round(Date.now()/1000) - data.timestamp < 30) return message.reply({ content: `A little too quick there.`, allowedMentions: { repliedUser: false }})
             data = await afk.create(message.author.id, message.guild.id, true, reason, Math.round(Date.now()/1000))
             try {
             let embed = new MessageEmbed()
