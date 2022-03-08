@@ -13,7 +13,7 @@ module.exports = {
 
   
     async execute(client, message, cmd,  args) {
-        if(!message.member.roles.cache.has('851263668595326976') && !message.member.roles.cache.has('800814702800142337') && !message.member.roles.cache.has('926436979204292609') && !message.member.roles.cache.has('878635281241227344')) return;
+        if(!message.member.roles.cache.has('851263668595326976') && !message.member.roles.cache.has('800814702800142337') && !message.member.roles.cache.has('926436979204292609') && !message.member.roles.cache.has('878635281241227344') && !message.member.roles.cache.has('937763384017973290')) return;
         const reason = args.join(" ") || 'AFK'
        
         let data = await afk.find(message.author.id, message.guild.id)
