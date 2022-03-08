@@ -191,7 +191,7 @@ try {
 	const mentionedMember = message.mentions.members.first()
 	if (mentionedMember && !message.author.bot) {
 		const ping = await afk.find(mentionedMember.id, message.guild.id)
-		if(ping && ping.AFK === true) {
+		if(ping && ping?.AFK === true) {
 			if(message.author.id === ping.userId) return;
 			const {timestamp, reason} = ping
 			await afk.push(ping.userId, ping.guildId, message.url, message.author.id, message.createdTimestamp)
@@ -220,8 +220,8 @@ try {
 		}
 		message.reply({embeds: [embed]}).then(msg=> {
 			setTimeout(() => msg.delete(), 3000)
-			message.author.send({embeds: [embed]})
 		})
+		message.author.send({embeds: [embed]})
 		await afk.set(message.author.id, message.guild.id)
 		}
 	}
