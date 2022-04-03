@@ -322,7 +322,7 @@ function search(query) {
 				noWinnerMessage: 'Giveaway cancelled, no valid participations.',
 				hostedBy: `Hosted by: ${host}${str}${donormsg}`,
 				winMessage:
-					"Congratulations, {winners}! You have won the **{this.prize}** giveaway! Make sure to wait at least 12 hours before DMing the host for the prize. You'll get rerolled if you DM before 12 hours. \n{this.messageURL}",
+					"Congratulations, {winners}! You have won the **{this.prize}** giveaway! Make sure to DM the host within 12 hours to trade for the prize. You'll get rerolled if you DM after 12 hours. \n{this.messageURL}",
 				winners: 'Winners: ',
 				endedAt: 'Ended at',
 				embedFooter: {
