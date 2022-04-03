@@ -61,9 +61,9 @@ module.exports = {
 		collector.on('collect', (btn) => {
 			if (btn.customId == 'stats') {
                 btn.deferUpdate()
-                let found = heistMessages.replace(/```/g, '').split('\n').find(x => x === interaction.user.username)
+                let found = heistMessages.replace(/```/g, '').split('\n').find(x => x === btn.user.username)
                 let embed = new MessageEmbed()
-                .setTitle(`Heist stats for ${interaction.user.tag}`)
+                .setTitle(`Heist stats for ${btn.user.tag}`)
                 .setColor('RANDOM')
                 .setDescription(`\`\`\`${found}\`\`\``)
                 if(!found) embed.setDescription('Could not find your results in this heist.')
