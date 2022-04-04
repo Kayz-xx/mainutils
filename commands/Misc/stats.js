@@ -29,6 +29,7 @@ module.exports = {
 //         }
 	function heistStatistics(string, message) {
 	    let array = string.replace(/```/g, '').split('\n')
+	    if(!array) return
 	    let usersDead = array.filter(x => x[0] === '-').length
 	    let usersFined = array.filter(x => x[0] === '#')
 	    let usersHeisted = array.filter(x => x[0] === '+')
@@ -49,7 +50,7 @@ module.exports = {
 		const messageId = args[0]
         let firstMessage = await message.channel.messages.fetch(messageId)
         let heistMessages = await message.channel.messages.fetch({after: messageId})
-        heistMessages = heistMessages.filter(x => x.author.id === '270904126974590976'&& x.createdTimestamp > new Date().getTime() - 300000)
+        heistMessages = heistMessages.filter(x => x.author.id === '270904126974590976' && x.createdTimestamp > new Date().getTime() - 300000)
         if(!heistMessages) return;
         heistMessages.forEach(x => {
             heistMessages += `${x.content}\n`
