@@ -7,27 +7,45 @@ module.exports = {
 	cooldown: '0',
 	permissions: [],
 	category: 'Misc',
-	ownerOnly: true,
 	async execute(client, message, cmd, args) {
-        function heistStatistics(string, message) {
-            let array = string.replace(/```/g, '').split('\n')
-            let usersDead = array.filter(x => x[0] === '-').length
-            let usersFined = array.filter(x => x[0] === '#')
-            let usersHeisted = array.filter(x => x[0] === '+')
+//         function heistStatistics(string, message) {
+//             let array = string.replace(/```/g, '').split('\n')
+//             let usersDead = array.filter(x => x[0] === '-').length
+//             let usersFined = array.filter(x => x[0] === '#')
+//             let usersHeisted = array.filter(x => x[0] === '+')
         
-            let highestFine = usersFined.map(el => el.replace(/,/g, '').match(/⏣ \d+/)).reduce((a, b) => (parseInt(a[0].replace(/⏣ /, '')) > parseInt(b[0].replace(/⏣ /, '')) ? a : b)).input
+//             let highestFine = usersFined.map(el => el.replace(/,/g, '').match(/⏣ \d+/)).reduce((a, b) => (parseInt(a[0].replace(/⏣ /, '')) > parseInt(b[0].replace(/⏣ /, '')) ? a : b)).input
             
-            let heistAmount = parseInt(message.replace(/⏣|,/g, '').split('`')[1])
+//             let heistAmount = parseInt(message.replace(/⏣|,/g, '').split('`')[1])
         
-            let heistValue = parseInt(usersHeisted[0].replace(/,/g, '').match(/\d+/)[0])
+//             let heistValue = parseInt(usersHeisted[0].replace(/,/g, '').match(/\d+/)[0])
         
-            let fineValue = 0
-            usersFined.map(el => {
-                fineValue += parseInt(el.replace(/,/g, '').match(/\d+/)[0])
-            })
-            let averageValue = Math.round(fineValue/ usersFined.length)
-            return [usersDead, usersFined.length, usersHeisted.length, highestFine, heistAmount, heistValue, fineValue, averageValue]
-        }
+//             let fineValue = 0
+//             usersFined.map(el => {
+//                 fineValue += parseInt(el.replace(/,/g, '').match(/\d+/)[0])
+//             })
+//             let averageValue = Math.round(fineValue/ usersFined.length)
+//             return [usersDead, usersFined.length, usersHeisted.length, highestFine, heistAmount, heistValue, fineValue, averageValue]
+//         }
+	function heistStatistics(string, message) {
+	    let array = string.replace(/```/g, '').split('\n')
+	    let usersDead = array.filter(x => x[0] === '-').length
+	    let usersFined = array.filter(x => x[0] === '#')
+	    let usersHeisted = array.filter(x => x[0] === '+')
+
+	    let highestFine = Math.max.apply(null, usersFined.map(x => x.match(/\s\b\d[\d,.]*\b/g).map(e => e.replace(/,/g, ''))));
+
+	    let heistAmount = Number(message.match(/\W\b\d[\d,.]*\b/g)[0].replace(/`|,/g, ''))
+
+	    let heistValue =  Number(usersHeisted[0].match(/\s\b\d[\d,.]*\b/g)[0].replace(/,/g, ''))
+
+	    let fineValue = 0
+	    usersFined.map(m => {
+		fineValue +=  Number(m.match(/\s\b\d[\d,.]*\b/g)[0].replace(/,/g, ''))
+	    })
+	    let averageValue = Math.round(fineValue / usersFined.length)
+	    return [usersDead, usersFined.length, usersHeisted.length, highestFine, heistAmount, heistValue, fineValue, averageValue]
+	}
 		const messageId = args[0]
         let firstMessage = await message.channel.messages.fetch(messageId)
         let heistMessages = await message.channel.messages.fetch({after: messageId})
