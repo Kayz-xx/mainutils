@@ -9,7 +9,6 @@ module.exports = {
     if(message.channel.id === '764885370391232575' || message.channel.id === '919688997637341264') return;
      if(cmd === 'fping'){
       if(message.guild.id === "764885367160700958") {
-         console.log(!message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES))
         if(!message.member.roles.cache.some(x => x.id === '792799102140022785') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return 
       setTimeout(() => message.delete(), 100)
       const msg = args.slice(0).join(' ');
@@ -42,7 +41,7 @@ module.exports = {
       }
        if(cmd === 'partnership'){
         if(message.guild.id === "764885367160700958") {
-        if(message.channel.id !== "764885368268390409" && message.channel.id !== "824695516302409778" && message.channel.id !== "901775820136280084") return;
+        if(message.channel.id !== "764885368268390409" && message.channel.id !== "824695516302409778" && message.channel.id !== "901775820136280084" && message.channel.id !== "910877504439455784") return;
         if(!message.member.roles.cache.some(x => x.id === '764885367316021317') && !message.member.roles.cache.some(x => x.id === '764885367400693764') && !message.member.roles.cache.some(x => x.id === '830141764479877151') && !message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) return ;
         setTimeout(() => message.delete(), 100)
         const msg = args.slice(0).join(' ');
