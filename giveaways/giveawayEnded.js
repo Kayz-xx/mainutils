@@ -28,7 +28,7 @@ module.exports.run = async (client, giveaway, winners) => {
 	win = win.replace(/,(?=[^,]*$)/, ' and')
 	let embed2 = new MessageEmbed()
 		.setTitle('Your giveaway ended!')
-		.setDescription(`Your winners are ${desc}\nMake sure to do payouts soon <:EE_Dogangry:869338671030104064>,\nIf the winners DM you/contact support before the 12 hours are up you can reroll them.`)
+		.setDescription(`Your winners are ${desc}\nMake sure to do payouts soon <:EE_Dogangry:869338671030104064>.\nIf the winners don’t DM you/contact support in first 12 hours after the giveaway ends you can reroll them.`)
 		.addField('Giveaway', `[${giveaway.prize}](${giveaway.messageURL})`)
 		.addField('Winner ID\'s', `\`${win}\``)
 		.setColor('FFA0A0')
@@ -42,7 +42,7 @@ module.exports.run = async (client, giveaway, winners) => {
 		let embed = new MessageEmbed()
 			.setTitle('You won a giveaway!')
 			.setDescription(
-				`Congratulations! You just won a giveaway in ${guild.name} <a:nya6:883810109539635272>!\n\n Please do DM the host for your payout. If you DM the host or contact support after 12 hours, you will get rerolled.`
+				`Congratulations! You just won a giveaway in ${guild.name}! <:EE_PepeCute:768253104872357949>\nPlease wait patiently to receive your payout.\nPlease DM the host within 12 hours after the giveaway ended to receive your prize, if not you will be rerolled. <:EE_WorryFrogThatsRight:866048814859026472>`
 			)
 			.setColor('B5FFD9')
 			.addField(
