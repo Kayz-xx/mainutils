@@ -40,7 +40,7 @@ module.exports = {
            winnerCount: winner,
            messages: {
             error: 'Not enough participants, giveaway cannot be rerolled.',
-            congrat: 'Congratulations {winners}! You have won the reroll for the **{this.prize}** giveaway! Make sure to wait at least 12 hours before DMing the host for the prize. You\'ll get rerolled if you DM before 12 hours. \n{this.messageURL}'
+            congrat: 'Congratulations {winners}! You have won the reroll for the **{this.prize}** giveaway! Make sure to DM the host within the first 12 to receive your prize. <a:EE_yqb_happy:860982001863622667> You\'ll get rerolled if you do not DM within the first 12 hours. \n{this.messageURL}'
            }
        })
         .then(() => {
