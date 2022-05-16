@@ -179,7 +179,7 @@
 										embeds: [
 											{
 												description:
-													'Do you want to send you application?',
+													'Do you want to send your application?',
 												color: '#77ACF1',
 											},
 										],
