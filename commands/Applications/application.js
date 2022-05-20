@@ -73,7 +73,7 @@
 									`Apply For ${data.Name}: ${message.author.tag}`
 								)
 								.setColor('#0099ff')
-								.setDescription(data.Description),
+								.setDescription(data?.Description || `None`),
 						],
 					});
 					const btn1 = new MessageButton()
