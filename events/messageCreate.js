@@ -318,23 +318,24 @@ module.exports.run = async (client, message) => {
 				() => time_stamps.delete(message.author.id),
 				cooldown_amount,
 			);
-		} else {
-			const ping = await custom.findOne({
-				guildId: message.guild.id,
-				name: cmd,
-			});
-			if (!ping) return;
-			if (
-				!ping.roles.some((x) => message.member.roles.cache.has(x)) &&
-				!ping.channels.some((x) => message.channel.id === x)
-			)
-				return;
-			message.channel.send({
-				content: `<@&${ping.role}> ${args.slice(0).join(' ')} **- ${
-					message.author.tag
-				}**`,
-			});
 		}
+		// } else {
+		// 	const ping = await custom.findOne({
+		// 		guildId: message.guild.id,
+		// 		name: cmd,
+		// 	});
+		// 	if (!ping) return;
+		// 	if (
+		// 		!ping.roles.some((x) => message.member.roles.cache.has(x)) &&
+		// 		!ping.channels.some((x) => message.channel.id === x)
+		// 	)
+		// 		return;
+		// 	message.channel.send({
+		// 		content: `<@&${ping.role}> ${args.slice(0).join(' ')} **- ${
+		// 			message.author.tag
+		// 		}**`,
+		// 	});
+		// }
 
 		if (command) {
 			if (command.ownerOnly) {
