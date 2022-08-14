@@ -4,8 +4,8 @@ const cooldowns = new Map();
 const Discord = require('discord.js');
 const afk = require('../afk');
 const math = require('mathjs');
-const { db } = require('../firebase');
-const custom = require('../schemas/ping-schema');
+// const { db } = require('../firebase');
+// const custom = require('../schemas/ping-schema');
 const ar = require('../autoResponse');
 module.exports.run = async (client, message) => {
 	/*if(message.author.id === '491933949686448138') {
@@ -166,7 +166,7 @@ module.exports.run = async (client, message) => {
 			let check = /\d/.test(ms);
 			if (check && operators.some((el) => ms.includes(el))) {
 				let num = math.evaluate(ms);
-				// if (isNaN(num)) return;
+				if (isNaN(num)) return;
 				message.react('✔');
 				const filter = (reaction, user) => {
 					return user.bot === false;
