@@ -28,7 +28,7 @@
 			let newdata = Object.values(data2);
 			let exampleEmbed = new Discord.MessageEmbed()
 				.setColor('#0099ff')
-				.setTitle('Positions Availible');
+				.setTitle('Positions Available');
 	
 			for (let i = 0; i < newdata.length; i++) {
 				exampleEmbed.addField(
@@ -73,7 +73,7 @@
 									`Apply For ${data.Name}: ${message.author.tag}`
 								)
 								.setColor('#0099ff')
-								.setDescription(data.Description),
+								.setDescription(data?.Description || `None`),
 						],
 					});
 					const btn1 = new MessageButton()
@@ -179,7 +179,7 @@
 										embeds: [
 											{
 												description:
-													'Do you want to send you application?',
+													'Do you want to send your application?',
 												color: '#77ACF1',
 											},
 										],
