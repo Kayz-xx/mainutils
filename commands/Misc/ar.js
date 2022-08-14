@@ -84,7 +84,7 @@ module.exports = {
 				});
 		}
 		if (cmd === 'arlist') {
-			const id = mention.replace(/[<>@!]/g, '');
+			const id = args[0].replace(/[<>@!]/g, '');
 			const user = (await client.users.cache.get(id)) || message.author;
 			if (!user) return;
 			let list = await arManager.listAr(message.guild.id, user.id);
