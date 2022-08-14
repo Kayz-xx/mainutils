@@ -166,7 +166,7 @@ module.exports.run = async (client, message) => {
 			let check = /\d/.test(ms);
 			if (check && operators.some((el) => ms.includes(el))) {
 				let num = math.evaluate(ms);
-				if (isNaN(num)) return;
+				// if (isNaN(num)) return;
 				message.react('✔');
 				const filter = (reaction, user) => {
 					return user.bot === false;
@@ -245,33 +245,28 @@ module.exports.run = async (client, message) => {
 			}
 		}
 		const prefix = config.prefix;
-		if (!message.content.startsWith(prefix)) {
-			const arResult = await ar.checkAr(message.guild.id);
-			if (arResult.length > 0) {
-				for (let i = 0; i < arResult.length; i++) {
-					let arCheck = arResult[i];
-					let checkStr = arCheck.trigger;
-					let regex = new RegExp(`\\b${checkStr}\\b`, 'gm');
-					if (regex.test(message.content)) {
-						if (
-							arCheck.ignoredChannels.includes(
-								message.channel.id,
-							) ||
-							arCheck.ignoredMembers.includes(message.author.id)
-						)
-							return;
-						// if(message.author.id === arCheck.userId) return;
-						if (arCheck.type === 'react') {
-							message.react(arCheck.response);
-						} else {
-							message.channel.send(arCheck.response);
-						}
+		if (!message.content.startsWith(prefix) || message.author.bot) return;
+		const arResult = await ar.checkAr(message.guild.id);
+		if (arResult.length > 0) {
+			for (let i = 0; i < arResult.length; i++) {
+				let arCheck = arResult[i];
+				let checkStr = arCheck.trigger;
+				let regex = new RegExp(`\\b${checkStr}\\b`, 'gm');
+				if (regex.test(message.content)) {
+					if (
+						arCheck.ignoredChannels.includes(message.channel.id) ||
+						arCheck.ignoredMembers.includes(message.author.id)
+					)
+						return;
+					// if(message.author.id === arCheck.userId) return;
+					if (arCheck.type === 'react') {
+						message.react(arCheck.response);
+					} else {
+						message.channel.send(arCheck.response);
 					}
 				}
 			}
 		}
-
-		if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 		const args = message.content.slice(prefix.length).split(/ +/);
 		const cmd = args.shift().toLowerCase();
