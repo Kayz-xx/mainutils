@@ -5,7 +5,6 @@ module.exports.addAr = async (guildId, userId, type, string, response) => {
 	return await mongo().then(async (mongoose) => {
 		let result = await schema.findOne({
 			guildId,
-			userId,
 			trigger: string,
 		});
 		if (result) return false;
