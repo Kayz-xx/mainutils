@@ -38,6 +38,7 @@ module.exports = {
 				// 	return message.channel.send({
 				// 		content: 'Not a valid emoji.',
 				// 	});
+				response = args[2]
 				try {
 					await message.react(response);
 				} catch (err) {
@@ -84,8 +85,10 @@ module.exports = {
 				});
 		}
 		if (cmd === 'arlist') {
-			const id = args[0].replace(/[<>@!]/g, '');
-			const user = (await client.users.cache.get(id)) || message.author;
+			const user =
+				client.users.cache.find(args[0]) ||
+				message.mentions.users.first() ||
+				message.author;
 			if (!user) return;
 			let list = await arManager.listAr(message.guild.id, user.id);
 			if (list.length === 0)

@@ -31,7 +31,6 @@ module.exports.removeAr = async (guildId, userId, trigger) => {
 	return await mongo().then(async (mongoose) => {
 		const result = await schema.deleteOne({
 			guildId,
-			userId,
 			trigger,
 		})
 		if (result.deletedCount === 1) return true ;
