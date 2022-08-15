@@ -111,7 +111,7 @@ module.exports = {
 		}
 		if (cmd === 'arignore') {
 			let ids = args[0].split(',');
-			let ignoredChannels,
+			let ignoredChannels = [],
 				ignoredMembers = [];
 			if (!ids)
 				return message.channel.send({
@@ -145,7 +145,7 @@ module.exports = {
 		}
 		if (cmd === 'arunignore') {
 			let ids = args[0].split(',');
-			let ignoredChannels,
+			let ignoredChannels = [],
 				ignoredMembers = [];
 			if (!ids)
 				return message.channel.send({
