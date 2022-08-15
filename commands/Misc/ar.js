@@ -86,7 +86,7 @@ module.exports = {
 		}
 		if (cmd === 'arlist') {
 			const user =
-				client.users.cache.find(args[0]) ||
+				client.users.cache.get(args[0]) ||
 				message.mentions.users.first() ||
 				message.author;
 			if (!user) return;
