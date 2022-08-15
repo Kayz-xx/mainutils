@@ -251,7 +251,7 @@ module.exports.run = async (client, message) => {
 				for (let i = 0; i < arResult.length; i++) {
 					let arCheck = arResult[i];
 					let checkStr = arCheck.trigger;
-					let regex = new RegExp(`\\b${checkStr}\\b`, 'gm');
+					let regex = new RegExp(`\\b${checkStr}\\b`, 'igm');
 					if (regex.test(message.content)) {
 						if (
 							arCheck.ignoredChannels.includes(
