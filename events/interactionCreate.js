@@ -194,7 +194,7 @@ module.exports.run = async (client, interaction) => {
 			await interaction.deferUpdate()
 		if (
 			!interaction.member.roles.cache.has('768840484906729473') &&
-			!interaction.member.roles.cache.has('764885367249174614') &&
+			!interaction.member.roles.cache.has('764885367249174615') &&
 			!interaction.member.roles.cache.has('792500623462629386')
 		)
 			return interaction.followUp({

@@ -2,7 +2,7 @@ const {db} = require('../../firebase')
 const DiscordJS = require('discord.js')
 const {Permissions} = require('discord.js')
 module.exports = {
-    name: 'role',
+    name: 'autorole',
     aliases: ['setautorole'],
     cooldown: '0',
     permissions: [],
