@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const reqString = {
   type: String,
   required: true,
-}
+};
 
 const eventSchema = mongoose.Schema({
   guildId: reqString,
@@ -15,13 +15,13 @@ const eventSchema = mongoose.Schema({
   eventcowoncy: {
     type: Number,
     required: true,
-    default: 0
+    default: 0,
   },
   eventtickets: {
     type: Number,
     required: true,
-    default: 0
+    default: 0,
   },
-})
+});
 
-module.exports = mongoose.model('events', eventSchema)
+module.exports = mongoose.model("events", eventSchema);

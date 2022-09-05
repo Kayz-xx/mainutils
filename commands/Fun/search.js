@@ -1,218 +1,220 @@
-const { MessageEmbed } = require('discord.js');
-const { MessageActionRow, MessageButton } = require('discord.js');
-const ms = require('parse-ms');
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 
 module.exports = {
-	name: 'search',
-	category: 'fun',
+  name: "search",
+  category: "fun",
 
-	description: 'A game of searching items!',
-	async execute(client, message, cmd, args) {
-		const user = message.member;
+  description: "A game of searching items!",
+  async execute(client, message, cmd, args) {
+    const user = message.member;
 
-		const locations = [
-			'car',
-			'sock',
-			'wallet',
-			'box',
-			'pocket',
-			'bus',
-			'park',
-			'train',
-			'lounge',
-			'keyboard',
-			'bathroom',
-			'bed',
-			'sofa',
-			'backpack',
-			'laptop',
-			'sewer',
-			'pantry',
-			'shoe',
-			'tree',
-			'air',
-			'street',
-			'attic',
-			'grass',
-			'bus',
-		];
-		let location = locations
-			.sort(() => Math.random() - Math.random())
-			.slice(0, 3);
+    const locations = [
+      "car",
+      "sock",
+      "wallet",
+      "box",
+      "pocket",
+      "bus",
+      "park",
+      "train",
+      "lounge",
+      "keyboard",
+      "bathroom",
+      "bed",
+      "sofa",
+      "backpack",
+      "laptop",
+      "sewer",
+      "pantry",
+      "shoe",
+      "tree",
+      "air",
+      "street",
+      "attic",
+      "grass",
+      "bus",
+    ];
+    let location = locations
+      .sort(() => Math.random() - Math.random())
+      .slice(0, 3);
 
-		let items = [
-			`🍔 Amxaa's burger`,
-			`😸 Teanal's cat girl`,
-			`:potted_plant: Emil's weed`,
-			`Pentaion's ice cream`,
-			`Squid's janitor`,
-			`vee's pikachu`,
-			`<:laptop:775773370193150012> Kayz's laptop`,
-			`Ghosty's chicken`,
-			`<:phone:775771423926124614> Baba's Phone`,
-			`Manda's purse`,
-			`🍔 Amxaa's burger`,
-			`😸 Teanal's cat girl`,
-			`:potted_plant: Emil's weed`,
-			`Squid's janitor`,
-			`vee's pikachu`,
-			`Pentaion's ice cream`,
-			`<:laptop:775773370193150012> Kayz's laptop`,
-			`Ghosty's chicken`,
-			`<:phone:775771423926124614> Baba's Phone`,
-			`Manda's purse`,
-			`🍔 Amxaa's burger`,
-			`😸 Teanal's cat girl`,
-			`:potted_plant: Emil's weed`,
-			`Squid's janitor`,
-			`vee's pikachu`,
-			`Pentaion's ice cream`,
-			`<:laptop:775773370193150012> Kayz's laptop`,
-			`Ghosty's chicken`,
-			`<:phone:775771423926124614> Baba's Phone`,
-			`Manda's purse`,
-			`🍔 Amxaa's burger`,
-			`😸 Teanal's cat girl`,
-			`:potted_plant: Emil's weed`,
-			`Squid's janitor`,
-				`vee's pikachu`,
-			`Pentaion's ice cream`,
-			`<:laptop:775773370193150012> Kayz's laptop`,
-			`Ghosty's chicken`,
-			`<:phone:775771423926124614> Baba's Phone`,
-			`Manda's purse`,
-			`🍔 Amxaa's burger`,
-			`😸 Teanal's cat girl`,
-			`:potted_plant: Emil's weed`,
-			`Squid's janitor`,
-			`<:laptop:775773370193150012> Kayz's laptop`,
-			`Ghosty's chicken`,
-			`<:phone:775771423926124614> Baba's Phone`,
-			`Manda's purse`,
-			`🍔 Amxaa's burger`,
-			`😸 Teanal's cat girl`,
-			`:potted_plant: Emil's weed`,
-			`Squid's janitor`,
-	`vee's pikachu`,
-			`Pentaion's ice cream`,
-			`<:laptop:775773370193150012> Kayz's laptop`,
-			`Ghosty's chicken`,
-			`<:phone:775771423926124614> Baba's Phone`,
-			`Manda's purse`,	
-			`:bank: Axe's Bank`,
-			`:bank: Axe's Bank`,
-		];
-		const amount = items[Math.floor(Math.random() * items.length)];
-		const amount1 = items[Math.floor(Math.random() * items.length)];
-		const amount2 = items[Math.floor(Math.random() * items.length)];
+    let items = [
+      `🍔 Amxaa's burger`,
+      `😸 Teanal's cat girl`,
+      `:potted_plant: Emil's weed`,
+      `Pentaion's ice cream`,
+      `Squid's janitor`,
+      `vee's pikachu`,
+      `<:laptop:775773370193150012> Kayz's laptop`,
+      `Ghosty's chicken`,
+      `<:phone:775771423926124614> Baba's Phone`,
+      `Manda's purse`,
+      `🍔 Amxaa's burger`,
+      `😸 Teanal's cat girl`,
+      `:potted_plant: Emil's weed`,
+      `Squid's janitor`,
+      `vee's pikachu`,
+      `Pentaion's ice cream`,
+      `<:laptop:775773370193150012> Kayz's laptop`,
+      `Ghosty's chicken`,
+      `<:phone:775771423926124614> Baba's Phone`,
+      `Manda's purse`,
+      `🍔 Amxaa's burger`,
+      `😸 Teanal's cat girl`,
+      `:potted_plant: Emil's weed`,
+      `Squid's janitor`,
+      `vee's pikachu`,
+      `Pentaion's ice cream`,
+      `<:laptop:775773370193150012> Kayz's laptop`,
+      `Ghosty's chicken`,
+      `<:phone:775771423926124614> Baba's Phone`,
+      `Manda's purse`,
+      `🍔 Amxaa's burger`,
+      `😸 Teanal's cat girl`,
+      `:potted_plant: Emil's weed`,
+      `Squid's janitor`,
+      `vee's pikachu`,
+      `Pentaion's ice cream`,
+      `<:laptop:775773370193150012> Kayz's laptop`,
+      `Ghosty's chicken`,
+      `<:phone:775771423926124614> Baba's Phone`,
+      `Manda's purse`,
+      `🍔 Amxaa's burger`,
+      `😸 Teanal's cat girl`,
+      `:potted_plant: Emil's weed`,
+      `Squid's janitor`,
+      `<:laptop:775773370193150012> Kayz's laptop`,
+      `Ghosty's chicken`,
+      `<:phone:775771423926124614> Baba's Phone`,
+      `Manda's purse`,
+      `🍔 Amxaa's burger`,
+      `😸 Teanal's cat girl`,
+      `:potted_plant: Emil's weed`,
+      `Squid's janitor`,
+      `vee's pikachu`,
+      `Pentaion's ice cream`,
+      `<:laptop:775773370193150012> Kayz's laptop`,
+      `Ghosty's chicken`,
+      `<:phone:775771423926124614> Baba's Phone`,
+      `Manda's purse`,
+      `:bank: Axe's Bank`,
+      `:bank: Axe's Bank`,
+    ];
+    const amount = items[Math.floor(Math.random() * items.length)];
+    const amount1 = items[Math.floor(Math.random() * items.length)];
+    const amount2 = items[Math.floor(Math.random() * items.length)];
 
-		const btn1 = new MessageButton()
-			.setLabel(location[0])
-			.setCustomId('1')
-			.setStyle('PRIMARY');
-		const btn2 = new MessageButton()
-			.setLabel(location[1])
-			.setCustomId('2')
-			.setStyle('PRIMARY');
-		const btn3 = new MessageButton()
-			.setLabel(location[2])
-			.setCustomId('3')
-			.setStyle('PRIMARY');
+    const btn1 = new MessageButton()
+      .setLabel(location[0])
+      .setCustomId("1")
+      .setStyle("PRIMARY");
+    const btn2 = new MessageButton()
+      .setLabel(location[1])
+      .setCustomId("2")
+      .setStyle("PRIMARY");
+    const btn3 = new MessageButton()
+      .setLabel(location[2])
+      .setCustomId("3")
+      .setStyle("PRIMARY");
 
-		const row = new MessageActionRow()
-			.addComponents(btn1, btn2, btn3)
+    const row = new MessageActionRow().addComponents(btn1, btn2, btn3);
 
-		const msg = await message.channel.send({
-			content: `**Where Do You Want To Search?** \n_Choose an option below_`,
-			components: [row],
-		});
+    const msg = await message.channel.send({
+      content: `**Where Do You Want To Search?** \n_Choose an option below_`,
+      components: [row],
+    });
 
-		const embed = new MessageEmbed()
-			.setAuthor(
-				`${user.user.username} Searched`,
-				user.user.displayAvatarURL({ dynamic: true })
-			)
-			.setTimestamp()
-			.setColor('RANDOM')
-			.setDescription(
-				`You searched the **${
-					btn1.label
-				}** and found ** ${amount.toLocaleString()}**`
-			);
-		const embed1 = new MessageEmbed()
-			.setAuthor(
-				`${user.user.username} Searched`,
-				user.user.displayAvatarURL({ dynamic: true })
-			)
-			.setTimestamp()
-			.setColor('RANDOM')
-			.setDescription(
-				`You searched the  **${
-					btn2.label
-				}** and found ** ${amount1.toLocaleString()}** `
-			);
-		const embed2 = new MessageEmbed()
-			.setAuthor(
-				`${user.user.username} Searched`,
-				user.user.displayAvatarURL({ dynamic: true })
-			)
-			.setTimestamp()
-			.setColor('RANDOM')
-			.setDescription(
-				`You searched the  **${
-					btn3.label
-				}** and found **${amount2.toLocaleString()}**`
-			);
+    const embed = new MessageEmbed()
+      .setAuthor(
+        `${user.user.username} Searched`,
+        user.user.displayAvatarURL({ dynamic: true })
+      )
+      .setTimestamp()
+      .setColor("RANDOM")
+      .setDescription(
+        `You searched the **${
+          btn1.label
+        }** and found ** ${amount.toLocaleString()}**`
+      );
+    const embed1 = new MessageEmbed()
+      .setAuthor(
+        `${user.user.username} Searched`,
+        user.user.displayAvatarURL({ dynamic: true })
+      )
+      .setTimestamp()
+      .setColor("RANDOM")
+      .setDescription(
+        `You searched the  **${
+          btn2.label
+        }** and found ** ${amount1.toLocaleString()}** `
+      );
+    const embed2 = new MessageEmbed()
+      .setAuthor(
+        `${user.user.username} Searched`,
+        user.user.displayAvatarURL({ dynamic: true })
+      )
+      .setTimestamp()
+      .setColor("RANDOM")
+      .setDescription(
+        `You searched the  **${
+          btn3.label
+        }** and found **${amount2.toLocaleString()}**`
+      );
 
-		const filter = (button) => button.user.id === message.author.id;
-		const collector = msg.createMessageComponentCollector({
-			filter,
-			time: 15000,
-		  });
-		collector.on('collect', (btn) => {
-		
-			btn.message.components[0].components.forEach((com) => {
-				com.setDisabled(true);
-				com.setStyle('SECONDARY');
-			});
-			btn.message.components[0].components[btn.customId - 1].setStyle(
-				'PRIMARY'
-			);
-			let rows = new MessageActionRow().addComponents(btn.message.components[0].components)
-	
-			if (btn.customId == '1') {
-				btn.deferUpdate();
-				msg.edit({
-					embeds: [embed],
-					components: [rows],
-				});
-				collector.stop();
-			} else if (btn.customId == '2') {
-				btn.deferUpdate();
-				msg.edit({
-					embeds: [embed1],
-					components: [rows],
-				});
-				collector.stop();
-			} else if (btn.customId == '3') {
-				btn.deferUpdate();
-				msg.edit({
-					embeds: [embed2],
-					components: [rows],
-				});
-				collector.stop();
-			}
-		});
-		collector.on('end', (collected, reason) => {
-			if (reason.toLowerCase() === 'time') {
+    const filter = (button) => button.user.id === message.author.id;
+    const collector = msg.createMessageComponentCollector({
+      filter,
+      time: 15000,
+    });
+    collector.on("collect", (btn) => {
+      btn.message.components[0].components.forEach((com) => {
+        com.setDisabled(true);
+        com.setStyle("SECONDARY");
+      });
+      btn.message.components[0].components[btn.customId - 1].setStyle(
+        "PRIMARY"
+      );
+      let rows = new MessageActionRow().addComponents(
+        btn.message.components[0].components
+      );
 
-				msg.components[0].components.forEach((com) => {
-					com.setDisabled(true);
-					com.setStyle('SECONDARY');
-				});
-				let rows2 = new MessageActionRow().addComponents(msg.components[0].components)
-				msg.edit({content: `Guess you didn't want to search anywhere`, components: [rows2]});
-			}
-		});
-	},
+      if (btn.customId == "1") {
+        btn.deferUpdate();
+        msg.edit({
+          embeds: [embed],
+          components: [rows],
+        });
+        collector.stop();
+      } else if (btn.customId == "2") {
+        btn.deferUpdate();
+        msg.edit({
+          embeds: [embed1],
+          components: [rows],
+        });
+        collector.stop();
+      } else if (btn.customId == "3") {
+        btn.deferUpdate();
+        msg.edit({
+          embeds: [embed2],
+          components: [rows],
+        });
+        collector.stop();
+      }
+    });
+    collector.on("end", (collected, reason) => {
+      if (reason.toLowerCase() === "time") {
+        msg.components[0].components.forEach((com) => {
+          com.setDisabled(true);
+          com.setStyle("SECONDARY");
+        });
+        let rows2 = new MessageActionRow().addComponents(
+          msg.components[0].components
+        );
+        msg.edit({
+          content: `Guess you didn't want to search anywhere`,
+          components: [rows2],
+        });
+      }
+    });
+  },
 };

@@ -1,19 +1,141 @@
-const { Client, Message, MessageEmbed, Collection } = require('discord.js');
-const { number } = require('mathjs');
-const formatter = new Intl.NumberFormat('en');
-const { db } = require('../../firebase.js');
+const { Client, Message, MessageEmbed, Collection } = require("discord.js");
+const { number } = require("mathjs");
+const formatter = new Intl.NumberFormat("en");
+const { db } = require("../../firebase.js");
 
 module.exports = {
-	name: 'price',
-	aliases: ['price'],
-	cooldown: '0',
-	usage: '<item>',
-	permissions: [],
-	category: 'Donations',
+  name: "price",
+  aliases: ["price"],
+  cooldown: "0",
+  usage: "<item>",
+  permissions: [],
+  category: "Donations",
 
-	async execute(client, message, cmd, args) {
+  async execute(client, message, cmd, args) {
+    let items =
+      (await db
+        .ref(`Donations/Info/${message.guild.id}/List`)
+        .once("value")
+        .then((snapshot) => snapshot.val())) || [];
+    function similarityBetween(s1, s2) {
+      let longer = s1;
+      let shorter = s2;
+      if (s1.length < s2.length) {
+        longer = s2;
+        shorter = s1;
+      }
+      const longerLength = longer.length;
+      if (longerLength === 0) {
+        return 1.0;
+      }
+      return (
+        (longerLength - editDistance(longer, shorter)) /
+        parseFloat(longerLength)
+      );
+    }
 
-		/*const items = [
+    function editDistance(s1, s2) {
+      s1 = s1.toLowerCase();
+      s2 = s2.toLowerCase();
+
+      const costs = [];
+      for (let i = 0; i <= s1.length; i++) {
+        let lastValue = i;
+        for (let j = 0; j <= s2.length; j++) {
+          if (i === 0) {
+            costs[j] = j;
+          } else {
+            if (j > 0) {
+              let newValue = costs[j - 1];
+              if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+                newValue =
+                  Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+              }
+              costs[j - 1] = lastValue;
+              lastValue = newValue;
+            }
+          }
+        }
+        if (i > 0) {
+          costs[s2.length] = lastValue;
+        }
+      }
+      return costs[s2.length];
+    }
+
+    function search(query) {
+      query = query.toLowerCase();
+
+      const target = items;
+      const candidates = [];
+
+      for (const item in target) {
+        const candidate = {
+          item: target[item],
+          similarity: 0,
+        };
+
+        if (candidate.item.id.toLowerCase() === query) {
+          candidate.similarity = 1;
+        } else if (candidate.item.name.toLowerCase() === query) {
+          candidate.similarity = 0.999;
+        } else if (
+          candidate.item.name.toLowerCase().includes(" " + query + " ") ||
+          candidate.item.id.includes(" " + query + " ")
+        ) {
+          candidate.similarity = 0.998;
+        } else if (
+          candidate.item.name.toLowerCase().includes(query + " ") ||
+          candidate.item.id.includes(query + " ")
+        ) {
+          candidate.similarity = 0.997;
+        } else if (
+          candidate.item.name.toLowerCase().includes(" " + query) ||
+          candidate.item.id.includes(" " + query)
+        ) {
+          candidate.similarity = 0.997;
+        } else if (
+          candidate.item.name.toLowerCase().includes(query) ||
+          candidate.item.id.includes(query)
+        ) {
+          candidate.similarity = 0.996;
+        } else {
+          const similarity = similarityBetween(query, candidate.item.name);
+          candidate.similarity = similarity;
+        }
+
+        candidates.push(candidate);
+      }
+      return candidates.sort((a, b) => b.similarity - a.similarity)[0];
+    }
+
+    //db.ref(`Donations/Info/${message.guild.id}/List`).set(items);
+
+    let tem = search(args.slice(0).join(" "));
+
+    if (tem.similarity <= 0.6)
+      return message.reply({ content: `Could not find that item!` });
+
+    const item = tem.item;
+    let str = ``;
+    if (!isNaN(item.amount)) str = `⏣ ${formatter.format(item.amount)}`;
+    else str = item.amount;
+    let embed = new MessageEmbed()
+      .setTitle(`**Elite's Item List**`)
+      .setAuthor(`${item.name}`)
+      .setDescription(
+        `**<:dott:878752973587615776>Amount**<a:im5:859288337280925746> \`${str}\`\n**<:dott:878752973587615776>Aliases**<a:im5:859288337280925746> \`${item.id}\`\n**<:dott:878752973587615776>Item Type**<a:im5:859288337280925746> \`${item.type}\``
+      )
+      .setColor("RANDOM")
+      .setFooter(
+        `Elite Empire`,
+        `https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024`
+      );
+    message.channel.send({ embeds: [embed] });
+  },
+};
+
+/*const items = [
 			{
 				name: 'Alcohol',
 				amount: 7500,
@@ -534,143 +656,3 @@ module.exports = {
 		type: 'nonpurchasable',
 		},
 	];*/
-	let items =
-	(await db
-		.ref(`Donations/Info/${message.guild.id}/List`)
-		.once('value')
-		.then((snapshot) => snapshot.val())) || [];
-		function similarityBetween(s1, s2) {
-			let longer = s1;
-			let shorter = s2;
-			if (s1.length < s2.length) {
-				longer = s2;
-				shorter = s1;
-			}
-			const longerLength = longer.length;
-			if (longerLength === 0) {
-				return 1.0;
-			}
-			return (
-				(longerLength - editDistance(longer, shorter)) /
-				parseFloat(longerLength)
-			);
-		}
-	
-		function editDistance(s1, s2) {
-			s1 = s1.toLowerCase();
-			s2 = s2.toLowerCase();
-	
-			const costs = [];
-			for (let i = 0; i <= s1.length; i++) {
-				let lastValue = i;
-				for (let j = 0; j <= s2.length; j++) {
-					if (i === 0) {
-						costs[j] = j;
-					} else {
-						if (j > 0) {
-							let newValue = costs[j - 1];
-							if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
-								newValue =
-									Math.min(
-										Math.min(newValue, lastValue),
-										costs[j]
-									) + 1;
-							}
-							costs[j - 1] = lastValue;
-							lastValue = newValue;
-						}
-					}
-				}
-				if (i > 0) {
-					costs[s2.length] = lastValue;
-				}
-			}
-			return costs[s2.length];
-		}
-	
-		function search(query) {
-			query = query.toLowerCase();
-	
-			const target = items;
-			const candidates = [];
-	
-			for (const item in target) {
-				const candidate = {
-					item: target[item],
-					similarity: 0,
-				};
-	
-				if (candidate.item.id.toLowerCase() === query) {
-					candidate.similarity = 1;
-				} else if (candidate.item.name.toLowerCase() === query) {
-					candidate.similarity = 0.999;
-				} else if (
-					candidate.item.name.toLowerCase().includes(" " + query + " ") ||
-					candidate.item.id.includes(" " + query + " ")
-				) {
-					candidate.similarity = 0.998;
-				} else if (
-					candidate.item.name.toLowerCase().includes(query + " ") ||
-					candidate.item.id.includes(query + " ")
-				) {
-					candidate.similarity = 0.997;
-				} else if (
-					candidate.item.name.toLowerCase().includes(" " + query) ||
-					candidate.item.id.includes(" " + query)
-				) {
-					candidate.similarity = 0.997;
-				} else if (
-					candidate.item.name.toLowerCase().includes(query) ||
-					candidate.item.id.includes(query)
-				) {
-					candidate.similarity = 0.996;
-				} else {
-					const similarity = similarityBetween(
-						query,
-						candidate.item.name
-					);
-					candidate.similarity = similarity;
-				}
-	
-				candidates.push(candidate);
-			}
-			return candidates.sort((a, b) => b.similarity - a.similarity)[0]
-		
-		}
-	
-	
-		
-	
-		//db.ref(`Donations/Info/${message.guild.id}/List`).set(items);
-		
-		let tem =
-			search(args.slice(0).join(" "))
-		
-		if (tem.similarity <= 0.6)
-			return message.reply({ content: `Could not find that item!` });
-		
-		const item = tem.item
-		let str = ``
-		if(!isNaN(item.amount)) str = `⏣ ${formatter.format(
-			item.amount
-		)}`
-		else str = item.amount
-		let embed = new MessageEmbed()
-			.setTitle(`**Elite's Item List**`)
-			.setAuthor(`${item.name}`)
-			.setDescription(
-				`**<:dott:878752973587615776>Amount**<a:im5:859288337280925746> \`${str}\`\n**<:dott:878752973587615776>Aliases**<a:im5:859288337280925746> \`${
-					item.id
-				}\`\n**<:dott:878752973587615776>Item Type**<a:im5:859288337280925746> \`${
-					item.type
-				}\``
-			)
-			.setColor('RANDOM')
-			.setFooter(
-				`Elite Empire`,
-				`https://cdn.discordapp.com/icons/764885367160700958/a_38503e9dec18ac442fecaad24a3d07c0.gif?size=1024`
-			);
-			message.channel.send({ embeds: [embed] });
-	},
-};
-	

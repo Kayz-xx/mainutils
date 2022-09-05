@@ -1,9 +1,7 @@
-const Discord = require('discord.js');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const { readdirSync } = require('fs');
 const config = require('../../config.json');
 let prefix = config.prefix;
-const { MessageActionRow, MessageButton } = require('discord.js');
 let categories = [];
 
 module.exports = {
@@ -16,9 +14,9 @@ module.exports = {
 		try {
 			if (!args[0]) {
 				readdirSync('./commands/').forEach((dir) => {
-					const commands = readdirSync(
-						`./commands/${dir}/`
-					).filter((file) => file.endsWith('.js'));
+					const commands = readdirSync(`./commands/${dir}/`).filter(
+						(file) => file.endsWith('.js'),
+					);
 
 					const cmds = commands.map((command) => {
 						let file = require(`../../commands/${dir}/${command}`);
@@ -41,7 +39,7 @@ module.exports = {
 					categories.push(data);
 
 					const found = categories.find(
-						(e) => e.name == 'Applications'
+						(e) => e.name == 'Applications',
 					);
 				});
 			} else {
@@ -50,13 +48,13 @@ module.exports = {
 					client.commands.find(
 						(c) =>
 							c.aliases &&
-							c.aliases.includes(args[0].toLowerCase())
+							c.aliases.includes(args[0].toLowerCase()),
 					);
 
 				if (!command) {
 					const embed = new MessageEmbed()
 						.setTitle(
-							`Invalid command! Use \`${prefix}help\` for all of my commands!`
+							`Invalid command! Use \`${prefix}help\` for all of my commands!`,
 						)
 						.setColor('RANDOM');
 					return message.channel.send({ embeds: [embed] });
@@ -69,30 +67,30 @@ module.exports = {
 						'Command:',
 						command.name
 							? `\`${command.name}\``
-							: 'No name for this command.'
+							: 'No name for this command.',
 					)
 					.addField(
 						'Aliases:',
 						command.aliases
 							? `\`${command.aliases}\``
-							: 'No aliases for this command.'
+							: 'No aliases for this command.',
 					)
 					.addField(
 						'Usage:',
 						command.usage
 							? `\`${prefix}${command.name} ${command.usage}\``
-							: `\`${prefix}${command.name}\``
+							: `\`${prefix}${command.name}\``,
 					)
 					.addField(
 						'Description:',
 						command.description
 							? command.description
-							: 'No description for this command.'
+							: 'No description for this command.',
 					)
 
 					.setFooter(
 						`Requested by ${message.author.tag}`,
-						message.author.displayAvatarURL({ dynamic: true })
+						message.author.displayAvatarURL({ dynamic: true }),
 					)
 					.setTimestamp()
 					.setColor('5C33F6');
@@ -124,7 +122,7 @@ module.exports = {
 				.setEmoji('<a:misc:862223831044325426>')
 				.setStyle('PRIMARY');
 
-				const btn6 = new MessageButton()
+			const btn6 = new MessageButton()
 				.setLabel('Giveaway')
 				.setCustomId('6')
 				.setEmoji('<a:im2:858369862190628875>')
@@ -136,13 +134,13 @@ module.exports = {
 				btn3,
 				btn4,
 				btn6,
-			)
-			const row2 = new MessageActionRow().addComponents(btn5)
+			);
+			const row2 = new MessageActionRow().addComponents(btn5);
 
-			const basic = new Discord.MessageEmbed()
+			const basic = new MessageEmbed()
 				.setTitle('Help Menu')
 				.setDescription(
-					'For more info about a specific command: use e!help [command] \n For viewing all commands click the buttons you want the commands of!'
+					'For more info about a specific command: use e!help [command] \n For viewing all commands click the buttons you want the commands of!',
 				)
 				.addFields(
 					{
@@ -174,7 +172,7 @@ module.exports = {
 						name: '<a:misc:862223831044325426> Misc',
 						value: '`Miscellaneous Commands`',
 						inline: true,
-					}
+					},
 				)
 				.setColor('5C33F6');
 			const found = categories.find((e) => e.name == 'Applications');
@@ -189,32 +187,32 @@ module.exports = {
 
 			const found5 = categories.find((e) => e.name == 'Misc');
 
-			const embed1 = new Discord.MessageEmbed()
+			const embed1 = new MessageEmbed()
 				.setTitle('Application Commands')
 				.setDescription(found.value)
 				.setTimestamp()
 				.setColor('5C33F6');
-			const embed2 = new Discord.MessageEmbed()
+			const embed2 = new MessageEmbed()
 				.setTitle('Donations')
 				.setDescription(found2.value)
 				.setTimestamp()
 				.setColor('5C33F6');
-			const embed3 = new Discord.MessageEmbed()
+			const embed3 = new MessageEmbed()
 				.setTitle('Fun')
 				.setDescription(found3.value)
 				.setTimestamp()
 				.setColor('5C33F6');
-			const embed4 = new Discord.MessageEmbed()
+			const embed4 = new MessageEmbed()
 				.setTitle('Info')
 				.setDescription(found4.value)
 				.setTimestamp()
 				.setColor('5C33F6');
-			const embed5 = new Discord.MessageEmbed()
+			const embed5 = new MessageEmbed()
 				.setTitle('Misc')
 				.setDescription(found5.value)
 				.setTimestamp()
 				.setColor('5C33F6');
-			const embed6 = new Discord.MessageEmbed()
+			const embed6 = new MessageEmbed()
 				.setTitle('Giveaways')
 				.setDescription(found6.value)
 				.setTimestamp()

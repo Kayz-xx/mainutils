@@ -1,12 +1,12 @@
 require('dotenv').config();
 const token = process.env.TOKEN;
-const discord = require('discord.js');
+const { Client, Collection } = require('discord.js');
 
 const { GiveawaysManager } = require('discord-giveaways');
 const giveawayModel = require('./schemas/giveaway-schema');
 
-const mongo = require('./mongo')
-const client = new discord.Client({
+const mongo = require('./mongo');
+const client = new Client({
 	allowedMentions: {
 		parse: ['roles', 'users', 'everyone'],
 		repliedUser: true,
@@ -16,9 +16,9 @@ const client = new discord.Client({
 		'GUILDS',
 		'GUILD_MEMBERS',
 		'GUILD_BANS',
-		'GUILD_VOICE_STATES',
+		// "GUILD_VOICE_STATES",
 		'GUILD_MESSAGES',
-		'GUILD_PRESENCES',
+		// "GUILD_PRESENCES",
 		'GUILD_MESSAGE_REACTIONS',
 		'DIRECT_MESSAGE_REACTIONS',
 		'DIRECT_MESSAGES',
@@ -26,57 +26,53 @@ const client = new discord.Client({
 });
 //const category = {};
 const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
+	async getAllGiveaways() {
+		await mongo();
+		return await giveawayModel.find({});
+	}
 
-    async getAllGiveaways() {
-		return await mongo().then(async (mongoose) => {
-        return await giveawayModel.find({});
-		})
-    }
+	async saveGiveaway(messageId, giveawayData) {
+		await mongo();
+		await giveawayModel.create(giveawayData);
 
-    async saveGiveaway(messageId, giveawayData) {
-		return await mongo().then(async (mongoose) => {
-        await giveawayModel.create(giveawayData);
-    
-        return true;
-		})
-    }
+		return true;
+	}
 
- 
-    async editGiveaway(messageId, giveawayData) {
-		return await mongo().then(async (mongoose) => {
-        await giveawayModel.findOneAndUpdate({ messageId }, giveawayData, { omitUndefined: true }).exec();
+	async editGiveaway(messageId, giveawayData) {
+		await mongo();
+		await giveawayModel
+			.findOneAndUpdate({ messageId }, giveawayData, {
+				omitUndefined: true,
+			})
+			.exec();
 
-        return true;
-		})
-    }
+		return true;
+	}
 
-   
-    async deleteGiveaway(messageId) {
-		return await mongo().then(async (mongoose) => {
-        await giveawayModel.findOneAndDelete({ messageId }).exec();
-    
-        return true;
-		})
-    }
+	async deleteGiveaway(messageId) {
+		await mongo();
+		await giveawayModel.findOneAndDelete({ messageId }).exec();
+		return true;
+	}
 };
 
 const Creator = new GiveawayManagerWithOwnDatabase(client, {
-    hasGuildMembersIntent: true,
-    default: {
-        botsCanWin: false,
+	hasGuildMembersIntent: true,
+  endedGiveawaysLifetime: 36 * 60 * 60 * 1000,
+	default: {
+		botsCanWin: false,
 		exemptPermissions: [],
-        embedColor: '2D46B9',
-        embedColorEnd: '171717',
-        reaction: '<a:EE_check:881050609959190528>'
-		}
-    })
+		embedColor: '2D46B9',
+		embedColorEnd: '171717',
+		reaction: '<a:EE_check:881050609959190528>',
+	},
+});
 
-
-client.commands = new discord.Collection();
-client.aliases = new discord.Collection();
-client.snipes = new discord.Collection();
-client.vouches = new Map();
-client.giveaways = Creator
+client.commands = new Collection();
+client.aliases = new Collection();
+client.snipes = new Collection();
+// client.vouches = new Map();
+client.giveaways = Creator;
 
 let array = ['command', 'events', 'giveaways', 'antiCrash'];
 array.forEach((handler) => {

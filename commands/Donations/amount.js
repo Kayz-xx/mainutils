@@ -1,79 +1,80 @@
-const { db } = require('../../firebase');
-const DiscordJS = require('discord.js');
-const {Permissions} = require("discord.js")
+const { db } = require("../../firebase");
+const DiscordJS = require("discord.js");
+const { Permissions } = require("discord.js");
 module.exports = {
-	name: 'amount',
-	aliases: ['setamount'],
-	cooldown: '0',
-	category: 'Donations',
-	usage: '<amount> (without , plain values like 10000000)',
-	permissions: [],
-	description: 'This amount is set for autoroles, when a user hits a specified amount a role is added to them!(Eg. Donor Donates 10 mil and get the 10 million Donor Role',
-	
-	async execute(client, message, cmd, args) {
-		try {
-			if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR))
-				return message.channel
-					.send({content: 'You do not have permission to use this command.'})
-					.then((m) => m.delete({ timeout: 5000 }));
+  name: "amount",
+  aliases: ["setamount"],
+  cooldown: "0",
+  category: "Donations",
+  usage: "<amount> (without , plain values like 10000000)",
+  permissions: [],
+  description:
+    "This amount is set for autoroles, when a user hits a specified amount a role is added to them!(Eg. Donor Donates 10 mil and get the 10 million Donor Role",
 
-			const questions = [
-				'Please specify amount 1',
-				'Please specify amount 2',
-				'Please specify amount 3',
-				'Please specify amount 4',
-				'Please specify amount 5',
-				'Please specify amount 6',
-				'Please specify amount 7',
-				'Please specify amount 8',
-				'Please specify amount 9',
-			];
-			let counter = 0;
+  async execute(client, message, cmd, args) {
+    try {
+      if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR))
+        return message.channel
+          .send({ content: "You do not have permission to use this command." })
+          .then((m) => m.delete({ timeout: 5000 }));
 
-			const filter = (m) => {
-				return m.author.id === message.author.id;
-			};
+      const questions = [
+        "Please specify amount 1",
+        "Please specify amount 2",
+        "Please specify amount 3",
+        "Please specify amount 4",
+        "Please specify amount 5",
+        "Please specify amount 6",
+        "Please specify amount 7",
+        "Please specify amount 8",
+        "Please specify amount 9",
+      ];
+      let counter = 0;
 
-			const collector = new DiscordJS.MessageCollector(
-				message.channel,
-				filter,
-				{
-					max: questions.length,
-					time: 100000,
-				}
-			);
+      const filter = (m) => {
+        return m.author.id === message.author.id;
+      };
 
-			message.channel.send({content:questions[counter++]});
-			collector.on('collect', (m) => {
-				if (counter < questions.length) {
-					m.channel.send({content:questions[counter++]});
-				}
-			});
+      const collector = new DiscordJS.MessageCollector(
+        message.channel,
+        filter,
+        {
+          max: questions.length,
+          time: 100000,
+        }
+      );
 
-			collector.on('end', (collected) => {
-				console.log(`Collected ${collected.size} messages`);
+      message.channel.send({ content: questions[counter++] });
+      collector.on("collect", (m) => {
+        if (counter < questions.length) {
+          m.channel.send({ content: questions[counter++] });
+        }
+      });
 
-				if (collected.size < questions.length) {
-					message.reply({content: 'You did not answer the questions in time'});
-					return;
-				}
+      collector.on("end", (collected) => {
+        console.log(`Collected ${collected.size} messages`);
 
-				let counter = 0;
-				collected.forEach((value) => {
-					console.log(questions[counter++], value.content);
-				});
-				let index = 1;
-				collected.forEach((value) => {
-					db.ref(
-						`Donations/Info/${
-							message.guild.id
-						}/Settings/Amount${index++}`
-					).set(value.content);
-				});
-			});
-		} catch (e) {
-			console.log(e.stack);
-			return message.channel.send({content: e.message});
-		}
-	},
+        if (collected.size < questions.length) {
+          message.reply({
+            content: "You did not answer the questions in time",
+          });
+          return;
+        }
+
+        let counter = 0;
+        collected.forEach((value) => {
+          console.log(questions[counter++], value.content);
+        });
+        let index = 1;
+        collected.forEach((value) => {
+          db.ref(
+            `Donations/Info/${message.guild.id}/Settings/Amount${index++}`
+          ).set(value.content);
+        });
+      });
+    } catch (e) {
+      console.log(e.stack);
+      return message.channel.send({ content: e.message });
+    }
+  },
 };

@@ -1,55 +1,81 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 module.exports = {
-	name: 'unlock',
-	aliases: [],
-	cooldown: '0',
-	permissions: [],
-	category: 'Misc',
-	usage: '<channel> [role]',
+  name: "unlock",
+  aliases: [],
+  cooldown: "0",
+  permissions: [],
+  category: "Misc",
+  usage: "<channel> [role]",
 
-	async execute(client, message, cmd, args) {
+  async execute(client, message, cmd, args) {
     try {
-		if(!message.member.roles.cache.has("764885367400693764") && !message.member.roles.cache.has("792799102140022785") &&  !message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)) return;
-		if(message.channel.id !== "792795803037990943" && message.channel.id !== "792505415748812801" && message.channel.id !== '916771549753778246') return;
-		let channel = message.mentions.channels.first()
-		if (!channel) return;
-		let array = [
-			'764885367160700960',
-			'794628723613761566',
-			'764885367241048071',
-			'764885367241048073',
-			'764885367249174609',
-			'764885367249174610',
-			'764885367249174611',
-			'764885367249174612',
-			'775487238829768764', 
-			'775487534188724224', 
-			'775487790762164275', 
-			'783806187778605108',
-			message.guild.roles.everyone.id
-		];
-		let mem = args[1];
-		if (!mem) mem = message.guild.roles.everyone.id
-        let newd = array.map(d => `<@&${d}>`)
-        let embed = new Discord.MessageEmbed()
-        .setTitle('Valid Roles')
+      if (
+        !message.member.roles.cache.has("764885367400693764") &&
+        !message.member.roles.cache.has("792799102140022785") &&
+        !message.member.permissions.has(
+          Discord.Permissions.FLAGS.MANAGE_MESSAGES
+        )
+      )
+        return;
+      if (
+        message.channel.id !== "792795803037990943" &&
+        message.channel.id !== "792505415748812801" &&
+        message.channel.id !== "916771549753778246"
+      )
+        return;
+      let channel = message.mentions.channels.first();
+      if (!channel) return;
+      let array = [
+        "764885367160700960",
+        "794628723613761566",
+        "764885367241048071",
+        "764885367241048073",
+        "764885367249174609",
+        "764885367249174610",
+        "764885367249174611",
+        "764885367249174612",
+        "775487238829768764",
+        "775487534188724224",
+        "775487790762164275",
+        "783806187778605108",
+        message.guild.roles.everyone.id,
+      ];
+      let mem = args[1];
+      if (!mem) mem = message.guild.roles.everyone.id;
+      let newd = array.map((d) => `<@&${d}>`);
+      let embed = new Discord.MessageEmbed()
+        .setTitle("Valid Roles")
         .setDescription(newd.join(`\n`))
         .setColor("RANDOM")
-        .setTimestamp()
-        if(!array.includes(mem)) return message.reply({content: `Please choose a role from below.`, embeds: [embed]})
-        let role = await message.guild.roles.fetch(mem)
-        if(!role) return message.reply('This role could not be found.')
-		//console.log(channel.permissionsFor(role).has(Discord.Permissions.FLAGS.SEND_MESSAGES))
-        if(channel.permissionsFor(role).has(Discord.Permissions.FLAGS.SEND_MESSAGES)) return message.channel.send(`${channel} was already unlocked for \`${role.name}\``)
-		channel.permissionOverwrites.edit(
-			role,
-			{ SEND_MESSAGES: true },
-			{ reason: `Unlock command by ${message.author.tag}` }
-		);
-        message.channel.send(`<#${channel.id}> has been unlocked for \`${role.name}\``)
-
-        } catch (error) {
-            message.channel.send('There was an error unlocking the channel, please make sure there are no errors in your message.')
-        }
-	},
+        .setTimestamp();
+      if (!array.includes(mem))
+        return message.reply({
+          content: `Please choose a role from below.`,
+          embeds: [embed],
+        });
+      let role = await message.guild.roles.fetch(mem);
+      if (!role) return message.reply("This role could not be found.");
+      //console.log(channel.permissionsFor(role).has(Discord.Permissions.FLAGS.SEND_MESSAGES))
+      if (
+        channel
+          .permissionsFor(role)
+          .has(Discord.Permissions.FLAGS.SEND_MESSAGES)
+      )
+        return message.channel.send(
+          `${channel} was already unlocked for \`${role.name}\``
+        );
+      channel.permissionOverwrites.edit(
+        role,
+        { SEND_MESSAGES: true },
+        { reason: `Unlock command by ${message.author.tag}` }
+      );
+      message.channel.send(
+        `<#${channel.id}> has been unlocked for \`${role.name}\``
+      );
+    } catch (error) {
+      message.channel.send(
+        "There was an error unlocking the channel, please make sure there are no errors in your message."
+      );
+    }
+  },
 };

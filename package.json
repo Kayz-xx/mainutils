@@ -1,43 +1,42 @@
 {
-	"name": "elite-guardian",
-	"version": "1.0.0",
-	"description": "![](https://cdn.discordapp.com/attachments/591157769181069332/810188034300706817/20210213_220553.jpg) > **This is the ongoing project which will take alot of time to get finsish but i will update code after every video i publish on youtube but it will take time so stay tunned and help me by either subscribing my channel or by donating me :)**",
-	"main": "index.js",
-	"engines": {
-		"node": "16.9.0"
-	},
-	"scripts": {
-		"start": "node --expose-gc index.js"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"@discordjs/voice": "^0.5.5",
-		"amaribot.js": "^1.4.1",
-		"ascii-table": "^0.0.9",
-		"canvacord": "^5.2.3",
-		"canvas": "^2.8.0",
-		"discord-giveaways": "^5.0.1",
-		"discord-tts": "^1.2.0",
-		"discord.js": "^13.5.0",
-		"dotenv": "^16.0.0",
-		"firebase": "^8.7.1",
-		"firebase-admin": "^9.10.0",
-		"google-it": "^1.6.2",
-		"mathjs": "^9.4.4",
-		"moment": "^2.27.0",
-		"mongoose": "^5.13.13",
-		"ms": "^2.1.3",
-		"node-fetch": "^2.6.0",
-		"npm": "^8.0.0",
-		"parse-ms": "^2.1.0",
-		"prompt": "^1.1.0",
-		"random-words": "^1.1.1",
-		"something-random-on-discord": "3.4.4",
-		"weather-js": "^2.0.0"
-	},
-	"devDependencies": {
-		"electron-rebuild": "^2.3.5"
-	}
+  "name": "elite-guardian",
+  "version": "3.0.0",
+  "description": "![Elite](https://cdn.discordapp.com/attachments/591157769181069332/810188034300706817/20210213_220553.jpg) > **This is the ongoing project which will take alot of time to get finsish but i will update code after every video i publish on youtube but it will take time so stay tunned and help me by either subscribing my channel or by donating me :)**",
+  "main": "index.js",
+  "engines": {
+    "node": "16.14.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/voice": "^0.5.5",
+    "amaribot.js": "^1.6.1",
+    "ascii-table": "^0.0.9",
+    "canvacord": "^5.4.6",
+    "canvas": "^2.9.3",
+    "countries-and-timezones": "^3.3.0",
+    "discord-giveaways": "^5.0.1",
+    "discord-tts": "^1.2.2",
+    "discord.js": "^13.5.0",
+    "dotenv": "^16.0.2",
+    "firebase": "^8.7.1",
+    "firebase-admin": "^9.10.0",
+    "google-it": "^1.6.2",
+    "mathjs": "^9.5.2",
+    "moment": "^2.27.0",
+    "mongoose": "^5.13.13",
+    "ms": "^2.1.3",
+    "npm": "^8.0.0",
+    "parse-ms": "^2.1.0",
+    "random-words": "^1.2.0",
+    "weather-js": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^2.3.5",
+    "prettier": "^2.7.1"
+  }
 }

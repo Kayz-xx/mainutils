@@ -1,52 +1,49 @@
-const Discord = require('discord.js');
-const ms = require('ms');
-const {Permissions} = require('discord.js')
-
-
+const Discord = require("discord.js");
+const ms = require("ms");
+const { Permissions } = require("discord.js");
 
 module.exports = {
-	name: 'gend',
-	aliases: ['giveawayend'],
-	cooldown: '0',
-	permissions: [],
-	category: 'Giveaways',
+  name: "gend",
+  aliases: ["giveawayend"],
+  cooldown: "0",
+  permissions: [],
+  category: "Giveaways",
 
-	async execute(client, message, cmd, args) {
-	 
-        if(message.member.roles.cache.some(x => x.id === '774008242127765535')) {
-    
+  async execute(client, message, cmd, args) {
+    if (message.member.roles.cache.some((x) => x.id === "774008242127765535")) {
+      if (!args[0]) {
+        return message.reply({
+          content: `\`\`\`\yml\nSyntax: e!gend <messageId>\n                   ^^^^^^^^^\n\nmessageId is a required argument that is missing. \`\`\``,
+        });
+      }
 
-        if(!args[0]){
-            return message.reply({content:`\`\`\`\yml\nSyntax: e!gend <messageId>\n                   ^^^^^^^^^\n\nmessageId is a required argument that is missing. \`\`\``});
-        }
-
-    
-    
-    
-        let giveaway = 
-     
-        client.giveaways.giveaways.find((g) => g.prize === args.join(' ')) ||
-
+      let giveaway =
+        client.giveaways.giveaways.find((g) => g.prize === args.join(" ")) ||
         client.giveaways.giveaways.find((g) => g.messageId === args[0]);
-    
-      
-        if(!giveaway){
-            return message.reply({content:'Giveaway "'+ args.join(' ') + '" not found.'});
-        }
-    
-  	setTimeout(() => message.delete(), 1000)
-        client.giveaways.edit(giveaway.messageId, {
-            setEndTimestamp: Date.now()
+
+      if (!giveaway) {
+        return message.reply({
+          content: 'Giveaway "' + args.join(" ") + '" not found.',
+        });
+      }
+
+      setTimeout(() => message.delete(), 1000);
+      client.giveaways
+        .edit(giveaway.messageId, {
+          setEndTimestamp: Date.now(),
         })
-        .then(() => {
-        })
+        .then(() => {})
         .catch((e) => {
-            if(e.startsWith(`No giveaway found with message Id ${giveaway.messageId}`)){
-                message.reply({content:'This giveaway has already ended!'});
-            } else {
-                console.error(e);
-            }
+          if (
+            e.startsWith(
+              `No giveaway found with message Id ${giveaway.messageId}`
+            )
+          ) {
+            message.reply({ content: "This giveaway has already ended!" });
+          } else {
+            console.error(e);
+          }
         });
     }
-	},
+  },
 };

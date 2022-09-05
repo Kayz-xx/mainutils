@@ -1,49 +1,56 @@
-const {db} = require('../../firebase')
-const Discord = require('discord.js')
-const {Permissions} = require('discord.js')
+const { db } = require("../../firebase");
+const Discord = require("discord.js");
+const { Permissions } = require("discord.js");
 module.exports = {
-    name: 'eventcreate',
-    aliases: ['events'],
-    cooldown: '0',
-    usage: '<event>',
-    category: 'Donations',
-    permissions: [],
-    description: 'Creates an event in the server, these donations are counted seperately.',
-    
-    async execute(client, message, cmd,  args) {
-        
-        if(cmd === 'eventcreate') {
+  name: "eventcreate",
+  aliases: ["events"],
+  cooldown: "0",
+  usage: "<event>",
+  category: "Donations",
+  permissions: [],
+  description:
+    "Creates an event in the server, these donations are counted seperately.",
 
-                if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD))
-            return message.channel.send({content:'You do not have permission to use this command.'}).then(m => m.delete({timeout: 5000}));
+  async execute(client, message, cmd, args) {
+    if (cmd === "eventcreate") {
+      if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD))
+        return message.channel
+          .send({ content: "You do not have permission to use this command." })
+          .then((m) => m.delete({ timeout: 5000 }));
 
-            const event = args[0]
+      const event = args[0];
 
-        if (!event)
-            return message.channel.send({content:'Please specify a valid event'}).then(m => m.delete({timeout: 5000}));
+      if (!event)
+        return message.channel
+          .send({ content: "Please specify a valid event" })
+          .then((m) => m.delete({ timeout: 5000 }));
 
-
-      db.ref(`Donations/Info/Events/${message.guild.id}/Event`).set(event)
-        return message.channel.send({
-          embeds : [{
-            description : `${event} created!`,
-            color : "RANDOM"
-                }
-          ]})
-        }
-
-        if(cmd === 'events'){
-            let data5 = await db
-        .ref(`Donations/Info/Events/${message.guild.id}/Event`)
-        .once("value")
-        .then(snapshot => snapshot.val())|| []
-        db.ref(`Donations/Info/Events/${message.guild.id}/Event`)   
-            return message.channel.send({
-                embeds : [{
-                  description : `Event in this server- ${data5}`,
-                  color : "RANDOM"
-                }
-                ]})
+      db.ref(`Donations/Info/Events/${message.guild.id}/Event`).set(event);
+      return message.channel.send({
+        embeds: [
+          {
+            description: `${event} created!`,
+            color: "RANDOM",
+          },
+        ],
+      });
     }
-  }
-}
+
+    if (cmd === "events") {
+      let data5 =
+        (await db
+          .ref(`Donations/Info/Events/${message.guild.id}/Event`)
+          .once("value")
+          .then((snapshot) => snapshot.val())) || [];
+      db.ref(`Donations/Info/Events/${message.guild.id}/Event`);
+      return message.channel.send({
+        embeds: [
+          {
+            description: `Event in this server- ${data5}`,
+            color: "RANDOM",
+          },
+        ],
+      });
+    }
+  },
+};

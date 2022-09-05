@@ -1,6 +1,6 @@
-
-const mongoose = require('mongoose');
-const giveawaySchema = new mongoose.Schema({
+const mongoose = require("mongoose");
+const giveawaySchema = new mongoose.Schema(
+  {
     messageId: String,
     channelId: String,
     guildId: String,
@@ -10,17 +10,17 @@ const giveawaySchema = new mongoose.Schema({
     winnerCount: Number,
     prize: String,
     messages: {
-        giveaway: String,
-        giveawayEnded: String,
-        inviteToParticipate: String,
-        drawing: String,
-        dropMessage: String,
-        winMessage: mongoose.Mixed,
-        embedFooter: mongoose.Mixed,
-        noWinner: String,
-        winners: String,
-        endedAt: String,
-        hostedBy: String
+      giveaway: String,
+      giveawayEnded: String,
+      inviteToParticipate: String,
+      drawing: String,
+      dropMessage: String,
+      winMessage: mongoose.Mixed,
+      embedFooter: mongoose.Mixed,
+      noWinner: String,
+      winners: String,
+      endedAt: String,
+      hostedBy: String,
     },
     thumbnail: String,
     hostedBy: String,
@@ -34,24 +34,26 @@ const giveawaySchema = new mongoose.Schema({
     bonusEntries: String,
     extraData: mongoose.Mixed,
     lastChance: {
-        enabled: Boolean,
-        content: String,
-        threshold: Number,
-        embedColor: mongoose.Mixed
+      enabled: Boolean,
+      content: String,
+      threshold: Number,
+      embedColor: mongoose.Mixed,
     },
     pauseOptions: {
-        isPaused: Boolean,
-        content: String,
-        unPauseAfter: Number,
-        embedColor: mongoose.Mixed,
-        durationAfterPause: Number
+      isPaused: Boolean,
+      content: String,
+      unPauseAfter: Number,
+      embedColor: mongoose.Mixed,
+      durationAfterPause: Number,
     },
     isDrop: Boolean,
     allowedMentions: {
-        parse: { type: [String], default: undefined },
-        users: { type: [String], default: undefined },
-        roles: { type: [String], default: undefined }
-    }
-}, { id: false });
+      parse: { type: [String], default: undefined },
+      users: { type: [String], default: undefined },
+      roles: { type: [String], default: undefined },
+    },
+  },
+  { id: false }
+);
 
-module.exports = mongoose.model('giveaways', giveawaySchema);
+module.exports = mongoose.model("giveaways", giveawaySchema);
