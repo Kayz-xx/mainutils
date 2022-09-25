@@ -35,7 +35,7 @@ module.exports = {
           `${i + 1}. ${newdata[i].Name.capitalize()}`,
           `Total Questions: ${newdata[
             i
-          ].Questions.length.toString()}\nStatus: ${newdata[i].Status}`,
+          ].Questions?.length.toString()}\nStatus: ${newdata[i].Status}`,
           true
         );
       }
