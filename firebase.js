@@ -1,11 +1,11 @@
 const admin = require("firebase-admin");
-// require("dotenv").config();
-const c = require("./config.json")
+require("dotenv").config();
+
 const config = {
   type: "service_account",
-  project_id: c.PROJECT_ID,
-  private_key_id: c.PRIVATE_KEY_ID,
-  private_key: c.PRIVATE_KEY.replace(/\\n/g, "\n"),
+  project_id: process.env.PROJECT_ID,
+  private_key_id: process.env.PRIVATE_KEY_ID,
+  private_key: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
   client_email:
     "firebase-adminsdk-o0cli@discord-beta-b3add.iam.gserviceaccount.com",
   client_id: "106644098161125900881",

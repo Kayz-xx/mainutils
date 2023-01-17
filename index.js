@@ -1,7 +1,5 @@
-// require('dotenv').config();
-const config = require('./config.json')
-// const token = process.env.TOKEN;
-const token = config.TOKEN
+require('dotenv').config();
+const token = process.env.TOKEN;
 const { Client, Collection } = require('discord.js');
 
 const { GiveawaysManager } = require('discord-giveaways');
