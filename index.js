@@ -8,7 +8,7 @@ const giveawayModel = require('./schemas/giveaway-schema');
 const mongo = require('./mongo');
 const client = new Client({
 	allowedMentions: {
-		parse: ['roles', 'users', 'everyone'],
+		parse: ['roles', 'users'],
 		repliedUser: true,
 	},
 	partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
