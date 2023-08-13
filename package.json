@@ -36,7 +36,6 @@
     "weather-js": "^2.0.0"
   },
   "devDependencies": {
-    "electron-rebuild": "^2.3.5",
     "prettier": "^2.7.1"
   }
 }
